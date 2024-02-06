@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NodeListComponent } from './node-list/node-list.component'
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NodeListComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
