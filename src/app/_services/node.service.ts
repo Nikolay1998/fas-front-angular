@@ -2,14 +2,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FinancialNode } from '../_models/financial.node';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NodeService {
-
-  private getAllNodesUrl = 'http://localhost:8080/node/getAll';  // URL to web api
-  private authURL = 'http://localhost:8080/authenticate';  // URL to web api
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -25,11 +23,7 @@ export class NodeService {
   getNodes(): Observable<FinancialNode[]> {
     // this.auth();
     console.log("get");
-    return this.http.get<FinancialNode[]>(this.getAllNodesUrl, this.httpOptions)
+    
+    return this.http.get<FinancialNode[]>(`${environment.apiUrl}/node/getAll`, this.httpOptions)
   }
-
-  auth(): void {
-    this.http.get(this.authURL, this.httpOptions)
-  }
-
 }
