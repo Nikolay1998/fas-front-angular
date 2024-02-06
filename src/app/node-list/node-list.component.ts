@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NodeService } from '../node.service.js';
-import { FinancialNode } from './financial-node.js';
+import { NodeService } from '../_services/node.service.js';
+import { FinancialNode } from '../_models/financial.node.js';
 
 @Component({
   selector: 'app-node-list',

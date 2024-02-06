@@ -1,14 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FinancialNode } from './node-list/financial-node';
+import { FinancialNode } from '../_models/financial.node';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NodeService {
 
-  private heroesUrl = 'http://localhost:8080/node/getAll';  // URL to web api
+  private getAllNodesUrl = 'http://localhost:8080/node/getAll';  // URL to web api
   private authURL = 'http://localhost:8080/authenticate';  // URL to web api
 
   private httpOptions = {
@@ -25,7 +25,7 @@ export class NodeService {
   getNodes(): Observable<FinancialNode[]> {
     // this.auth();
     console.log("get");
-    return this.http.get<FinancialNode[]>(this.heroesUrl, this.httpOptions)
+    return this.http.get<FinancialNode[]>(this.getAllNodesUrl, this.httpOptions)
   }
 
   auth(): void {
