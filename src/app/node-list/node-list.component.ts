@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NodeService } from '../_services/node.service.js';
 import { FinancialNode } from '../_models/financial.node.js';
+import { AuthenticationService } from '../_services/authentication.service.js';
 
 @Component({
   selector: 'app-node-list',
@@ -15,10 +16,12 @@ export class NodeListComponent implements OnInit {
   nodes: FinancialNode[] = [];
 
   constructor(
-    private nodeService: NodeService
+    private nodeService: NodeService,
+    private authenticationService: AuthenticationService
   ) {}
 
   ngOnInit(): void {
+    // this.authenticationService.login("xyz", "xyz").subscribe();
     this.getNodes();
   }
 
