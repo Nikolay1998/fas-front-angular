@@ -1,5 +1,9 @@
 <h1>Financial Accounting System</h1>
-
-<button (click)="logout()">Logout</button>
+<div>
+    {{user?.username}}
+</div>
+<div *ngIf="user">
+    <button (click)="logout()">Logout</button>
+</div>
 
 <router-outlet></router-outlet>
