@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLinkActive, RouterOutlet } from '@angular/router';
 import { User } from './_models/user';
@@ -8,7 +9,7 @@ import { NodeListComponent } from './node-list/node-list.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NodeListComponent, LoginComponent, RouterOutlet, RouterLinkActive],
+  imports: [RouterOutlet, NodeListComponent, LoginComponent, RouterOutlet, RouterLinkActive, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -21,6 +22,6 @@ export class AppComponent {
   }
 
   logout() {
-      this.authenticationService.logout();
+    this.authenticationService.logout();
   }
 }

@@ -3,28 +3,9 @@ export interface FinancialNode {
     name: string;
     description: string;
     currencyId: number;
+    currencySymbol: string;
     amount: number;
     userId: string;
     isExternal: boolean;
+    lastTransactionDate: Date,
 }
-
-export const nodes = [
-    {
-        id: "1",
-        name: "myName",
-        description: "Some description",
-        currencyId: 1,
-        amount: 12,
-        userId: "userId",
-        isExternal: false
-    },
-    {
-        id: "2",
-        name: "myAnotherName",
-        description: "Some description",
-        currencyId: 1,
-        amount: 12,
-        userId: "userId",
-        isExternal: false
-    }
-]

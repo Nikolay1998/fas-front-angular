@@ -1,5 +1,17 @@
-<h1>Financial Accounting System</h1>
+<div class="grid-container">
+    <div class="nav-bar">
 
-<button (click)="logout()">Logout</button>
+        <a href="#default" class="logo">Financial Accounting System</a>
 
-<router-outlet></router-outlet>
+        <div class="nav-bar-right" *ngIf="user">
+            <div>
+                <img src = "assets/user-icon.png" style="width:15px;height:16px;"/>  {{user?.username}}
+            </div>
+            <button (click)="logout()">Logout</button>
+        </div>
+    </div>
+
+    <div class="content">
+        <router-outlet></router-outlet>
+    </div>
+</div>

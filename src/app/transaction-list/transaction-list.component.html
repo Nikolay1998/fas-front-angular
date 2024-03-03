@@ -1,0 +1,22 @@
+<table class="content-table">
+    <thead>
+        <tr>
+            <th>description</th>
+            <th>sender</th>
+            <th>amount</th>
+            <th>receiver</th>
+            <!-- <th>amount</th> -->
+            <th>date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let transaction of transactions">
+            <td>{{ transaction.description }}</td>
+            <td>{{ transaction.senderNodeName }}</td>
+            <td>{{ transaction.senderAmount }}{{transaction.senderCurrencySymbol}} -> {{ transaction.receiverAmount }}{{transaction.receiverCurrencySymbol}}</td>
+            <td>{{ transaction.receiverNodeName }}</td>
+            <!-- <td>{{ transaction.receiverAmount }}{{transaction.receiverCurrencySymbol}}</td> -->
+            <td>{{ transaction.dateTime }}</td>
+        </tr>
+    </tbody>
+</table>
