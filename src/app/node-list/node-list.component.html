@@ -1,11 +1,22 @@
-<p>List of nodes</p>
-<table>
-    <div *ngFor="let node of nodes">
-        <tr>
-            <td>{{ node.name }}</td>
-            <td>{{ node.description }}</td>
-            <td>{{ node.amount }}</td>
-            <td>{{ node.currencyId }}</td>
-        </tr>
+<div class="container">
+    <div class="node-list">
+        <table class="content-table">
+            <!-- <thead>
+                <tr>
+                    <th>Node name</th>
+                    <th>Amount</th>
+                </tr>
+            </thead> -->
+            <tbody>
+                <tr *ngFor="let node of nodes">
+                    <td>{{ node.name }}</td>
+                    <td>{{ node.amount }}{{node.currencySymbol}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-</table>
+
+    <div class="transaction-list">
+        <app-transaction-list></app-transaction-list>
+    </div>
+</div>

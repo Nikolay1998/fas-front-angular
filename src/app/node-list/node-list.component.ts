@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NodeService } from '../_services/node.service.js';
 import { FinancialNode } from '../_models/financial.node.js';
-import { AuthenticationService } from '../_services/authentication.service.js';
+import { NodeService } from '../_services/node.service.js';
+import { TransactionListComponent } from '../transaction-list/transaction-list.component.js';
 
 @Component({
   selector: 'app-node-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TransactionListComponent],
   templateUrl: './node-list.component.html',
   styleUrl: './node-list.component.css'
 })
@@ -17,16 +17,14 @@ export class NodeListComponent implements OnInit {
 
   constructor(
     private nodeService: NodeService,
-    private authenticationService: AuthenticationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    // this.authenticationService.login("xyz", "xyz").subscribe();
     this.getNodes();
   }
 
   getNodes() {
     this.nodeService.getNodes().subscribe(nodes => this.nodes = nodes)
   }
-  
+
 }
