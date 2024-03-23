@@ -1,6 +1,9 @@
 <div class="container">
     <div class="transaction-list">
-        {{selectedNode?.name}}
+        <div *ngIf="selectedNode">
+            {{selectedNode.name}}
+            <button (click)="clearFilter()">clear</button>
+        </div>
         <table class="content-table">
             <thead>
                 <tr>
@@ -16,13 +19,13 @@
                 <tr *ngFor="let transaction of transactions" (click)="onSelect(transaction)">
                     <!-- <div *ngIf="transaction.senderNodeId == selectedNode?.id ||
                     transaction.receiverNodeId == selectedNode?.id "> -->
-                        <td>{{ transaction.description }}</td>
-                        <td>{{ transaction.senderNodeName }}</td>
-                        <td>{{ transaction.senderAmount }}{{transaction.senderCurrencySymbol}} -> {{
-                            transaction.receiverAmount
-                            }}{{transaction.receiverCurrencySymbol}}</td>
-                        <td>{{ transaction.receiverNodeName }}</td>
-                        <td>{{ transaction.date }}</td>
+                    <td>{{ transaction.description }}</td>
+                    <td>{{ transaction.senderNodeName }}</td>
+                    <td>{{ transaction.senderAmount }}{{transaction.senderCurrencySymbol}} -> {{
+                        transaction.receiverAmount
+                        }}{{transaction.receiverCurrencySymbol}}</td>
+                    <td>{{ transaction.receiverNodeName }}</td>
+                    <td>{{ transaction.date }}</td>
                     <!-- </div> -->
                 </tr>
             </tbody>

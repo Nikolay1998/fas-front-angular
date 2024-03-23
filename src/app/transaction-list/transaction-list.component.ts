@@ -1,5 +1,4 @@
-import { CommonModule } from '@angular/common';
-import { NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FinancialNode } from '../_models/financial.node';
 import { Transaction } from '../_models/transaction';
@@ -14,6 +13,7 @@ import { TransactionInfoComponent } from "../transaction-info/transaction-info.c
   imports: [CommonModule, TransactionInfoComponent, NgIf]
 })
 export class TransactionListComponent implements OnInit {
+  @Input()
   transactions: Transaction[] = [];
   @Input()
   selectedNode?: FinancialNode;
@@ -33,6 +33,11 @@ export class TransactionListComponent implements OnInit {
 
   onSelect(transaction: Transaction): void {
     this.selectedTransaction = transaction;
+  }
+
+  clearFilter() {
+    this.selectedNode = undefined;
+    this.getTransactions();
   }
 
 }
