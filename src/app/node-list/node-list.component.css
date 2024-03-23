@@ -5,24 +5,16 @@
 
 .container {
     display: grid;
-    grid-template-columns: minmax(200px, 300px) 1fr;
+    grid-template-columns: max-content 1fr;
     gap: 20px;
 }
 
-.node-list {
-    display: inline-grid;
-}
-
-.transaction-list {
-    margin-left: 40px;
-    display: inline-grid;
-}
 
 .content-table {
     border-collapse: collapse;
     margin: 25px 0;
     font-size: 0.9em;
-    min-width: 200px;
+    width: minmax(200px, 300px);
     border-radius: 5px 5px 0 0;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);

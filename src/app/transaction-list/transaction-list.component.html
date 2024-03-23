@@ -1,22 +1,35 @@
-<table class="content-table">
-    <thead>
-        <tr>
-            <th>description</th>
-            <th>sender</th>
-            <th>amount</th>
-            <th>receiver</th>
-            <!-- <th>amount</th> -->
-            <th>date</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let transaction of transactions">
-            <td>{{ transaction.description }}</td>
-            <td>{{ transaction.senderNodeName }}</td>
-            <td>{{ transaction.senderAmount }}{{transaction.senderCurrencySymbol}} -> {{ transaction.receiverAmount }}{{transaction.receiverCurrencySymbol}}</td>
-            <td>{{ transaction.receiverNodeName }}</td>
-            <!-- <td>{{ transaction.receiverAmount }}{{transaction.receiverCurrencySymbol}}</td> -->
-            <td>{{ transaction.dateTime }}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="container">
+    <div class="transaction-list">
+        {{selectedNode?.name}}
+        <table class="content-table">
+            <thead>
+                <tr>
+                    <th>description</th>
+                    <th>sender</th>
+                    <th>amount</th>
+                    <th>receiver</th>
+                    <!-- <th>amount</th> -->
+                    <th>date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let transaction of transactions" (click)="onSelect(transaction)">
+                    <!-- <div *ngIf="transaction.senderNodeId == selectedNode?.id ||
+                    transaction.receiverNodeId == selectedNode?.id "> -->
+                        <td>{{ transaction.description }}</td>
+                        <td>{{ transaction.senderNodeName }}</td>
+                        <td>{{ transaction.senderAmount }}{{transaction.senderCurrencySymbol}} -> {{
+                            transaction.receiverAmount
+                            }}{{transaction.receiverCurrencySymbol}}</td>
+                        <td>{{ transaction.receiverNodeName }}</td>
+                        <td>{{ transaction.date }}</td>
+                    <!-- </div> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="transaction-info">
+        <app-transaction-info [transaction]="selectedTransaction"></app-transaction-info>
+    </div>
+</div>

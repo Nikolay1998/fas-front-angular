@@ -14,6 +14,7 @@ import { TransactionListComponent } from '../transaction-list/transaction-list.c
 
 export class NodeListComponent implements OnInit {
   nodes: FinancialNode[] = [];
+  selectedNode: FinancialNode | undefined;
 
   constructor(
     private nodeService: NodeService,
@@ -25,6 +26,10 @@ export class NodeListComponent implements OnInit {
 
   getNodes() {
     this.nodeService.getNodes().subscribe(nodes => this.nodes = nodes)
+  }
+
+  onSelect(node: FinancialNode): void {
+    this.selectedNode = node;
   }
 
 }

@@ -8,7 +8,7 @@
                 </tr>
             </thead> -->
             <tbody>
-                <tr *ngFor="let node of nodes">
+                <tr *ngFor="let node of nodes" (click)="onSelect(node)">
                     <td>{{ node.name }}</td>
                     <td>{{ node.amount }}{{node.currencySymbol}}</td>
                 </tr>
@@ -17,6 +17,6 @@
     </div>
 
     <div class="transaction-list">
-        <app-transaction-list></app-transaction-list>
+        <app-transaction-list [selectedNode] = "selectedNode"></app-transaction-list>
     </div>
 </div>
