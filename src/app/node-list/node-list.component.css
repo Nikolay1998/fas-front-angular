@@ -5,7 +5,7 @@
 
 .container {
     display: grid;
-    grid-template-columns: max-content 1fr;
+    grid-template-columns: 280px 1fr;
     gap: 20px;
 }
 
@@ -14,7 +14,7 @@
     border-collapse: collapse;
     margin: 25px 0;
     font-size: 0.9em;
-    width: minmax(200px, 300px);
+    width: 280px;
     border-radius: 5px 5px 0 0;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
@@ -30,6 +30,7 @@
 .content-table th,
 .content-table td {
     padding: 12px 15px;
+    height: 20px;
 }
 
 .content-table tbody tr {
@@ -47,4 +48,37 @@
 .content-table tbody tr.active-row {
     font-weight: bold;
     color: #009879;
+}
+
+.content-table tr:hover td.amount {
+    display: none;
+}
+
+/* Style buttons */
+.btn {
+    background-color: DodgerBlue;
+    border: none;
+    /* Remove borders */
+    color: white;
+    padding: 12px 12px;
+    /* Some padding */
+    font-size: 16px;
+    /* Set a font size */
+    cursor: pointer;
+    /* Mouse pointer on hover */
+    display: none;
+}
+
+.content-table tr:hover .btn {
+    display: inline;
+}
+
+.content-table tr:hover #archive {
+    display: inline;
+    background-color: #ff1e90;
+}
+
+/* Darker background on mouse-over */
+content-table tr:hover .btn:hover {
+    background-color: RoyalBlue;
 }

@@ -1,10 +1,12 @@
 <div class="container">
     <div class="transaction-list">
         <div *ngIf="selectedNode">
-            {{selectedNode.name}}
-            <button (click)="clearFilter()">clear</button>
+            <b>{{selectedNode.name}} </b>
+            <button class="btn" (click)="clearFilter()"><i class="fa fa-close"></i></button>
+            <br>{{selectedNode.description}} <br>
+            <br> <br>
         </div>
-        <table class="content-table">
+        <table *ngIf="transactions.length > 0" class="content-table">
             <thead>
                 <tr>
                     <th>description</th>
@@ -17,8 +19,6 @@
             </thead>
             <tbody>
                 <tr *ngFor="let transaction of transactions" (click)="onSelect(transaction)">
-                    <!-- <div *ngIf="transaction.senderNodeId == selectedNode?.id ||
-                    transaction.receiverNodeId == selectedNode?.id "> -->
                     <td>{{ transaction.description }}</td>
                     <td>{{ transaction.senderNodeName }}</td>
                     <td>{{ transaction.senderAmount }}{{transaction.senderCurrencySymbol}} -> {{
@@ -26,7 +26,6 @@
                         }}{{transaction.receiverCurrencySymbol}}</td>
                     <td>{{ transaction.receiverNodeName }}</td>
                     <td>{{ transaction.date }}</td>
-                    <!-- </div> -->
                 </tr>
             </tbody>
         </table>

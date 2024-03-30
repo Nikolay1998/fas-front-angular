@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <div class="container">
     <div class="node-list">
         <table class="content-table">
@@ -8,15 +10,25 @@
                 </tr>
             </thead> -->
             <tbody>
-                <tr *ngFor="let node of nodes" (click)="onSelect(node)">
+                <tr *ngFor="let node of nodes" [class.active-row]="node == selectedNode" (click)="onSelect(node)">
                     <td>{{ node.name }}</td>
-                    <td>{{ node.amount }}{{node.currencySymbol}}</td>
+                    <td class="amount">
+                        <div align="right">{{ node.amount }}{{node.currencySymbol}}</div>
+                    </td>
+                    <div align="right">
+                        <button class="btn">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <button *ngIf="node.amount == 0" class="btn" id="archive">
+                            <i class="fa fa-archive"></i>
+                        </button>
+                    </div>
                 </tr>
             </tbody>
-        </table>
+        </table> 
     </div>
 
     <div class="transaction-list">
-        <app-transaction-list [selectedNode] = "selectedNode" [transactions]="transactions"></app-transaction-list>
+        <app-transaction-list [selectedNode]="selectedNode" [transactions]="transactions"></app-transaction-list>
     </div>
 </div>
