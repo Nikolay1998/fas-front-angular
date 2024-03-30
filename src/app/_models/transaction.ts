@@ -11,7 +11,7 @@ export interface Transaction {
     receiverCurrencyId: number,
     senderCurrencySymbol: string,
     receiverCurrencySymbol: string,
-    dateTime: Date,
+    date: Date,
     isCancelled: boolean,
     userId: string
 }

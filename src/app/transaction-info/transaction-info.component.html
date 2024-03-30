@@ -1,0 +1,9 @@
+<div *ngIf="transaction">
+    {{transaction.description}} <br>
+    {{transaction.senderAmount}}{{transaction.senderCurrencySymbol}} ->
+    {{transaction.receiverAmount}}{{transaction.receiverCurrencySymbol}}<br>
+    {{transaction.senderNodeName}} ->
+    {{transaction.receiverNodeName}} <br>
+    {{transaction.date}} <br>
+    <button type="button">Delete</button>
+</div>

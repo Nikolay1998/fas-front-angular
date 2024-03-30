@@ -5,9 +5,10 @@
 
 .grid-container {
     margin: auto;
+    display: grid;
     min-width: 500px;
-    max-width: 1500px;
-    grid-template-columns: 20px 1fr;
+    max-width: 1800px;
+    grid-template-rows: 80px 1fr;
 }
 
 */ .content {
@@ -51,7 +52,7 @@
     padding: 12px;
 }
 
-@media screen and (max-width: 500px) {
+/* @media screen and (max-width: 500px) {
     .nav-bar a {
         float: none;
         display: block;
@@ -61,4 +62,4 @@
     .nav-bar-right {
         float: none;
     }
-}
+} */
