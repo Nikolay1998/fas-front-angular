@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 <div class="grid-container">
     <div class="nav-bar">
 
@@ -5,9 +8,11 @@
 
         <div class="nav-bar-right" *ngIf="user">
             <div>
-                <img src = "assets/user-icon.png" style="width:15px;height:16px;"/>  {{user?.username}}
+                <i class="fa fa-user"></i>  {{user?.username}}
+                <button (click)="logout()">
+                    <i class="fa fa-sign-out"></i>
+                </button>
             </div>
-            <button (click)="logout()">Logout</button>
         </div>
     </div>
 
