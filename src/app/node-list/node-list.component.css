@@ -56,7 +56,7 @@
 
 /* Style buttons */
 .btn {
-    background-color: DodgerBlue;
+    background-color: DodgerBlue; 
     border: none;
     /* Remove borders */
     color: white;
@@ -75,10 +75,16 @@
 
 .content-table tr:hover #archive {
     display: inline;
-    background-color: #ff1e90;
+    /* background-color: #ff1e90; */
+    /* background-color: #FF715B; */
+    background-color: #DB5461;
 }
 
 /* Darker background on mouse-over */
-content-table tr:hover .btn:hover {
+.btn:hover {
     background-color: RoyalBlue;
+}
+
+.content-table tr:hover #archive:hover{
+    background-color: #CA2B3B;
 }
