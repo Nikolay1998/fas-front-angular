@@ -36,7 +36,7 @@
 .content-table th,
 .content-table td {
     padding: 12px 15px;
-    height: 20px;
+     height: 19px;
 }
 
 .content-table tbody tr {
@@ -57,7 +57,7 @@
 }
 
 .content-table td.date {
-    width: 95px;
+    width: 105px;
 }
 
 .content-table tr:hover td.date {
@@ -66,6 +66,7 @@
 
 /* Style buttons */
 .btn {
+    height: 43px;
     background-color: DodgerBlue; 
     border: none;
     /* Remove borders */
