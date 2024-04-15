@@ -1,21 +1,28 @@
-
 <div class="container">
     <div class="node-list">
+
+        <div *ngIf="isActiveNodeForm">
+            <app-node-form (isActiveEvent)="onNodeFormUpdate($event)"
+                [nodeTemplate]="selectedForEditNode"></app-node-form>
+        </div>
+
+        <div class="button-group" *ngIf="!isActiveNodeForm">
+            <button class = "addNew" (click)="onAddNew()">Add new</button>
+        </div>
+
         <table class="content-table">
-            <!-- <thead>
-                <tr>
-                    <th>Node name</th>
-                    <th>Amount</th>
-                </tr>
-            </thead> -->
             <tbody>
+                <!-- <tr>
+                    <td class="addNew">Add new node</td>
+                    <td class="addNew"></td>
+                </tr> -->
                 <tr *ngFor="let node of nodes" [class.active-row]="node == selectedNode" (click)="onSelect(node)">
                     <td>{{ node.name }}</td>
                     <td class="amount">
                         <div align="right">{{ node.amount }}{{node.currencySymbol}}</div>
                     </td>
                     <div align="right">
-                        <button class="btn">
+                        <button class="btn" (click)="onEdit(node)">
                             <i class="fa fa-edit"></i>
                         </button>
                         <button *ngIf="node.amount == 0" class="btn" id="archive">
@@ -24,10 +31,12 @@
                     </div>
                 </tr>
             </tbody>
-        </table> 
+        </table>
+
     </div>
 
     <div class="transaction-list">
         <app-transaction-list [selectedNode]="selectedNode" [transactions]="transactions"></app-transaction-list>
     </div>
+    
 </div>

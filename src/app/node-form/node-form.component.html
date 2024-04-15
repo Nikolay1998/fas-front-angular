@@ -1,0 +1,41 @@
+<div class="container">
+
+  <form [formGroup]="applyForm" (submit)="submitForm()">
+
+    <div class="form-group" style="white-space:nowrap">
+      <label for="name">Name</label>
+      <input id="name" type="text" formControlName="name">
+    </div>
+
+    <div class="form-group" style="white-space:nowrap">
+      <label for="description">Description</label>
+      <input id="description" type="text" formControlName="description">
+    </div>
+
+    <div class="form-group" style="white-space:nowrap">
+      <label for="amount">Amount</label>
+      <input id="amount" type="number" formControlName="amount">
+    </div>
+
+    <div class="form-group" style="white-space:nowrap">
+      <label for="amount">Currency</label>
+      <select id="category" name="category">
+        <option value="1">Dollars $</option>
+        <option value="2">Rubles r</option>
+        <option value="3">Euros E</option>
+      </select>
+    </div>
+
+    <div class="form-group" style="white-space:nowrap">
+      <input id="external" type="checkbox" formControlName="external">
+      <label for="external">External</label>
+    </div>
+    
+    <div class="button-group">
+      <button *ngIf="nodeTemplate" class="update" type="submit">Update</button>
+      <button *ngIf="!nodeTemplate" class="create" type="submit">Create</button>
+      <button type="button" class="cancel" (click)="cancel()">Cancel</button>
+    </div>
+
+  </form>
+</div>

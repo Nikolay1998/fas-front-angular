@@ -5,19 +5,22 @@ import { NodeService } from '../_services/node.service.js';
 import { TransactionListComponent } from '../transaction-list/transaction-list.component.js';
 import { Transaction } from '../_models/transaction.js';
 import { TransactionService } from '../_services/transaction.service.js';
+import { NodeFormComponent } from "../node-form/node-form.component";
 
 @Component({
-  selector: 'app-node-list',
-  standalone: true,
-  imports: [CommonModule, TransactionListComponent],
-  templateUrl: './node-list.component.html',
-  styleUrl: './node-list.component.css'
+    selector: 'app-node-list',
+    standalone: true,
+    templateUrl: './node-list.component.html',
+    styleUrl: './node-list.component.css',
+    imports: [CommonModule, TransactionListComponent, NodeFormComponent]
 })
 
 export class NodeListComponent implements OnInit {
   nodes: FinancialNode[] = [];
   transactions: Transaction[] = [];
   selectedNode: FinancialNode | undefined;
+  selectedForEditNode: FinancialNode | undefined;
+  isActiveNodeForm: boolean | undefined;
 
   constructor(
     private nodeService: NodeService,
@@ -41,4 +44,17 @@ export class NodeListComponent implements OnInit {
     this.getTransactionsByNode(node.id)
   }
 
+  onEdit(node: FinancialNode): void {
+    this.selectedForEditNode = node;
+    this.onNodeFormUpdate(true);
+  }
+
+  onNodeFormUpdate(isActive: boolean): void {
+    this.isActiveNodeForm = isActive;
+  }
+
+  onAddNew(): void {
+    this.selectedForEditNode = undefined;
+    this.onNodeFormUpdate(true);
+  }
 }

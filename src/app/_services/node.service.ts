@@ -22,4 +22,9 @@ export class NodeService {
   getNodes(): Observable<FinancialNode[]> {
     return this.http.get<FinancialNode[]>(`${environment.apiUrl}/node/getAll`, this.httpOptions)
   }
+
+  addNode(node: FinancialNode): Observable<FinancialNode> {
+    console.log('New Node adding: {}', node.name, node.isExternal);
+    return this.http.post<FinancialNode>(`${environment.apiUrl}/node/add`, node, this.httpOptions)
+  }
 }

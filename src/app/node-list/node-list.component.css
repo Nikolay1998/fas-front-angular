@@ -1,6 +1,7 @@
 * {
     /* Change your font family */
     font-family: sans-serif;
+    font-size: 14px;
 }
 
 .container {
@@ -8,7 +9,6 @@
     grid-template-columns: 280px 1fr;
     gap: 20px;
 }
-
 
 .content-table {
     border-collapse: collapse;
@@ -41,6 +41,10 @@
     background-color: #f3f3f3;
 }
 
+button:hover {
+    background-color: RoyalBlue;
+}
+
 .content-table tbody tr:last-of-type {
     border-bottom: 2px solid #009879;
 }
@@ -54,9 +58,28 @@
     display: none;
 }
 
+.addNew {
+    width: 100% ;
+    border-radius: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 25px;
+    background-color: #009879;
+    color: white;
+    padding: 12px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    height: 44px;
+}
+
+.addNew:hover {
+    background-color: #007A62
+}
+
 /* Style buttons */
 .btn {
-    background-color: DodgerBlue; 
+    background-color: DodgerBlue;
     border: none;
     /* Remove borders */
     color: white;
@@ -86,6 +109,10 @@
     background-color: RoyalBlue;
 }
 
-.content-table tr:hover #archive:hover{
+.content-table tr:hover #archive:hover {
     background-color: #CA2B3B;
+}
+
+.addNew {
+
 }
