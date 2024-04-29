@@ -18,11 +18,11 @@
     </div>
 
     <div class="form-group" style="white-space:nowrap">
-      <label for="amount">Currency</label>
-      <select id="category" name="category">
-        <option value="1">Dollars $</option>
-        <option value="2">Rubles r</option>
-        <option value="3">Euros E</option>
+      <label for="currencyId">Currency</label>
+      <select id="currencyId" formControlName="currencyId">
+        <option *ngFor="let currency of currencys" [ngValue]="currency.id">
+          {{ currency.abbrev }}
+        </option>
       </select>
     </div>
 
@@ -30,7 +30,7 @@
       <input id="external" type="checkbox" formControlName="external">
       <label for="external">External</label>
     </div>
-    
+
     <div class="button-group">
       <button *ngIf="nodeTemplate" class="update" type="submit">Update</button>
       <button *ngIf="!nodeTemplate" class="create" type="submit">Create</button>

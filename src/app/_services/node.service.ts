@@ -8,7 +8,7 @@ import { FinancialNode } from '../_models/financial.node';
   providedIn: 'root'
 })
 export class NodeService {
-
+  
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -24,7 +24,12 @@ export class NodeService {
   }
 
   addNode(node: FinancialNode): Observable<FinancialNode> {
-    console.log('New Node adding: {}', node.name, node.isExternal);
+    console.log('New Node adding: ', node.name, node.external, node.currencyId);
     return this.http.post<FinancialNode>(`${environment.apiUrl}/node/add`, node, this.httpOptions)
+  }
+
+  editNode(node: FinancialNode): Observable<FinancialNode> {
+    console.log('Node edit: {}', node.name, node.external);
+    return this.http.post<FinancialNode>(`${environment.apiUrl}/node/edit`, node, this.httpOptions)
   }
 }

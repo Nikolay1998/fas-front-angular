@@ -6,6 +6,6 @@ export interface FinancialNode {
     currencySymbol: string;
     amount: number;
     userId: string;
-    isExternal: boolean;
+    external: boolean;
     lastTransactionDate: Date,
 }

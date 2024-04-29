@@ -6,6 +6,7 @@ import { TransactionListComponent } from '../transaction-list/transaction-list.c
 import { Transaction } from '../_models/transaction.js';
 import { TransactionService } from '../_services/transaction.service.js';
 import { NodeFormComponent } from "../node-form/node-form.component";
+import { NodeHolderService } from '../_services/node-holder.service.js';
 
 @Component({
     selector: 'app-node-list',
@@ -23,16 +24,15 @@ export class NodeListComponent implements OnInit {
   isActiveNodeForm: boolean | undefined;
 
   constructor(
-    private nodeService: NodeService,
+    public nodeService: NodeService,
     private transactionService: TransactionService,
-  ) { }
+    public nodeHolder: NodeHolderService,
+  ) {
+   }
 
   ngOnInit(): void {
-    this.getNodes();
-  }
-
-  getNodes() {
-    this.nodeService.getNodes().subscribe(nodes => this.nodes = nodes)
+    this.nodeHolder.currentNodes.subscribe(nodes => this.nodes = nodes);
+    this.nodeHolder.updateNodes();
   }
 
   getTransactionsByNode(nodeId: string){
