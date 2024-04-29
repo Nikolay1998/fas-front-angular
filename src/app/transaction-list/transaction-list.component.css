@@ -1,6 +1,7 @@
 * {
     /* Change your font family */
     font-family: sans-serif;
+    font-size: 14px;
 }
 
 .container {
@@ -22,7 +23,7 @@
     font-size: 0.9em;
     border-radius: 5px 5px 0 0;
     overflow: hidden;
-    width: 800px;
+    width: 1200px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -36,7 +37,7 @@
 .content-table th,
 .content-table td {
     padding: 12px 15px;
-     height: 19px;
+    height: 20px;
 }
 
 .content-table tbody tr {
@@ -57,7 +58,7 @@
 }
 
 .content-table td.date {
-    width: 105px;
+    width: 95px;
 }
 
 .content-table tr:hover td.date {
@@ -65,9 +66,20 @@
 }
 
 /* Style buttons */
-.btn {
-    height: 43px;
+
+/* .btn {
+    height: 100%;
     background-color: DodgerBlue; 
+    border: none;
+    color: white;
+    padding: 12px 12px;
+    font-size: 16px;
+    cursor: pointer;
+    display: none;
+} */
+
+.btn {
+    background-color: DodgerBlue;
     border: none;
     /* Remove borders */
     color: white;
@@ -78,6 +90,14 @@
     cursor: pointer;
     /* Mouse pointer on hover */
     display: none;
+    flex-grow: 1;
+}
+
+div .buttons {
+    background-color: DodgerBlue;
+    margin: 0;
+    
+    display: flex;
 }
 
 .content-table tr:hover .btn {
