@@ -49,7 +49,6 @@ export class NodeFormComponent implements OnChanges {
   }
 
   submitForm() {
-    console.log(this.applyForm.value.external);
     let newNode: FinancialNode = {
       id: "",
       name: this.applyForm.value.name ?? '',

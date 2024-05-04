@@ -1,10 +1,17 @@
 <div class="container">
+    <div class="form" *ngIf="isTransactionFormActive">
+        <app-transaction-form (isActiveEvent)="onFormUpdate($event)" [state]="formState"
+            [transactionTemplate]="selectedForEditTransaction"></app-transaction-form>
+    </div>
+
     <div class="transaction-list">
-        <div *ngIf="selectedNode">
-            <b>{{selectedNode.name}} </b>
+        <div *ngIf="selectedNode" class="nodeTitle">
+            <b>{{selectedNode.name}} </b> <button (click)="clearFilter()"><i class="fa fa-close"></i></button>
             <br>{{selectedNode.description}} <br>
-            <!-- <button (click)="clearFilter()"><i class="fa fa-close"></i></button> -->
-            <br> <br>
+            
+        </div>
+        <div class="button-group" *ngIf="!isTransactionFormActive">
+            <button class = "addNew" (click)="onAddNew()">Add new</button>
         </div>
         <table *ngIf="transactions.length > 0" class="content-table">
             <!-- <thead>
@@ -17,7 +24,7 @@
                 </tr>
             </thead> -->
             <tbody>
-                <tr *ngFor="let transaction of transactions" (click)="onSelect(transaction)">
+                <tr *ngFor="let transaction of filteredTransactions" (click)="onSelect(transaction)">
                     <td>{{ transaction.description }}</td>
                     <td>{{ transaction.senderNodeName }}</td>
                     <td>{{ transaction.senderAmount }}{{transaction.senderCurrencySymbol}} -> {{
@@ -26,10 +33,10 @@
                     <td>{{ transaction.receiverNodeName }}</td>
                     <td class="date">{{ transaction.date }}</td>
                     <div class="buttons" align="right">
-                        <button class="btn" id="repeat">
+                        <button class="btn" id="repeat" (click)="onRepeat(transaction)">
                             <i class="fa fa-repeat"></i>
                         </button>
-                        <button class="btn">
+                        <button class="btn" (click)="onEdit(transaction)">
                             <i class="fa fa-edit"></i>
                         </button>
                         <button class="btn" id="archive">
@@ -41,7 +48,7 @@
         </table>
     </div>
 
-    <div class="transaction-info">
+    <!-- <div class="transaction-info">
         <app-transaction-info [transaction]="selectedTransaction"></app-transaction-info>
-    </div>
+    </div> -->
 </div>

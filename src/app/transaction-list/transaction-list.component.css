@@ -5,25 +5,34 @@
 }
 
 .container {
-    display: inline-grid;
-    grid-template-columns: auto auto;
-    gap: 10px;
+    display: grid;
+    grid-template-areas:
+    'form info'
+    'list info';
+    /* gap: 20px; */
+}
+
+.form {
+    grid-area: form;
+    margin-bottom: 40px;
 }
 
 .transaction-info {
-    margin: 25px 0;
+    grid-area: info;
 }
 
 .transaction-list {
-    margin: 25px 0;
+    margin: 0px 0;
+    grid-area: list;
 }
 
 .content-table {
     border-collapse: collapse;
     font-size: 0.9em;
     border-radius: 5px 5px 0 0;
+    margin: 10px 0;
     overflow: hidden;
-    width: 1200px;
+    width: 900px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -65,18 +74,12 @@
     display: none;
 }
 
+.nodeTitle {
+    margin-bottom: 20px;
+}
+
 /* Style buttons */
 
-/* .btn {
-    height: 100%;
-    background-color: DodgerBlue; 
-    border: none;
-    color: white;
-    padding: 12px 12px;
-    font-size: 16px;
-    cursor: pointer;
-    display: none;
-} */
 
 .btn {
     background-color: DodgerBlue;
@@ -91,6 +94,24 @@
     /* Mouse pointer on hover */
     display: none;
     flex-grow: 1;
+}
+
+.addNew {
+    width: 900px;
+    border-radius: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #009879;
+    color: white;
+    padding: 12px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    height: 44px;
+}
+
+.addNew:hover {
+    background-color: #007A62
 }
 
 div .buttons {
