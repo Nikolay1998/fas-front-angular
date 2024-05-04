@@ -11,7 +11,7 @@
     margin: auto;
     display: grid;
     min-width: 500px;
-    max-width: 1800px;
+    max-width: 1180px;
     grid-template-rows: 80px 1fr;
 }
 

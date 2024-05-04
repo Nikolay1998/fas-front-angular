@@ -24,8 +24,6 @@ export class NodeListComponent implements OnInit {
   isActiveNodeForm: boolean | undefined;
 
   constructor(
-    public nodeService: NodeService,
-    private transactionService: TransactionService,
     public nodeHolder: NodeHolderService,
   ) {
    }
@@ -35,13 +33,8 @@ export class NodeListComponent implements OnInit {
     this.nodeHolder.updateNodes();
   }
 
-  getTransactionsByNode(nodeId: string){
-    this.transactionService.getTransactionsByNode(nodeId).subscribe(transactions => this.transactions = transactions)
-  }
-
   onSelect(node: FinancialNode): void {
     this.selectedNode = node;
-    this.getTransactionsByNode(node.id)
   }
 
   onEdit(node: FinancialNode): void {
