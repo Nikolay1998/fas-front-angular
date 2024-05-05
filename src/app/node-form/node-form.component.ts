@@ -4,11 +4,13 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FinancialNode } from '../_models/financial.node';
 import { NodeHolderService } from '../_services/node-holder.service';
 import { NodeService } from '../_services/node.service';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 
 @Component({
   selector: 'app-node-form',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, NgFor],
+  imports: [ReactiveFormsModule, NgIf, NgFor, NgSelectModule],
   templateUrl: './node-form.component.html',
   styleUrl: './node-form.component.css'
 })

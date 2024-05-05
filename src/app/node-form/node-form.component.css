@@ -52,6 +52,13 @@ select {
     transition: border-color 0.3s ease;
 }
 
+ng-select {
+    width: calc(100% - 85px);
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+
 input[type="checkbox"] {
     vertical-align: top;
     margin-top: 4px;

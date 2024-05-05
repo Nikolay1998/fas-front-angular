@@ -1,17 +1,19 @@
 import { NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { FinancialNode } from '../_models/financial.node';
 import { FormState } from '../_models/form-state';
 import { Transaction } from '../_models/transaction';
 import { NodeHolderService } from '../_services/node-holder.service';
-import { TransactionService } from '../_services/transaction.service';
 import { TransactionHolderService } from '../_services/transaction-holder.service';
+import { TransactionService } from '../_services/transaction.service';
+
 
 @Component({
   selector: 'app-transaction-form',
   standalone: true,
-  imports: [ReactiveFormsModule, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault],
+  imports: [ReactiveFormsModule, NgSelectModule, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault],
   templateUrl: './transaction-form.component.html',
   styleUrl: './transaction-form.component.css'
 })
@@ -27,6 +29,10 @@ export class TransactionFormComponent implements OnInit, OnChanges {
   transactionTemplate?: Transaction = undefined;
 
   nodes: FinancialNode[] = [];
+
+  senderCurrency: string = "";
+  receiverCurrency: string = "";
+  receiverAmountChangedByHand: boolean = false;
 
   transactionForm = new FormGroup({
     description: new FormControl(),
@@ -59,6 +65,28 @@ export class TransactionFormComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.nodeHolder.currentNodes.subscribe(nodes => this.nodes = nodes);
 
+    this.transactionForm.controls['senderNodeId'].valueChanges.subscribe(value =>
+      this.senderCurrency = this.nodes.filter(n => n.id == value)[0].currencySymbol
+    );
+    this.transactionForm.controls['receiverNodeId'].valueChanges.subscribe(value =>
+      this.receiverCurrency = this.nodes.filter(n => n.id == value)[0].currencySymbol
+    );
+    this.transactionForm.controls['senderAmount'].valueChanges.subscribe(value => {
+      if (this.senderCurrency == this.receiverCurrency && !this.receiverAmountChangedByHand) {
+        this.transactionForm.controls['receiverAmount'].setValue(value)
+      }
+    }
+    );
+    this.transactionForm.controls['receiverAmount'].valueChanges.subscribe(value => {
+      if (value != this.transactionForm.controls['senderAmount'].value) {
+        this.receiverAmountChangedByHand = true
+      }
+      if (!value) {
+        this.receiverAmountChangedByHand = false;
+      }
+    }
+
+    );
   }
 
   submitForm() {

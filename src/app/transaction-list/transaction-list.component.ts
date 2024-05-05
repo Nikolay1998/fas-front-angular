@@ -1,16 +1,12 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FinancialNode } from '../_models/financial.node';
-import { Transaction } from '../_models/transaction';
-import { FormState } from '../_models/form-state';
-import { TransactionService } from '../_services/transaction.service';
-import { TransactionInfoComponent } from "../transaction-info/transaction-info.component";
-import { TransactionFormComponent } from "../transaction-form/transaction-form.component";
-import { TransactionHolderService } from '../_services/transaction-holder.service';
 import { CallbackPipePipe } from "../_helpers/callback-pipe.pipe";
-import { filter } from 'rxjs';
-import { transition } from '@angular/animations';
-// import { FormState } from '../_models/form-state';
+import { FinancialNode } from '../_models/financial.node';
+import { FormState } from '../_models/form-state';
+import { Transaction } from '../_models/transaction';
+import { TransactionHolderService } from '../_services/transaction-holder.service';
+import { TransactionFormComponent } from "../transaction-form/transaction-form.component";
+import { TransactionInfoComponent } from "../transaction-info/transaction-info.component";
 
 @Component({
   selector: 'app-transaction-list',
@@ -55,7 +51,7 @@ export class TransactionListComponent implements OnInit, OnChanges {
       return transactions;
     }
 
-    return transactions.filter(tr => tr.senderNodeId == this.selectedNode?.id || tr.receiverNodeId == this.selectedNode?.id );
+    return transactions.filter(tr => tr.senderNodeId == this.selectedNode?.id || tr.receiverNodeId == this.selectedNode?.id);
   }
 
   onSelect(transaction: Transaction): void {
