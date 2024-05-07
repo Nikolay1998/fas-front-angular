@@ -25,11 +25,6 @@
             {{ currency.abbrev }}
         </ng-option >
      </ng-select>
-      <!-- <select id="currencyId" formControlName="currencyId">
-        <option *ngFor="let currency of currencys" [ngValue]="currency.id">
-          {{ currency.abbrev }}
-        </option>
-      </select> -->
     </div>
 
     <div class="form-group" style="white-space:nowrap">
@@ -38,9 +33,9 @@
     </div>
 
     <div class="button-group">
-      <button *ngIf="nodeTemplate" class="update" type="submit">Update</button>
-      <button *ngIf="!nodeTemplate" class="create" type="submit">Create</button>
-      <button type="button" class="cancel" (click)="cancel()">Cancel</button>
+      <button *ngIf="nodeTemplate" class="form" id="update" type="submit">Update</button>
+      <button *ngIf="!nodeTemplate" class="form" id="create" type="submit">Create</button>
+      <button type="button" class="form" id="cancel" (click)="cancel()">Cancel</button>
     </div>
 
   </form>

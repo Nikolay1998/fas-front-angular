@@ -22,10 +22,10 @@
                         <div align="right">{{ node.amount }}{{node.currencySymbol}}</div>
                     </td>
                     <div align="right">
-                        <button class="btn" (click)="onEdit(node)">
+                        <button class="inline" id="edit" (click)="onEdit(node)">
                             <i class="fa fa-edit"></i>
                         </button>
-                        <button *ngIf="node.amount == 0" class="btn" id="archive">
+                        <button *ngIf="node.amount == 0" class="inline" id="archive">
                             <i class="fa fa-archive"></i>
                         </button>
                     </div>

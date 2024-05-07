@@ -10,7 +10,7 @@
             <br>{{selectedNode.description}} <br>
             
         </div>
-        <div class="button-group" *ngIf="!isTransactionFormActive">
+        <div *ngIf="!isTransactionFormActive">
             <button class = "addNew" (click)="onAddNew()">Add new</button>
         </div>
         <table *ngIf="transactions.length > 0" class="content-table">
@@ -33,13 +33,13 @@
                     <td>{{ transaction.receiverNodeName }}</td>
                     <td class="date">{{ transaction.date }}</td>
                     <div class="buttons" align="right">
-                        <button class="btn" id="repeat" (click)="onRepeat(transaction)">
+                        <button class="inline" id="repeat" (click)="onRepeat(transaction)">
                             <i class="fa fa-repeat"></i>
                         </button>
-                        <button class="btn" (click)="onEdit(transaction)">
+                        <button class="inline" id="edit" (click)="onEdit(transaction)">
                             <i class="fa fa-edit"></i>
                         </button>
-                        <button class="btn" id="archive">
+                        <button class="inline" id="archive">
                             <i class="fa fa-times"></i>
                         </button>
                     </div>
