@@ -1,20 +1,13 @@
-* {
-    /* Change your font family */
-    font-family: sans-serif;
-    font-size: 14px;
-}
-
 .container {
     display: grid;
     grid-template-areas:
-    'form info'
-    'list info';
-    /* gap: 20px; */
+        'form info'
+        'list info';
 }
 
 .form {
     grid-area: form;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .transaction-info {
@@ -27,43 +20,7 @@
 }
 
 .content-table {
-    border-collapse: collapse;
-    font-size: 0.9em;
-    border-radius: 5px 5px 0 0;
-    margin: 10px 0;
-    overflow: hidden;
     width: 900px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
-
-.content-table thead tr {
-    background-color: #009879;
-    color: #ffffff;
-    text-align: left;
-    font-weight: bold;
-}
-
-.content-table th,
-.content-table td {
-    padding: 12px 15px;
-    height: 20px;
-}
-
-.content-table tbody tr {
-    border-bottom: 1px solid #dddddd;
-}
-
-.content-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
-.content-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
-}
-
-.content-table tbody tr.active-row {
-    font-weight: bold;
-    color: #009879;
 }
 
 .content-table td.date {
@@ -75,75 +32,11 @@
 }
 
 .nodeTitle {
-    margin-bottom: 20px;
-}
-
-/* Style buttons */
-
-
-.btn {
-    background-color: DodgerBlue;
-    border: none;
-    /* Remove borders */
-    color: white;
-    padding: 12px 12px;
-    /* Some padding */
-    font-size: 16px;
-    /* Set a font size */
-    cursor: pointer;
-    /* Mouse pointer on hover */
-    display: none;
-    flex-grow: 1;
-}
-
-.addNew {
-    width: 900px;
-    border-radius: 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #009879;
-    color: white;
-    padding: 12px 12px;
-    font-size: 14px;
-    cursor: pointer;
-    height: 44px;
-}
-
-.addNew:hover {
-    background-color: #007A62
+    margin-bottom: 10px;
 }
 
 div .buttons {
     background-color: DodgerBlue;
     margin: 0;
-    
     display: flex;
-}
-
-.content-table tr:hover .btn {
-    display: inline;
-}
-
-.content-table tr:hover #archive {
-    display: inline;
-    background-color: #DB5461;
-}
-
-.content-table tr:hover #repeat {
-    display: inline;
-    background-color: #009879;
-}
-
-/* Darker background on mouse-over */
-.btn:hover {
-    background-color: RoyalBlue;
-}
-
-.content-table tr:hover #archive:hover{
-    background-color: #CA2B3B;
-}
-
-.content-table tr:hover #repeat:hover{
-    background-color: #007A62;
 }

@@ -51,10 +51,10 @@
 
         </div>
         <div class="button-group" [ngSwitch]="state">
-            <button class="create" type="submit" *ngSwitchCase="1">Create</button>
-            <button class="create" type="submit" *ngSwitchCase="2">Create</button>
-            <button class="update" *ngSwitchCase="3">Edit</button>
-            <button type="button" class="cancel" (click)="onCancel()">Cancel</button>
+            <button class="create" class="form" id="create" type="submit" *ngSwitchCase="1">Create</button>
+            <button class="create" class="form" id="create" type="submit" *ngSwitchCase="2">Create</button>
+            <button class="update" class="form" id="update" *ngSwitchCase="3">Edit</button>
+            <button type="button" class="form" id="cancel" (click)="onCancel()">Cancel</button>
         </div>
     </form>
 </div>
