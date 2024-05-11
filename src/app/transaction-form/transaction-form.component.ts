@@ -85,7 +85,6 @@ export class TransactionFormComponent implements OnInit, OnChanges {
         this.receiverAmountChangedByHand = false;
       }
     }
-
     );
   }
 

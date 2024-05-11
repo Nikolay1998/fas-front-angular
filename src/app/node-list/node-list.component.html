@@ -5,18 +5,18 @@
             <app-node-form (isActiveEvent)="onNodeFormUpdate($event)"
                 [nodeTemplate]="selectedForEditNode"></app-node-form>
         </div>
+        <input type="search" class="search" [(ngModel)]="search" (ngModelChange)="filterNodes()"
+            placeholder="Filter nodes">
 
         <div class="button-group" *ngIf="!isActiveNodeForm">
-            <button class = "addNew" (click)="onAddNew()">Add new</button>
+            <button class="addNew" (click)="onAddNew()"><i class="fa fa-plus"></i></button>
         </div>
 
+        <!-- <table [ngClass]="isActiveNodeForm ? 'content-table' : 'content-table-with-button'"> -->
         <table class="content-table">
             <tbody>
-                <!-- <tr>
-                    <td class="addNew">Add new node</td>
-                    <td class="addNew"></td>
-                </tr> -->
-                <tr *ngFor="let node of nodes" [class.active-row]="node == selectedNode" (click)="onSelect(node)">
+                <tr *ngFor="let node of filteredNodes" [class.active-row]="node == selectedNode"
+                    (click)="onSelect(node)">
                     <td>{{ node.name }}</td>
                     <td class="amount">
                         <div align="right">{{ node.amount }}{{node.currencySymbol}}</div>
@@ -32,11 +32,10 @@
                 </tr>
             </tbody>
         </table>
-
     </div>
 
     <div class="transaction-list">
         <app-transaction-list [selectedNode]="selectedNode"></app-transaction-list>
     </div>
-    
+
 </div>
