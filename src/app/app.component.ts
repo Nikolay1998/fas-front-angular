@@ -5,11 +5,12 @@ import { User } from './_models/user';
 import { AuthenticationService } from './_services/authentication.service';
 import { LoginComponent } from './login/login.component';
 import { NodeListComponent } from './node-list/node-list.component';
+import { SummaryComponent } from './summary/summary.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NodeListComponent, LoginComponent, RouterOutlet, RouterLinkActive, CommonModule],
+  imports: [RouterOutlet, NodeListComponent, LoginComponent, SummaryComponent, RouterOutlet, RouterLinkActive, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

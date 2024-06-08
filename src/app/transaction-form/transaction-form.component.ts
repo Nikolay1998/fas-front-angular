@@ -8,6 +8,7 @@ import { Transaction } from '../_models/transaction';
 import { NodeHolderService } from '../_services/node-holder.service';
 import { TransactionHolderService } from '../_services/transaction-holder.service';
 import { TransactionService } from '../_services/transaction.service';
+import { SummaryHolderService } from '../_services/summary-holder.service';
 
 
 @Component({
@@ -46,6 +47,7 @@ export class TransactionFormComponent implements OnInit, OnChanges {
   constructor(
     public transactionService: TransactionService,
     public nodeHolder: NodeHolderService,
+    public summaryHolder: SummaryHolderService,
     public transactionHolder: TransactionHolderService,
   ) {
 
@@ -112,6 +114,7 @@ export class TransactionFormComponent implements OnInit, OnChanges {
   private updateFromServer() {
     this.transactionHolder.updateTransactions();
     this.nodeHolder.updateNodes();
+    this.summaryHolder.updateSummary();
   }
 
   onCancel() {

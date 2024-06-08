@@ -1,10 +1,11 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { FinancialNode } from '../_models/financial.node';
 import { NodeHolderService } from '../_services/node-holder.service';
 import { NodeService } from '../_services/node.service';
-import { NgSelectModule } from '@ng-select/ng-select';
+import { SummaryHolderService } from '../_services/summary-holder.service';
 
 
 @Component({
@@ -40,6 +41,7 @@ export class NodeFormComponent implements OnChanges {
   constructor(
     private nodeService: NodeService,
     private nodeHolder: NodeHolderService,
+    private summaryHolder: SummaryHolderService,
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -64,13 +66,18 @@ export class NodeFormComponent implements OnChanges {
       lastTransactionDate: new Date()
     }
     if (this.nodeTemplate) {
-      this.nodeService.editNode(newNode).subscribe(nodes => this.nodeHolder.updateNodes());
+      this.nodeService.editNode(newNode).subscribe(nodes => this.updateFromServer());
     }
     else {
       //toDo: add only new one
-      this.nodeService.addNode(newNode).subscribe(nodes => this.nodeHolder.updateNodes());
+      this.nodeService.addNode(newNode).subscribe(nodes => this.updateFromServer());
     }
     this.isActiveEvent.emit(false);
+  }
+
+  private updateFromServer() {
+    this.nodeHolder.updateNodes();
+    this.summaryHolder.updateSummary()
   }
 
   cancel() {
