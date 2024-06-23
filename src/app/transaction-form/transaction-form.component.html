@@ -13,18 +13,18 @@
                     <label for="senderNodeId">Sender Node</label>
                     <ng-select id="senderNodeId" formControlName="senderNodeId">
                         <ng-option *ngFor="let node of nodes" [value]="node.id">
-                            {{ node.name }}
-                        </ng-option >
-                     </ng-select>
+                            {{ node.currencySymbol }} {{ node.name }}
+                        </ng-option>
+                    </ng-select>
                 </div>
 
                 <div class="form-group" style="white-space:nowrap">
                     <label for="receiverNodeId">Receiver Node</label>
                     <ng-select id="receiverNodeId" formControlName="receiverNodeId">
                         <ng-option *ngFor="let node of nodes" [value]="node.id">
-                            {{ node.name }}
-                        </ng-option >
-                     </ng-select>
+                            {{ node.currencySymbol }} {{ node.name }}
+                        </ng-option>
+                    </ng-select>
                 </div>
 
             </div>
@@ -55,6 +55,10 @@
             <button class="create" class="form" id="create" type="submit" *ngSwitchCase="2">Create</button>
             <button class="update" class="form" id="update" *ngSwitchCase="3">Edit</button>
             <button type="button" class="form" id="cancel" (click)="onCancel()">Cancel</button>
+        </div>
+
+        <div class="error-message">
+            {{error}}
         </div>
     </form>
 </div>

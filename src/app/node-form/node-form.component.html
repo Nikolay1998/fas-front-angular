@@ -21,10 +21,10 @@
       <label for="currencyId">Currency</label>
 
       <ng-select id="currencyId" formControlName="currencyId">
-        <ng-option  *ngFor="let currency of currencys" [value]="currency.id">
-            {{ currency.abbrev }}
-        </ng-option >
-     </ng-select>
+        <ng-option *ngFor="let currency of currencys" [value]="currency.id">
+          {{ currency.abbrev }}
+        </ng-option>
+      </ng-select>
     </div>
 
     <div class="form-group" style="white-space:nowrap">
@@ -37,6 +37,11 @@
       <button *ngIf="!nodeTemplate" class="form" id="create" type="submit">Create</button>
       <button type="button" class="form" id="cancel" (click)="cancel()">Cancel</button>
     </div>
+
+    <div class="error-message">
+      {{error}}
+    </div>
+
 
   </form>
 </div>

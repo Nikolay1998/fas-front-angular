@@ -6,6 +6,7 @@ import { FinancialNode } from '../_models/financial.node';
 import { NodeHolderService } from '../_services/node-holder.service';
 import { NodeService } from '../_services/node.service';
 import { SummaryHolderService } from '../_services/summary-holder.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -38,6 +39,8 @@ export class NodeFormComponent implements OnChanges {
     amount: new FormControl(),
   });
 
+  error: String = "";
+
   constructor(
     private nodeService: NodeService,
     private nodeHolder: NodeHolderService,
@@ -66,18 +69,24 @@ export class NodeFormComponent implements OnChanges {
       lastTransactionDate: new Date()
     }
     if (this.nodeTemplate) {
-      this.nodeService.editNode(newNode).subscribe(nodes => this.updateFromServer());
+      this.nodeService.editNode(newNode).subscribe({
+        next: (nodes) => this.updateAndClose(),
+        error: (e) => this.error = e
+      });
     }
     else {
       //toDo: add only new one
-      this.nodeService.addNode(newNode).subscribe(nodes => this.updateFromServer());
+      this.nodeService.addNode(newNode).subscribe({
+        next: (nodes) => { this.updateAndClose()},
+        error: (e) =>  this.error = e 
+      });
     }
-    this.isActiveEvent.emit(false);
   }
 
-  private updateFromServer() {
+  private updateAndClose() {
     this.nodeHolder.updateNodes();
-    this.summaryHolder.updateSummary()
+    this.summaryHolder.updateSummary();
+    this.isActiveEvent.emit(false)
   }
 
   cancel() {

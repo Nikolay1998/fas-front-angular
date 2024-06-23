@@ -35,6 +35,9 @@ export class TransactionFormComponent implements OnInit, OnChanges {
   receiverCurrency: string = "";
   receiverAmountChangedByHand: boolean = false;
 
+  error: String = "";
+
+
   transactionForm = new FormGroup({
     description: new FormControl(),
     senderNodeId: new FormControl(),
@@ -108,13 +111,19 @@ export class TransactionFormComponent implements OnInit, OnChanges {
       isCancelled: false,
       userId: ""
     }
-    this.transactionService.addTransaction(newTransaction).subscribe(transactions => this.updateFromServer());
+    this.transactionService.addTransaction(newTransaction).subscribe(
+      {
+        next: () => this.updateFromServerAndClose(),
+        error: (e) => this.error = e
+      }
+    );
   }
 
-  private updateFromServer() {
+  private updateFromServerAndClose() {
     this.transactionHolder.updateTransactions();
     this.nodeHolder.updateNodes();
     this.summaryHolder.updateSummary();
+    this.isActiveEvent.emit(false)
   }
 
   onCancel() {
