@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { FinancialNode } from '../_models/financial.node';
 
@@ -8,10 +8,11 @@ import { FinancialNode } from '../_models/financial.node';
   providedIn: 'root'
 })
 export class NodeService {
-  
+
   private httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'responseType': 'text'
     })
   };
 

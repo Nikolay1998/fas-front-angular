@@ -8,28 +8,22 @@
         <div *ngIf="selectedNode" class="nodeTitle">
             <b>{{selectedNode.name}} </b> <button (click)="clearFilter()"><i class="fa fa-close"></i></button>
             <br>{{selectedNode.description}} <br>
-            
         </div>
+        <input type="search" class="search" [(ngModel)]="search" (ngModelChange)="ngOnChanges($event)" placeholder="Filter transactions">
         <div *ngIf="!isTransactionFormActive">
-            <button class = "addNew" (click)="onAddNew()">Add new</button>
+            <button class="addNew" (click)="onAddNew()"><i class="fa fa-plus"></i></button>
         </div>
         <table *ngIf="transactions.length > 0" class="content-table">
-            <!-- <thead>
-                <tr>
-                    <th>description</th>
-                    <th>sender</th>
-                    <th>amount</th>
-                    <th>receiver</th>
-                    <th>date</th>
-                </tr>
-            </thead> -->
             <tbody>
                 <tr *ngFor="let transaction of filteredTransactions" (click)="onSelect(transaction)">
                     <td>{{ transaction.description }}</td>
                     <td>{{ transaction.senderNodeName }}</td>
-                    <td>{{ transaction.senderAmount }}{{transaction.senderCurrencySymbol}} -> {{
-                        transaction.receiverAmount
-                        }}{{transaction.receiverCurrencySymbol}}</td>
+                    <td>{{ transaction.senderAmount }}{{transaction.senderCurrencySymbol}}
+                        @if((transaction.senderAmount != transaction.receiverAmount)
+                        || (transaction.senderCurrencyId != transaction.receiverCurrencyId)) {
+                        -> {{transaction.receiverAmount}}{{transaction.receiverCurrencySymbol}}
+                        }
+                    </td>
                     <td>{{ transaction.receiverNodeName }}</td>
                     <td class="date">{{ transaction.date }}</td>
                     <div class="buttons" align="right">

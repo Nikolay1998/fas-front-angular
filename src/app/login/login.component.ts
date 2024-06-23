@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AuthenticationService } from '../_services/authentication.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '../_models/user';
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  error: String = "";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,6 +37,29 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: () => {
           this.router.navigate(['']);
+        },
+        error: (e) => {
+          if (e == "OK") {
+            this.error = "Invalid username or password"
+          }
+        },
+      })
+  }
+
+  signUp() {
+    let newUser: User = {
+      id: "",
+      password: this.f['password'].value,
+      username: this.f['username'].value,
+    }
+    this.authenticationService.register(newUser)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.router.navigate(['']);
+        },
+        error: (e) => {
+          this.error = e
         }
       })
   }

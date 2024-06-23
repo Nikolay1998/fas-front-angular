@@ -1,19 +1,20 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { CallbackPipePipe } from "../_helpers/callback-pipe.pipe";
 import { FinancialNode } from '../_models/financial.node';
 import { FormState } from '../_models/form-state';
 import { Transaction } from '../_models/transaction';
 import { TransactionHolderService } from '../_services/transaction-holder.service';
 import { TransactionFormComponent } from "../transaction-form/transaction-form.component";
 import { TransactionInfoComponent } from "../transaction-info/transaction-info.component";
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-transaction-list',
   standalone: true,
   templateUrl: './transaction-list.component.html',
   styleUrl: './transaction-list.component.css',
-  imports: [CommonModule, TransactionInfoComponent, NgIf, TransactionFormComponent, CallbackPipePipe]
+  imports: [CommonModule, TransactionInfoComponent, NgIf, TransactionFormComponent, FormsModule]
 })
 export class TransactionListComponent implements OnInit, OnChanges {
   transactions: Transaction[] = [];
@@ -21,6 +22,8 @@ export class TransactionListComponent implements OnInit, OnChanges {
   @Input()
   selectedNode?: FinancialNode;
   selectedTransaction?: Transaction;
+  search = '';
+  transactionSearch: any;
 
   isTransactionFormActive: boolean | undefined;
 
@@ -47,11 +50,12 @@ export class TransactionListComponent implements OnInit, OnChanges {
   }
 
   private filterTransactions(transactions: Transaction[]): Transaction[] {
-    if (this == undefined || this.selectedNode == undefined) {
+    if (this == undefined) {
       return transactions;
     }
 
-    return transactions.filter(tr => tr.senderNodeId == this.selectedNode?.id || tr.receiverNodeId == this.selectedNode?.id);
+    return transactions.filter(tr => this.selectedNode == undefined ? tr : tr.senderNodeId == this.selectedNode?.id || tr.receiverNodeId == this.selectedNode?.id)
+      .filter(tr => tr.description.toLowerCase().includes(this.search.toLowerCase()));
   }
 
   onSelect(transaction: Transaction): void {
