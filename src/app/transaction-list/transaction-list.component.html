@@ -9,7 +9,8 @@
             <b>{{selectedNode.name}} </b> <button (click)="clearFilter()"><i class="fa fa-close"></i></button>
             <br>{{selectedNode.description}} <br>
         </div>
-        <input type="search" class="search" [(ngModel)]="search" (ngModelChange)="ngOnChanges($event)" placeholder="Filter transactions">
+        <input type="search" class="search" [(ngModel)]="search" (ngModelChange)="ngOnChanges($event)"
+            placeholder="Filter transactions">
         <div *ngIf="!isTransactionFormActive">
             <button class="addNew" (click)="onAddNew()"><i class="fa fa-plus"></i></button>
         </div>
@@ -18,10 +19,10 @@
                 <tr *ngFor="let transaction of filteredTransactions" (click)="onSelect(transaction)">
                     <td>{{ transaction.description }}</td>
                     <td>{{ transaction.senderNodeName }}</td>
-                    <td>{{ transaction.senderAmount }}{{transaction.senderCurrencySymbol}}
+                    <td>{{ numberFormatter.format(transaction.senderAmount) }}{{transaction.senderCurrencySymbol}}
                         @if((transaction.senderAmount != transaction.receiverAmount)
                         || (transaction.senderCurrencyId != transaction.receiverCurrencyId)) {
-                        -> {{transaction.receiverAmount}}{{transaction.receiverCurrencySymbol}}
+                        -> {{numberFormatter.format(transaction.receiverAmount)}}{{transaction.receiverCurrencySymbol}}
                         }
                     </td>
                     <td>{{ transaction.receiverNodeName }}</td>

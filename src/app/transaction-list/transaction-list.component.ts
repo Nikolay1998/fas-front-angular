@@ -7,6 +7,7 @@ import { TransactionHolderService } from '../_services/transaction-holder.servic
 import { TransactionFormComponent } from "../transaction-form/transaction-form.component";
 import { TransactionInfoComponent } from "../transaction-info/transaction-info.component";
 import { FormsModule } from '@angular/forms';
+import { NumberFormatter } from '../_helpers/number-formatter';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class TransactionListComponent implements OnInit, OnChanges {
 
   constructor(
     private transactionHolder: TransactionHolderService,
+    public numberFormatter: NumberFormatter
   ) { }
 
   ngOnInit(): void {

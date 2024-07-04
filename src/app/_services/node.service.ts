@@ -31,6 +31,6 @@ export class NodeService {
 
   editNode(node: FinancialNode): Observable<FinancialNode> {
     console.log('Node edit: {}', node.name, node.external);
-    return this.http.post<FinancialNode>(`${environment.apiUrl}/node/edit`, node, this.httpOptions)
+    return this.http.put<FinancialNode>(`${environment.apiUrl}/node/edit`, node, this.httpOptions)
   }
 }

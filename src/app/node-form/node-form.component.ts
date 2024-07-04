@@ -57,7 +57,7 @@ export class NodeFormComponent implements OnChanges {
 
   submitForm() {
     let newNode: FinancialNode = {
-      id: "",
+      id: this.nodeTemplate? this.nodeTemplate.id : "",
       name: this.applyForm.value.name ?? '',
       description: this.applyForm.value.description ?? '',
       currencyId: this.applyForm.value.currencyId,

@@ -8,7 +8,7 @@ import { Summary } from '../_models/summary';
 })
 export class SummaryHolderService {
 
-  private emptySummary!: Summary;
+  private emptySummary!: Map<string, number>;
   private summarySource = new BehaviorSubject(this.emptySummary);
   currentSummary = this.summarySource.asObservable();
 

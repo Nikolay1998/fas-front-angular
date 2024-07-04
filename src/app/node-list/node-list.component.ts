@@ -6,6 +6,7 @@ import { NodeHolderService } from '../_services/node-holder.service.js';
 import { NodeFormComponent } from "../node-form/node-form.component";
 import { TransactionListComponent } from '../transaction-list/transaction-list.component.js';
 import { FormsModule } from '@angular/forms';
+import { NumberFormatter } from '../_helpers/number-formatter.js';
 
 @Component({
     selector: 'app-node-list',
@@ -27,6 +28,7 @@ export class NodeListComponent implements OnInit {
 
   constructor(
     public nodeHolder: NodeHolderService,
+    public numberFormatter: NumberFormatter,
   ) {
    }
 

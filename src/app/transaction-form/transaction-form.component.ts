@@ -6,9 +6,10 @@ import { FinancialNode } from '../_models/financial.node';
 import { FormState } from '../_models/form-state';
 import { Transaction } from '../_models/transaction';
 import { NodeHolderService } from '../_services/node-holder.service';
+import { SummaryHolderService } from '../_services/summary-holder.service';
 import { TransactionHolderService } from '../_services/transaction-holder.service';
 import { TransactionService } from '../_services/transaction.service';
-import { SummaryHolderService } from '../_services/summary-holder.service';
+import { NumberFormatter } from '../_helpers/number-formatter';
 
 
 @Component({
@@ -52,6 +53,7 @@ export class TransactionFormComponent implements OnInit, OnChanges {
     public nodeHolder: NodeHolderService,
     public summaryHolder: SummaryHolderService,
     public transactionHolder: TransactionHolderService,
+    public numberFormatter: NumberFormatter,
   ) {
 
   }
@@ -95,7 +97,7 @@ export class TransactionFormComponent implements OnInit, OnChanges {
 
   submitForm() {
     let newTransaction: Transaction = {
-      id: "",
+      id: this.state == FormState.Edit && this.transactionTemplate ? this.transactionTemplate.id : "",
       description: this.transactionForm.value.description,
       senderNodeId: this.transactionForm.value.senderNodeId,
       receiverNodeId: this.transactionForm.value.receiverNodeId,
@@ -111,12 +113,22 @@ export class TransactionFormComponent implements OnInit, OnChanges {
       isCancelled: false,
       userId: ""
     }
-    this.transactionService.addTransaction(newTransaction).subscribe(
-      {
-        next: () => this.updateFromServerAndClose(),
-        error: (e) => this.error = e
-      }
-    );
+    if (this.state == FormState.Edit) {
+      this.transactionService.editTransaction(newTransaction).subscribe(
+        {
+          next: () => this.updateFromServerAndClose(),
+          error: (e) => this.error = e
+        }
+      );
+    }
+    else {
+      this.transactionService.addTransaction(newTransaction).subscribe(
+        {
+          next: () => this.updateFromServerAndClose(),
+          error: (e) => this.error = e
+        }
+      );
+    }
   }
 
   private updateFromServerAndClose() {

@@ -39,4 +39,9 @@ export class TransactionService {
     console.log('New Transaction adding: ', transaction);
     return this.http.post<Transaction>(`${environment.apiUrl}/transaction/add`, transaction, this.httpOptions)
   }
+
+  editTransaction(transaction: Transaction): Observable<Transaction> {
+    console.log('Edited transaction: ', transaction)
+    return this.http.put<Transaction>(`${environment.apiUrl}/transaction/edit`, transaction, this.httpOptions)
+  }
 }
