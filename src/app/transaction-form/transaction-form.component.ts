@@ -32,8 +32,8 @@ export class TransactionFormComponent implements OnInit, OnChanges {
 
   nodes: FinancialNode[] = [];
 
-  senderCurrency: string = "";
-  receiverCurrency: string = "";
+  senderCurrency: string = "?";
+  receiverCurrency: string = "?";
   receiverAmountChangedByHand: boolean = false;
 
   error: String = "";
