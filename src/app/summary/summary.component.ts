@@ -1,20 +1,23 @@
+import { KeyValuePipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { NumberFormatter } from '../_helpers/number-formatter';
 import { SummaryHolderService } from '../_services/summary-holder.service';
-import { Summary } from '../_models/summary';
+
 
 @Component({
   selector: 'app-summary',
   standalone: true,
-  imports: [],
+  imports: [NgIf, NgFor, KeyValuePipe],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.css'
 })
 export class SummaryComponent implements OnInit {
 
-  summary!: Summary;
+  summary!: Map<string, number>;
 
   constructor(
     private summaryHolder: SummaryHolderService,
+    public numberFormatter: NumberFormatter,
   ) { }
 
 
@@ -23,8 +26,7 @@ export class SummaryComponent implements OnInit {
     this.summaryHolder.updateSummary();
   }
 
-  private onSummaryChanges(summary: Summary): void {
+  private onSummaryChanges(summary: Map<string, number>): void {
     this.summary = summary;
   }
-
 }

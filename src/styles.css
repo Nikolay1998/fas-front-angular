@@ -85,6 +85,12 @@ ng-select {
     color: #009879;
 }
 
+.content-table tbody tr.cancelled {
+    /* background-color: #CA2B3B; */
+    color: #ccc;
+    text-decoration: line-through;
+}
+
 /* buttons */
 
 /* buttons in table row */

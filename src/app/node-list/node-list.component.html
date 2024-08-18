@@ -19,7 +19,7 @@
                     (click)="onSelect(node)">
                     <td>{{ node.name }}</td>
                     <td class="amount">
-                        <div align="right">{{ node.amount }}{{node.currencySymbol}}</div>
+                        <div align="right">{{ numberFormatter.format(node.amount) }}{{node.currencySymbol}}</div>
                     </td>
                     <div align="right">
                         <button class="inline" id="edit" (click)="onEdit(node)">

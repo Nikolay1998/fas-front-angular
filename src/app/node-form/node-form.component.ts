@@ -1,12 +1,13 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { Currency } from '../_models/currency';
 import { FinancialNode } from '../_models/financial.node';
+import { CurrencyService } from '../_services/currency.service';
 import { NodeHolderService } from '../_services/node-holder.service';
 import { NodeService } from '../_services/node.service';
 import { SummaryHolderService } from '../_services/summary-holder.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -16,14 +17,9 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './node-form.component.html',
   styleUrl: './node-form.component.css'
 })
-export class NodeFormComponent implements OnChanges {
+export class NodeFormComponent implements OnChanges, OnInit {
 
-  //toDo: change to downloading from server
-  currencys = [
-    { name: 'Dollars', abbrev: 'USD', id: 1 },
-    { name: 'Rubbles', abbrev: 'RUB', id: 2 },
-    { name: 'Etherium', abbrev: 'ETH', id: 3 },
-  ];
+  currencys: Currency[] = [];
 
   @Output()
   isActiveEvent = new EventEmitter<boolean>();
@@ -45,7 +41,14 @@ export class NodeFormComponent implements OnChanges {
     private nodeService: NodeService,
     private nodeHolder: NodeHolderService,
     private summaryHolder: SummaryHolderService,
+    private currencyService: CurrencyService,
   ) { }
+
+  //move downloading currencys to somewhere where it will called one time?
+  ngOnInit(): void {
+    this.currencyService.currentNodes.subscribe(currencys => this.currencys = currencys);
+    this.currencyService.updateCurrency();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.applyForm.get('name')?.setValue(changes['nodeTemplate'].currentValue?.name);
@@ -57,7 +60,7 @@ export class NodeFormComponent implements OnChanges {
 
   submitForm() {
     let newNode: FinancialNode = {
-      id: "",
+      id: this.nodeTemplate ? this.nodeTemplate.id : "",
       name: this.applyForm.value.name ?? '',
       description: this.applyForm.value.description ?? '',
       currencyId: this.applyForm.value.currencyId,
@@ -77,8 +80,8 @@ export class NodeFormComponent implements OnChanges {
     else {
       //toDo: add only new one
       this.nodeService.addNode(newNode).subscribe({
-        next: (nodes) => { this.updateAndClose()},
-        error: (e) =>  this.error = e 
+        next: (nodes) => { this.updateAndClose() },
+        error: (e) => this.error = e
       });
     }
   }

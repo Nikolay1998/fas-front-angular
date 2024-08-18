@@ -39,9 +39,8 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['']);
         },
         error: (e) => {
-          if (e == "OK") {
-            this.error = "Invalid username or password"
-          }
+          console.log(e);
+          this.error = e
         },
       })
   }

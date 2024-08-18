@@ -22,7 +22,7 @@
 
       <ng-select id="currencyId" formControlName="currencyId">
         <ng-option *ngFor="let currency of currencys" [value]="currency.id">
-          {{ currency.abbrev }}
+          {{ currency.shortName }}
         </ng-option>
       </ng-select>
     </div>

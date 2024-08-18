@@ -29,7 +29,8 @@ export class AuthenticationService {
     let httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': 'Basic ' + window.btoa(username + ":" + password)
+        'Authorization': 'Basic ' + window.btoa(username + ":" + password),
+        'Accept-Language': 'en'
       })
     };
 

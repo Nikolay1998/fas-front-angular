@@ -1,12 +1,16 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NumberFormatter } from '../_helpers/number-formatter';
 import { FinancialNode } from '../_models/financial.node';
 import { FormState } from '../_models/form-state';
 import { Transaction } from '../_models/transaction';
+import { NodeHolderService } from '../_services/node-holder.service';
+import { SummaryHolderService } from '../_services/summary-holder.service';
 import { TransactionHolderService } from '../_services/transaction-holder.service';
+import { TransactionService } from '../_services/transaction.service';
 import { TransactionFormComponent } from "../transaction-form/transaction-form.component";
 import { TransactionInfoComponent } from "../transaction-info/transaction-info.component";
-import { FormsModule } from '@angular/forms';
 
 
 @Component({
@@ -31,8 +35,14 @@ export class TransactionListComponent implements OnInit, OnChanges {
 
   selectedForEditTransaction: Transaction | undefined;
 
+  error: String = "";
+
   constructor(
+    public transactionService: TransactionService,
     private transactionHolder: TransactionHolderService,
+    public nodeHolder: NodeHolderService,
+    public summaryHolder: SummaryHolderService,
+    public numberFormatter: NumberFormatter,
   ) { }
 
   ngOnInit(): void {
@@ -83,6 +93,21 @@ export class TransactionListComponent implements OnInit, OnChanges {
     this.selectedForEditTransaction = transaction;
     this.formState = FormState.Edit;
     this.onFormUpdate(true);
+  }
+
+  onCancel(transaction: Transaction) {
+    this.transactionService.cancelTransaction(transaction).subscribe(
+      {
+        next: () => this.updateFromServerAndClose(),
+        error: (e) => this.error = e
+      }
+    );
+  }
+
+  private updateFromServerAndClose() {
+    this.transactionHolder.updateTransactions();
+    this.nodeHolder.updateNodes();
+    this.summaryHolder.updateSummary();
   }
 
   onFormUpdate(isActive: boolean): void {

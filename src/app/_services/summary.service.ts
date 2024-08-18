@@ -19,7 +19,7 @@ export class SummaryService {
     private http: HttpClient,
   ) { }
 
-  getSummary(): Observable<Summary> {
-    return this.http.get<Summary>(`${environment.apiUrl}/summary/sum`, this.httpOptions);
+  getSummary(): Observable<Map<string, number>> {
+    return this.http.get<Map<string, number>>(`${environment.apiUrl}/summary/sum`, this.httpOptions);
   }
 }
