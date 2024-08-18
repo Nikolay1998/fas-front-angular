@@ -11,12 +11,15 @@
         </div>
         <input type="search" class="search" [(ngModel)]="search" (ngModelChange)="ngOnChanges($event)"
             placeholder="Filter transactions">
+        <div class="error-message">
+            {{error}}
+        </div>
         <div *ngIf="!isTransactionFormActive">
             <button class="addNew" (click)="onAddNew()"><i class="fa fa-plus"></i></button>
         </div>
         <table *ngIf="transactions.length > 0" class="content-table">
             <tbody>
-                <tr *ngFor="let transaction of filteredTransactions" (click)="onSelect(transaction)">
+                <tr [ngClass]="transaction.cancelled ? 'cancelled' : 'simple'" *ngFor="let transaction of filteredTransactions" (click)="onSelect(transaction)">
                     <td>{{ transaction.description }}</td>
                     <td>{{ transaction.senderNodeName }}</td>
                     <td>{{ numberFormatter.format(transaction.senderAmount) }}{{transaction.senderCurrencySymbol}}
@@ -34,7 +37,7 @@
                         <button class="inline" id="edit" (click)="onEdit(transaction)">
                             <i class="fa fa-edit"></i>
                         </button>
-                        <button class="inline" id="archive">
+                        <button class="inline" id="archive" (click)="onCancel(transaction)">
                             <i class="fa fa-times"></i>
                         </button>
                     </div>

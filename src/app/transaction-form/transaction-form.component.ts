@@ -110,7 +110,7 @@ export class TransactionFormComponent implements OnInit, OnChanges {
       senderCurrencySymbol: "",
       receiverCurrencySymbol: "",
       date: this.transactionForm.value.date,
-      isCancelled: false,
+      cancelled: false,
       userId: ""
     }
     if (this.state == FormState.Edit) {
