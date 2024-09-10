@@ -46,7 +46,6 @@ ng-select {
     font-size: 0.9em;
     border-radius: 5px 5px 0 0;
     overflow: hidden;
-    width: 900px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -65,6 +64,11 @@ ng-select {
 .content-table td {
     padding: 12px 15px;
     height: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;/* Запрет на перенос текста */
+    overflow: hidden;
+    max-width: 100px; /* Установите максимальную ширину ячейки */
+    /* display: inline-block; */
 }
 
 .content-table tbody tr {
@@ -102,6 +106,7 @@ ng-select {
     cursor: pointer;
     display: none;
     flex-grow: 1;
+    transition: display 0.3s ease; /* Плавный переход */
 }
 
 .content-table tr:hover .inline {
