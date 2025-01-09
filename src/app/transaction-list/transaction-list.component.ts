@@ -1,16 +1,17 @@
-import { CommonModule, NgIf } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { NumberFormatter } from '../_helpers/number-formatter';
-import { FinancialNode } from '../_models/financial.node';
-import { FormState } from '../_models/form-state';
-import { Transaction } from '../_models/transaction';
-import { NodeHolderService } from '../_services/node-holder.service';
-import { SummaryHolderService } from '../_services/summary-holder.service';
-import { TransactionHolderService } from '../_services/transaction-holder.service';
-import { TransactionService } from '../_services/transaction.service';
-import { TransactionFormComponent } from "../transaction-form/transaction-form.component";
-import { TransactionInfoComponent } from "../transaction-info/transaction-info.component";
+import {CommonModule, NgIf} from '@angular/common';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {NumberFormatter} from '../_helpers/number-formatter';
+import {FinancialNode} from '../_models/financial.node';
+import {FormState} from '../_models/form-state';
+import {Transaction} from '../_models/transaction';
+import {NodeHolderService} from '../_services/node-holder.service';
+import {SummaryHolderService} from '../_services/summary-holder.service';
+import {TransactionHolderService} from '../_services/transaction-holder.service';
+import {TransactionService} from '../_services/transaction.service';
+import {TransactionFormComponent} from "../transaction-form/transaction-form.component";
+import {TransactionRowComponent} from "../transaction-row/transaction-row.component"
+import {TransactionAction} from "../_models/transaction-action";
 
 
 @Component({
@@ -18,7 +19,7 @@ import { TransactionInfoComponent } from "../transaction-info/transaction-info.c
   standalone: true,
   templateUrl: './transaction-list.component.html',
   styleUrl: './transaction-list.component.css',
-  imports: [CommonModule, TransactionInfoComponent, NgIf, TransactionFormComponent, FormsModule]
+  imports: [CommonModule, NgIf, TransactionFormComponent, FormsModule, TransactionRowComponent]
 })
 export class TransactionListComponent implements OnInit, OnChanges {
   transactions: Transaction[] = [];
@@ -43,7 +44,8 @@ export class TransactionListComponent implements OnInit, OnChanges {
     public nodeHolder: NodeHolderService,
     public summaryHolder: SummaryHolderService,
     public numberFormatter: NumberFormatter,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.transactionHolder.currentTransactions.subscribe(transactions => this.onTransactionsChanges(transactions));
@@ -112,5 +114,19 @@ export class TransactionListComponent implements OnInit, OnChanges {
 
   onFormUpdate(isActive: boolean): void {
     this.isTransactionFormActive = isActive;
+  }
+
+  onTransactionAction(action: TransactionAction, transaction: Transaction) {
+    switch (action) {
+      case TransactionAction.REPEAT:
+        this.onRepeat(transaction);
+        break;
+      case TransactionAction.EDIT:
+        this.onEdit(transaction);
+        break;
+      case TransactionAction.CANCEL:
+        this.onCancel(transaction);
+        break;
+    }
   }
 }

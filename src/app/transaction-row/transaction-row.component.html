@@ -1,0 +1,32 @@
+<td class="indicator">
+  @if (getState() == TransactionStatus.INCOMING) {
+    <i class="fa fa-arrow-down" [ngClass]="transaction.cancelled?'cancelled':'incoming'"></i>
+  }
+  @if (getState() == TransactionStatus.OUTGOING) {
+    <i class="fa fa-arrow-up" [ngClass]="transaction.cancelled?'cancelled':'outgoing'"></i>
+  }
+  @if (getState() == TransactionStatus.NEUTRAL) {
+    <i class="fa fa-arrow-right" [ngClass]="transaction.cancelled?'cancelled':'neutral'"></i>
+  }
+
+</td>
+<td>{{ transaction.description }}</td>
+<td>{{ transaction.senderNodeName }}</td>
+<td>
+  {{ getFormattedAmount() }}
+</td>
+<td>{{ transaction.receiverNodeName }}</td>
+<td class="date">{{ transaction.date }}</td>
+
+
+<div class="buttons" align="right">
+  <button class="inline" id="repeat" (click)="onRepeat()">
+    <i class="fa fa-repeat"></i>
+  </button>
+  <button class="inline" id="edit" (click)="onEdit()">
+    <i class="fa fa-edit"></i>
+  </button>
+  <button class="inline" id="archive" (click)="onCancel()">
+    <i class="fa fa-times"></i>
+  </button>
+</div>

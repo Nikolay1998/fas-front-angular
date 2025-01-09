@@ -19,11 +19,13 @@
         <!-- <table [ngClass]="isActiveNodeForm ? 'content-table' : 'content-table-with-button'"> -->
         <table class="content-table">
             <tbody>
-                <tr *ngFor="let node of filteredNodes" [class.active-row]="node == selectedNode"
+                <tr *ngFor="let node of filteredNodes"
+                    [class.active-row]="node == selectedNode"
+                    [style.background-color]="getColor(node)"
                     (click)="onSelect(node)">
                     <td>{{ node.name }}</td>
                     <td class="amount">
-                        <div align="right">{{ numberFormatter.format(node.amount) }}{{node.currencySymbol}}</div>
+                        <div align="right">{{ getFormattedAmount(node)}}</div>
                     </td>
                     <div align="right">
                         <button class="inline" id="edit" (click)="onEdit(node)">

@@ -13,5 +13,7 @@ export interface Transaction {
     receiverCurrencySymbol: string,
     date: Date,
     cancelled: boolean,
-    userId: string
+    userId: string,
+    fromExternal?: boolean,
+    toExternal?: boolean
 }

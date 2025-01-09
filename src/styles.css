@@ -63,7 +63,7 @@ ng-select {
 .content-table th,
 .content-table td {
     padding: 12px 15px;
-    height: 20px;
+    /*height: 20px;*/
     text-overflow: ellipsis;
     white-space: nowrap;/* Запрет на перенос текста */
     overflow: hidden;
@@ -95,22 +95,30 @@ ng-select {
     text-decoration: line-through;
 }
 
-/* buttons */
+  /* buttons */
 
 /* buttons in table row */
 .inline {
     border: none;
     color: white;
     padding: 12px 12px;
-    font-size: 16px;
+    /*font-size: 16px;*/
     cursor: pointer;
     display: none;
     flex-grow: 1;
+    height: 100%;
     transition: display 0.3s ease; /* Плавный переход */
 }
 
 .content-table tr:hover .inline {
     display: inline;
+}
+.content-table td.date {
+  width: 95px;
+}
+
+.content-table tr:hover td.date {
+  display: none;
 }
 
 .content-table tr:hover #archive {

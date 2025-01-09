@@ -64,4 +64,25 @@ export class NodeListComponent implements OnInit {
     this.selectedForEditNode = undefined;
     this.onNodeFormUpdate(true);
   }
+
+  getColor(node: FinancialNode) : String|null {
+    if(node.external && node.amount > 0) {
+      return "#fff1f1"
+    }
+    if(node.external && node.amount <= 0) {
+      return "#f1fff1"
+    }
+    if(node.external && node.amount == 0) {
+      return "WHITE"
+    }
+    return null
+  }
+
+  getFormattedAmount(node: FinancialNode) : String {
+    var amount = node.amount;
+    if (node.external) {
+        amount = Math.abs(amount)
+      }
+      return this.numberFormatter.format(amount) + node.currencySymbol
+    }
 }
