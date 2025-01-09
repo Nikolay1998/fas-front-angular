@@ -8,6 +8,10 @@
         <input type="search" class="search" [(ngModel)]="search" (ngModelChange)="filterNodes()"
             placeholder="Filter nodes">
 
+        <div class="error-message">
+            {{error}}
+        </div>
+
         <div class="button-group" *ngIf="!isActiveNodeForm">
             <button class="addNew" (click)="onAddNew()"><i class="fa fa-plus"></i></button>
         </div>

@@ -24,6 +24,7 @@ export class NodeListComponent implements OnInit {
   selectedForEditNode: FinancialNode | undefined;
   isActiveNodeForm: boolean | undefined;
   search = '';
+  error: String = "";
 
 
   constructor(
