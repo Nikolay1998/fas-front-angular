@@ -1,0 +1,20 @@
+.indicator {
+  width: 5px;
+  height: 100%;
+}
+
+.incoming {
+  color: #007A62;
+}
+
+.outgoing {
+  color: #CA2B3B;
+}
+
+.neutral {
+  color: GRAY;
+}
+
+.cancelled {
+  color: #ccc;
+}

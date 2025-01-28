@@ -7,5 +7,6 @@ export interface FinancialNode {
     amount: number;
     userId: string;
     external: boolean;
-    lastTransactionDate: Date,
+    lastTransactionDate: Date;
+    overdraft: boolean;
 }

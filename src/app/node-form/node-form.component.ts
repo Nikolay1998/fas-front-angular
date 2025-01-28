@@ -33,6 +33,7 @@ export class NodeFormComponent implements OnChanges, OnInit {
     external: new FormControl(),
     currencyId: new FormControl(),
     amount: new FormControl(),
+    overdraft: new FormControl(),
   });
 
   error: String = "";
@@ -56,6 +57,7 @@ export class NodeFormComponent implements OnChanges, OnInit {
     this.applyForm.get('amount')?.setValue(changes['nodeTemplate'].currentValue?.amount);
     this.applyForm.get('external')?.setValue(changes['nodeTemplate'].currentValue?.external);
     this.applyForm.get('currencyId')?.setValue(changes['nodeTemplate'].currentValue?.currencyId);
+    this.applyForm.get('overdraft')?.setValue(changes['nodeTemplate'].currentValue?.overdraft);
   }
 
   submitForm() {
@@ -68,6 +70,7 @@ export class NodeFormComponent implements OnChanges, OnInit {
       amount: this.applyForm.value.amount,
       userId: "",
       external: this.applyForm.value.external,
+      overdraft: this.applyForm.value.overdraft,
       //toDo: change to undefined and check
       lastTransactionDate: new Date()
     }

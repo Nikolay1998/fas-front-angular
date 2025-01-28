@@ -1,52 +1,37 @@
 <div class="container">
-    <div class="form" *ngIf="isTransactionFormActive">
-        <app-transaction-form (isActiveEvent)="onFormUpdate($event)" [state]="formState"
-            [transactionTemplate]="selectedForEditTransaction"></app-transaction-form>
+  <div class="form" *ngIf="isTransactionFormActive">
+    <app-transaction-form (isActiveEvent)="onFormUpdate($event)" [state]="formState"
+                          [transactionTemplate]="selectedForEditTransaction"></app-transaction-form>
+  </div>
+
+  <div class="transaction-list">
+    <div *ngIf="selectedNode" class="nodeTitle">
+      <b>{{ selectedNode.name }} </b>
+      <button (click)="clearFilter()"><i class="fa fa-close"></i></button>
+      <br>{{ selectedNode.description }} <br>
+    </div>
+    <input type="search" class="search" [(ngModel)]="search" (ngModelChange)="ngOnChanges($event)"
+           placeholder="Filter transactions">
+    <div class="error-message">
+      {{ error }}
+    </div>
+    <div *ngIf="!isTransactionFormActive">
+      <button class="addNew" (click)="onAddNew()"><i class="fa fa-plus"></i></button>
     </div>
 
-    <div class="transaction-list">
-        <div *ngIf="selectedNode" class="nodeTitle">
-            <b>{{selectedNode.name}} </b> <button (click)="clearFilter()"><i class="fa fa-close"></i></button>
-            <br>{{selectedNode.description}} <br>
-        </div>
-        <input type="search" class="search" [(ngModel)]="search" (ngModelChange)="ngOnChanges($event)"
-            placeholder="Filter transactions">
-        <div class="error-message">
-            {{error}}
-        </div>
-        <div *ngIf="!isTransactionFormActive">
-            <button class="addNew" (click)="onAddNew()"><i class="fa fa-plus"></i></button>
-        </div>
-        <table *ngIf="transactions.length > 0" class="content-table">
-            <tbody>
-                <tr [ngClass]="transaction.cancelled ? 'cancelled' : 'simple'" *ngFor="let transaction of filteredTransactions" (click)="onSelect(transaction)">
-                    <td>{{ transaction.description }}</td>
-                    <td>{{ transaction.senderNodeName }}</td>
-                    <td>{{ numberFormatter.format(transaction.senderAmount) }}{{transaction.senderCurrencySymbol}}
-                        @if((transaction.senderAmount != transaction.receiverAmount)
-                        || (transaction.senderCurrencyId != transaction.receiverCurrencyId)) {
-                        -> {{numberFormatter.format(transaction.receiverAmount)}}{{transaction.receiverCurrencySymbol}}
-                        }
-                    </td>
-                    <td>{{ transaction.receiverNodeName }}</td>
-                    <td class="date">{{ transaction.date }}</td>
-                    <div class="buttons" align="right">
-                        <button class="inline" id="repeat" (click)="onRepeat(transaction)">
-                            <i class="fa fa-repeat"></i>
-                        </button>
-                        <button class="inline" id="edit" (click)="onEdit(transaction)">
-                            <i class="fa fa-edit"></i>
-                        </button>
-                        <button class="inline" id="archive" (click)="onCancel(transaction)">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </div>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <table *ngIf="transactions.length > 0" class="content-table">
+      <tbody>
+      <tr transaction-row *ngFor="let transaction of filteredTransactions" [transaction]="transaction"
+          [selectedNode]="selectedNode"
+          (transactionAction)="onTransactionAction($event, transaction)"
+          [ngClass]="transaction.cancelled ? 'cancelled' : 'simple'">
+      </tr>
+      </tbody>
+    </table>
 
-    <!-- <div class="transaction-info">
-        <app-transaction-info [transaction]="selectedTransaction"></app-transaction-info>
-    </div> -->
+  </div>
+
+  <!-- <div class="transaction-info">
+      <app-transaction-info [transaction]="selectedTransaction"></app-transaction-info>
+  </div> -->
 </div>
