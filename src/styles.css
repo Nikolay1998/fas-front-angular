@@ -133,6 +133,10 @@ ng-select {
     background-color: DodgerBlue;
 }
 
+.content-table tr:hover #restore {
+  background-color: DodgerBlue;
+}
+
 .content-table tr:hover #archive:hover {
     background-color: #CA2B3B;
 }
@@ -143,6 +147,14 @@ ng-select {
 
 .content-table tr:hover #edit:hover {
     background-color: RoyalBlue;
+}
+
+.content-table tr:hover #restore:hover {
+  background-color: RoyalBlue;
+}
+
+.content-table tr:hover button {
+  width: 40px;
 }
 
 /* other buttons */
@@ -240,7 +252,7 @@ input[type="checkbox"] {
 }
 
 .search {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 15px;

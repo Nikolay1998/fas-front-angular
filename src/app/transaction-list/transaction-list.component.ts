@@ -106,6 +106,15 @@ export class TransactionListComponent implements OnInit, OnChanges {
     );
   }
 
+  onRestore(transaction: Transaction) {
+    this.transactionService.restoreTransaction(transaction).subscribe(
+      {
+        next: () => this.updateFromServerAndClose(),
+        error: (e) => this.error = e
+      }
+    );
+  }
+
   private updateFromServerAndClose() {
     this.transactionHolder.updateTransactions();
     this.nodeHolder.updateNodes();
@@ -126,6 +135,9 @@ export class TransactionListComponent implements OnInit, OnChanges {
         break;
       case TransactionAction.CANCEL:
         this.onCancel(transaction);
+        break;
+      case TransactionAction.RESTORE:
+        this.onRestore(transaction);
         break;
     }
   }

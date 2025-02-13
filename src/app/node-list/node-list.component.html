@@ -1,47 +1,72 @@
 <div class="container">
-    <div class="node-list">
+  <div class="node-list">
 
-        <div *ngIf="isActiveNodeForm">
-            <app-node-form (isActiveEvent)="onNodeFormUpdate($event)"
-                [nodeTemplate]="selectedForEditNode"></app-node-form>
-        </div>
-        <input type="search" class="search" [(ngModel)]="search" (ngModelChange)="filterNodes()"
-            placeholder="Filter nodes">
+    <div *ngIf="isActiveNodeForm">
+      <app-node-form (isActiveEvent)="onNodeFormUpdate($event)"
+                     [nodeTemplate]="selectedForEditNode"></app-node-form>
+    </div>
+    <input type="search" class="search" [(ngModel)]="search" (ngModelChange)="filterNodes()"
+           placeholder="Filter nodes">
 
-        <div class="error-message">
-            {{error}}
-        </div>
-
-        <div class="button-group" *ngIf="!isActiveNodeForm">
-            <button class="addNew" (click)="onAddNew()"><i class="fa fa-plus"></i></button>
-        </div>
-
-        <!-- <table [ngClass]="isActiveNodeForm ? 'content-table' : 'content-table-with-button'"> -->
-        <table class="content-table">
-            <tbody>
-                <tr *ngFor="let node of filteredNodes"
-                    [class.active-row]="node == selectedNode"
-                    [style.background-color]="getColor(node)"
-                    (click)="onSelect(node)">
-                    <td>{{ node.name }}</td>
-                    <td class="amount">
-                        <div align="right">{{ getFormattedAmount(node)}}</div>
-                    </td>
-                    <div align="right">
-                        <button class="inline" id="edit" (click)="onEdit(node)">
-                            <i class="fa fa-edit"></i>
-                        </button>
-                        <button *ngIf="node.amount == 0" class="inline" id="archive">
-                            <i class="fa fa-archive"></i>
-                        </button>
-                    </div>
-                </tr>
-            </tbody>
-        </table>
+    <div class="error-message">
+      {{ error }}
     </div>
 
-    <div class="transaction-list">
-        <app-transaction-list [selectedNode]="selectedNode"></app-transaction-list>
+    <div class="button-group" *ngIf="!isActiveNodeForm">
+      <button class="addNew" (click)="onAddNew()"><i class="fa fa-plus"></i></button>
     </div>
+
+    <!-- <table [ngClass]="isActiveNodeForm ? 'content-table' : 'content-table-with-button'"> -->
+    <table class="content-table">
+      <tbody>
+      <tr *ngFor="let node of filteredNodes"
+          [class.active-row]="node == selectedNode"
+          [style.background-color]="getColor(node)"
+          (click)="onSelect(node)">
+        <td>{{ node.name }}</td>
+        <td class="amount">
+          <div align="right">{{ getFormattedAmount(node) }}</div>
+        </td>
+        <div align="right">
+          <button class="inline" id="edit" (click)="onEdit(node)">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button *ngIf="node.amount == 0" class="inline" id="archive" (click)="onArchive(node)">
+            <i class="fa fa-archive"></i>
+          </button>
+        </div>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="archived-nodes-block" style="white-space:nowrap">
+      <input id="showArchived" type="checkbox" [(ngModel)]="showArchived" [ngModelOptions]="{standalone: true}">
+      <label for="showArchived">Show archived nodes</label>
+    </div>
+
+
+      <table *ngIf="showArchived" class="content-table">
+        <tbody>
+        <tr *ngFor="let node of archivedNodes"
+            [class.active-row]="node == selectedNode"
+            class="cancelled-node"
+            (click)="onSelect(node)">
+          <td>{{ node.name }}</td>
+          <td class="amount">
+            <div align="right">{{ getFormattedAmount(node) }}</div>
+          </td>
+          <div align="right">
+            <button *ngIf="node.amount == 0" class="inline" id="restore" (click)="onRestore(node)">
+              <i class="fa fa-chevron-up"></i>
+            </button>
+          </div>
+        </tr>
+        </tbody>
+      </table>
+  </div>
+
+  <div class="transaction-list">
+    <app-transaction-list [selectedNode]="selectedNode"></app-transaction-list>
+  </div>
 
 </div>

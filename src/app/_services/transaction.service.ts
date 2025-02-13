@@ -49,4 +49,9 @@ export class TransactionService {
     console.log('Cancelling transaction: ', transaction)
     return this.http.delete<Transaction>(`${environment.apiUrl}/transaction/cancel?transactionId=` + transaction.id, this.httpOptions)
   }
+
+  restoreTransaction(transaction: Transaction): Observable<Transaction> {
+    console.log('Restoring transaction: ', transaction)
+    return this.http.put<Transaction>(`${environment.apiUrl}/transaction/restore?transactionId=` + transaction.id, this.httpOptions)
+  }
 }

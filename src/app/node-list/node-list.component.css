@@ -12,3 +12,12 @@
 .content-table tr:hover td.amount {
     display: none;
 }
+
+.archived-nodes-block {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.cancelled-node {
+  color: #ccc;
+}

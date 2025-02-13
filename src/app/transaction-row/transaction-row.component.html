@@ -1,11 +1,11 @@
 <td class="indicator">
-  @if (getState() == TransactionStatus.INCOMING) {
+  @if (status == TransactionStatus.INCOMING) {
     <i class="fa fa-arrow-down" [ngClass]="transaction.cancelled?'cancelled':'incoming'"></i>
   }
-  @if (getState() == TransactionStatus.OUTGOING) {
+  @if (status == TransactionStatus.OUTGOING) {
     <i class="fa fa-arrow-up" [ngClass]="transaction.cancelled?'cancelled':'outgoing'"></i>
   }
-  @if (getState() == TransactionStatus.NEUTRAL) {
+  @if (status == TransactionStatus.NEUTRAL) {
     <i class="fa fa-arrow-right" [ngClass]="transaction.cancelled?'cancelled':'neutral'"></i>
   }
 
@@ -20,13 +20,16 @@
 
 
 <div class="buttons" align="right">
-  <button class="inline" id="repeat" (click)="onRepeat()">
-    <i class="fa fa-repeat"></i>
-  </button>
-  <button class="inline" id="edit" (click)="onEdit()">
+    <button class="inline" id="repeat" (click)="onRepeat()" *ngIf="availableActions.includes(TransactionAction.REPEAT)">
+      <i class="fa fa-repeat"></i>
+    </button>
+  <button class="inline" id="edit" (click)="onEdit()" *ngIf="availableActions.includes(TransactionAction.EDIT)">
     <i class="fa fa-edit"></i>
   </button>
-  <button class="inline" id="archive" (click)="onCancel()">
+  <button class="inline" id="archive" (click)="onCancel()" *ngIf="availableActions.includes(TransactionAction.CANCEL)">
     <i class="fa fa-times"></i>
+  </button>
+  <button class="inline" id="restore" (click)="onRestore()" *ngIf="availableActions.includes(TransactionAction.RESTORE)">
+    <i class="fa fa-chevron-up"></i>
   </button>
 </div>

@@ -1,40 +1,43 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { FinancialNode } from '../_models/financial.node.js';
-import { Transaction } from '../_models/transaction.js';
-import { NodeHolderService } from '../_services/node-holder.service.js';
-import { NodeFormComponent } from "../node-form/node-form.component";
-import { TransactionListComponent } from '../transaction-list/transaction-list.component.js';
-import { FormsModule } from '@angular/forms';
-import { NumberFormatter } from '../_helpers/number-formatter.js';
+import {CommonModule} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {FinancialNode} from '../_models/financial.node.js';
+import {NodeHolderService} from '../_services/node-holder.service.js';
+import {NodeFormComponent} from "../node-form/node-form.component";
+import {TransactionListComponent} from '../transaction-list/transaction-list.component.js';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NumberFormatter} from '../_helpers/number-formatter.js';
+import {NodeService} from "../_services/node.service";
 
 @Component({
     selector: 'app-node-list',
     standalone: true,
     templateUrl: './node-list.component.html',
     styleUrl: './node-list.component.css',
-    imports: [CommonModule, TransactionListComponent, NodeFormComponent, FormsModule]
+  imports: [CommonModule, TransactionListComponent, NodeFormComponent, FormsModule, ReactiveFormsModule]
 })
 
 export class NodeListComponent implements OnInit {
   nodes: FinancialNode[] = [];
+  archivedNodes: FinancialNode[] = [];
   filteredNodes: FinancialNode[] = [];
-  transactions: Transaction[] = [];
   selectedNode: FinancialNode | undefined;
   selectedForEditNode: FinancialNode | undefined;
   isActiveNodeForm: boolean | undefined;
   search = '';
   error: String = "";
+  showArchived: boolean = false;
 
 
   constructor(
     public nodeHolder: NodeHolderService,
     public numberFormatter: NumberFormatter,
+    private nodeService: NodeService
   ) {
    }
 
   ngOnInit(): void {
     this.nodeHolder.currentNodes.subscribe(nodes => this.updateAndFilterTransactions(nodes));
+    this.nodeHolder.archivedCurrentNodes.subscribe(nodes => this.archivedNodes = nodes);
     this.nodeHolder.updateNodes();
   }
 
@@ -44,7 +47,8 @@ export class NodeListComponent implements OnInit {
   }
 
   filterNodes() {
-      this.filteredNodes = this.nodes.filter(tr => tr.name.toLowerCase().includes(this.search));
+      this.filteredNodes = this.nodes
+        .filter(tr => tr.name.toLowerCase().includes(this.search))
   }
 
   onSelect(node: FinancialNode): void {
@@ -54,6 +58,24 @@ export class NodeListComponent implements OnInit {
   onEdit(node: FinancialNode): void {
     this.selectedForEditNode = node;
     this.onNodeFormUpdate(true);
+  }
+
+  onArchive(node: FinancialNode) {
+    this.nodeService.archiveNode(node).subscribe({
+      next: (nodes) => this.updateNodeList(),
+      error: (e) => this.error = e
+    });
+  }
+
+  onRestore(node: FinancialNode) {
+    this.nodeService.restoreNode(node).subscribe({
+      next: (nodes) => this.updateNodeList(),
+      error: (e) => this.error = e
+    });
+  }
+
+  private updateNodeList() {
+    this.nodeHolder.updateNodes();
   }
 
   onNodeFormUpdate(isActive: boolean): void {
