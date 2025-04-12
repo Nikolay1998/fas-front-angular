@@ -1,0 +1,19 @@
+.content-table {
+  width: 170px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  background-color: white;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid white;
+  background-color: white;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid white;
+}

@@ -18,3 +18,10 @@
 .cancelled {
   color: #ccc;
 }
+
+.burger {
+  position: absolute;
+  margin-left: -23px;
+  padding-left: 0;
+  width: 20px;
+}

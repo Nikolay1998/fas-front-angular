@@ -5,10 +5,9 @@
     <div class="nav-bar">
         <a href="#default" class="logo">Financial Accounting System</a>
 
-        
+
         <div class="nav-bar-right" *ngIf="user">
             <div>
-                <app-summary></app-summary>
                 <i class="fa fa-user"></i>  {{user.username}}
                 <button (click)="logout()">
                     <i class="fa fa-sign-out"></i>

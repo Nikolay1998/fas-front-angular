@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="node-list">
 
+  <div class="node-list">
     <div *ngIf="isActiveNodeForm">
       <app-node-form (isActiveEvent)="onNodeFormUpdate($event)"
                      [nodeTemplate]="selectedForEditNode"></app-node-form>
@@ -23,17 +23,24 @@
           [class.active-row]="node == selectedNode"
           [style.background-color]="getColor(node)"
           (click)="onSelect(node)">
-        <td>{{ node.name }}</td>
-        <td class="amount">
-          <div align="right">{{ getFormattedAmount(node) }}</div>
+        <td>
+          <div style="display: flex; justify-content: space-between; width: 100%; white-space: nowrap;">
+            <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; ">{{ node.name }}</span>
+            <span style="text-align: right; white-space: nowrap;">{{ getFormattedAmount(node) }}</span>
+          </div>
         </td>
-        <div align="right">
-          <button class="inline" id="edit" (click)="onEdit(node)">
-            <i class="fa fa-edit"></i>
+        <div class="burger">
+          <button class="inline" (click)="getAvailableActions(node)" [matMenuTriggerFor]="menu">
+            <i class='fa fa-ellipsis-v'></i>
           </button>
-          <button *ngIf="node.amount == 0" class="inline" id="archive" (click)="onArchive(node)">
-            <i class="fa fa-archive"></i>
-          </button>
+          <mat-menu #menu="matMenu" id="mat-menu">
+            <button mat-menu-item *ngIf="currentNodeAvailableActions.includes(NodeAction.EDIT)" (click)="onEdit(node)">
+              Edit
+            </button>
+            <button mat-menu-item *ngIf="currentNodeAvailableActions.includes(NodeAction.ARCHIVE)" (click)="onArchive(node)">
+              Archive
+            </button>
+          </mat-menu>
         </div>
       </tr>
       </tbody>
@@ -45,28 +52,29 @@
     </div>
 
 
-      <table *ngIf="showArchived" class="content-table">
-        <tbody>
-        <tr *ngFor="let node of archivedNodes"
-            [class.active-row]="node == selectedNode"
-            class="cancelled-node"
-            (click)="onSelect(node)">
-          <td>{{ node.name }}</td>
-          <td class="amount">
-            <div align="right">{{ getFormattedAmount(node) }}</div>
-          </td>
-          <div align="right">
-            <button *ngIf="node.amount == 0" class="inline" id="restore" (click)="onRestore(node)">
-              <i class="fa fa-chevron-up"></i>
-            </button>
-          </div>
-        </tr>
-        </tbody>
-      </table>
+    <table *ngIf="showArchived" class="content-table">
+      <tbody>
+      <tr *ngFor="let node of archivedNodes"
+          [class.active-row]="node == selectedNode"
+          class="cancelled-node"
+          (click)="onSelect(node)">
+        <td>{{ node.name }}</td>
+        <td class="amount">
+          <div align="right">{{ getFormattedAmount(node) }}</div>
+        </td>
+        <div align="right">
+          <button *ngIf="node.amount == 0" class="inline" id="restore" (click)="onRestore(node)">
+            <i class="fa fa-chevron-up"></i>
+          </button>
+        </div>
+      </tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="transaction-list">
     <app-transaction-list [selectedNode]="selectedNode"></app-transaction-list>
   </div>
 
+  <app-summary></app-summary>
 </div>

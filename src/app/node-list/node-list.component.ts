@@ -7,13 +7,16 @@ import {TransactionListComponent} from '../transaction-list/transaction-list.com
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NumberFormatter} from '../_helpers/number-formatter.js';
 import {NodeService} from "../_services/node.service";
+import {SummaryComponent} from "../summary/summary.component";
+import {NodeAction} from "../_models/node-action";
+import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 
 @Component({
     selector: 'app-node-list',
     standalone: true,
     templateUrl: './node-list.component.html',
     styleUrl: './node-list.component.css',
-  imports: [CommonModule, TransactionListComponent, NodeFormComponent, FormsModule, ReactiveFormsModule]
+  imports: [CommonModule, TransactionListComponent, NodeFormComponent, FormsModule, ReactiveFormsModule, SummaryComponent, MatMenu, MatMenuItem, MatMenuTrigger]
 })
 
 export class NodeListComponent implements OnInit {
@@ -26,6 +29,7 @@ export class NodeListComponent implements OnInit {
   search = '';
   error: String = "";
   showArchived: boolean = false;
+  currentNodeAvailableActions: NodeAction[] = [];
 
 
   constructor(
@@ -33,7 +37,7 @@ export class NodeListComponent implements OnInit {
     public numberFormatter: NumberFormatter,
     private nodeService: NodeService
   ) {
-   }
+  }
 
   ngOnInit(): void {
     this.nodeHolder.currentNodes.subscribe(nodes => this.updateAndFilterTransactions(nodes));
@@ -47,8 +51,8 @@ export class NodeListComponent implements OnInit {
   }
 
   filterNodes() {
-      this.filteredNodes = this.nodes
-        .filter(tr => tr.name.toLowerCase().includes(this.search))
+    this.filteredNodes = this.nodes
+      .filter(tr => tr.name.toLowerCase().includes(this.search))
   }
 
   onSelect(node: FinancialNode): void {
@@ -87,24 +91,37 @@ export class NodeListComponent implements OnInit {
     this.onNodeFormUpdate(true);
   }
 
-  getColor(node: FinancialNode) : String|null {
-    if(node.external && node.amount > 0) {
+  getColor(node: FinancialNode): String | null {
+    if (node.external && node.amount > 0) {
       return "#fff1f1"
     }
-    if(node.external && node.amount <= 0) {
+    if (node.external && node.amount <= 0) {
       return "#f1fff1"
     }
-    if(node.external && node.amount == 0) {
+    if (node.external && node.amount == 0) {
       return "WHITE"
     }
     return null
   }
 
-  getFormattedAmount(node: FinancialNode) : String {
+  getFormattedAmount(node: FinancialNode): String {
     var amount = node.amount;
     if (node.external) {
-        amount = Math.abs(amount)
-      }
-      return this.numberFormatter.format(amount) + node.currencySymbol
+      amount = Math.abs(amount)
     }
+    return this.numberFormatter.format(amount) + node.currencySymbol
+  }
+
+  getAvailableActions(node: FinancialNode): NodeAction[] {
+    console.log("calculate node available actions")
+    let result: NodeAction[] = [];
+    result.push(NodeAction.EDIT);
+    if (node.amount == 0) {
+      result.push(NodeAction.ARCHIVE)
+    }
+    this.currentNodeAvailableActions = result;
+    return result;
+  }
+
+  protected readonly NodeAction = NodeAction;
 }

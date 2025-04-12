@@ -1,8 +1,8 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { Transaction } from '../_models/transaction';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment';
+import {Transaction} from '../_models/transaction';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,8 @@ export class TransactionService {
 
   constructor(
     private http: HttpClient,
-  ) { }
+  ) {
+  }
 
 
   getTransactions(): Observable<Transaction[]> {
@@ -53,5 +54,10 @@ export class TransactionService {
   restoreTransaction(transaction: Transaction): Observable<Transaction> {
     console.log('Restoring transaction: ', transaction)
     return this.http.put<Transaction>(`${environment.apiUrl}/transaction/restore?transactionId=` + transaction.id, this.httpOptions)
+  }
+
+  move(transaction: Transaction, indexForSwap: string | undefined): Observable<Transaction> {
+    console.log('Moving transaction up: ', transaction)
+    return this.http.put<Transaction>(`${environment.apiUrl}/transaction/swapOrder?transactionId=` + transaction.id + '&indexForSwap=' + indexForSwap, this.httpOptions)
   }
 }

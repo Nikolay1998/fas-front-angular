@@ -1,4 +1,12 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import {Transaction} from '../_models/transaction';
 import {NumberFormatter} from '../_helpers/number-formatter';
 import {FinancialNode} from "../_models/financial.node";
@@ -6,13 +14,20 @@ import {TransactionStatus} from "../_models/transaction-status";
 import {TransactionAction} from "../_models/transaction-action";
 import {NgClass, NgIf} from "@angular/common";
 
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+
 
 @Component({
   selector: 'tr[transaction-row]',
   standalone: true,
   imports: [
     NgClass,
-    NgIf
+    NgIf,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule
   ],
   templateUrl: './transaction-row.component.html',
   styleUrl: './transaction-row.component.css'
@@ -21,6 +36,7 @@ export class TransactionRowComponent implements OnInit, OnChanges {
 
   @Input() transaction!: Transaction;
   @Input() selectedNode?: FinancialNode;
+  @Input() filteredTransactions!: Transaction[];
 
   @Output()
   transactionAction = new EventEmitter<TransactionAction>();
@@ -41,7 +57,6 @@ export class TransactionRowComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.availableActions = this.getAvailableActions();
   }
 
   getFormattedAmount(): String {
@@ -76,14 +91,25 @@ export class TransactionRowComponent implements OnInit, OnChanges {
 
   getAvailableActions(): TransactionAction[] {
     console.log("calculate available actions")
+    if (this.availableActions.length > 0) {
+      return this.availableActions;
+    }
     let result: TransactionAction[] = [];
-    result.push(TransactionAction.REPEAT)
+    result.push(TransactionAction.REPEAT);
+    let transactionIndex = this.filteredTransactions.indexOf(this.transaction);
+    if (this.filteredTransactions.at(transactionIndex + 1)?.date == this.transaction.date) {
+      result.push(TransactionAction.MOVE_DOWN);
+    }
+    if (this.filteredTransactions.at(transactionIndex - 1)?.date == this.transaction.date) {
+      result.push(TransactionAction.MOVE_UP);
+    }
     if (this.transaction.cancelled) {
       result.push(TransactionAction.RESTORE)
     } else {
       result.push(TransactionAction.CANCEL);
       result.push(TransactionAction.EDIT);
     }
+    this.availableActions = result;
     return result;
   }
 
@@ -103,6 +129,14 @@ export class TransactionRowComponent implements OnInit, OnChanges {
 
   onRestore() {
     this.transactionAction.emit(TransactionAction.RESTORE);
+  }
+
+  onMoveUp() {
+    this.transactionAction.emit(TransactionAction.MOVE_UP);
+  }
+
+  onMoveDown() {
+    this.transactionAction.emit(TransactionAction.MOVE_DOWN);
   }
 
   protected readonly TransactionAction = TransactionAction;

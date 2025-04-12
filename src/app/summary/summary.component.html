@@ -1,5 +1,83 @@
 <div *ngIf="summary">
-    <span *ngFor="let sum of summary | keyvalue">
-        {{numberFormatter.format(sum.value)}}{{sum.key}};  
-    </span>
+
+
+  <table class="content-table">
+    <tbody>
+    <tr *ngFor="let sum of summary | keyvalue">
+      <td>
+        <div align="left">
+          {{ numberFormatter.format(sum.value) }}
+        </div>
+      </td>
+      <td>
+        {{ sum.key }}
+      </td>
+
+    </tr>
+    </tbody>
+  </table>
+
+<!--  <table class="content-table">-->
+<!--    <tbody>-->
+<!--    <tr>-->
+<!--      <td>-->
+<!--        Income-->
+<!--      </td>-->
+<!--      <td>-->
+<!--        <div align="right">-->
+<!--          120$-->
+<!--        </div>-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <td>-->
+
+<!--      </td>-->
+<!--      <td>-->
+<!--        <div align="right">-->
+<!--          15₽-->
+<!--        </div>-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <td>-->
+
+<!--      </td>-->
+<!--      <td>-->
+<!--        <div align="right">-->
+<!--          700€-->
+<!--        </div>-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <td>-->
+
+<!--      </td>-->
+<!--      <td>-->
+<!--        <div align="right">-->
+<!--          120$-->
+<!--        </div>-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <td>-->
+<!--        Expense-->
+<!--      </td>-->
+<!--      <td>-->
+<!--        <div align="right">-->
+<!--          120$-->
+<!--        </div>-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <td>-->
+<!--      </td>-->
+<!--      <td>-->
+<!--        <div align="right">-->
+<!--          15432₽-->
+<!--        </div>-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--  </table>-->
 </div>

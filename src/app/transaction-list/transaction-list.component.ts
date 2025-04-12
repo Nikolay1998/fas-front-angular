@@ -13,7 +13,6 @@ import {TransactionFormComponent} from "../transaction-form/transaction-form.com
 import {TransactionRowComponent} from "../transaction-row/transaction-row.component"
 import {TransactionAction} from "../_models/transaction-action";
 
-
 @Component({
   selector: 'app-transaction-list',
   standalone: true,
@@ -28,7 +27,6 @@ export class TransactionListComponent implements OnInit, OnChanges {
   selectedNode?: FinancialNode;
   selectedTransaction?: Transaction;
   search = '';
-  transactionSearch: any;
 
   isTransactionFormActive: boolean | undefined;
 
@@ -115,6 +113,28 @@ export class TransactionListComponent implements OnInit, OnChanges {
     );
   }
 
+  onMoveUp(transaction: Transaction) {
+    let transactionIndex = this.filteredTransactions.indexOf(transaction);
+    let transactionForSwap = this.filteredTransactions.at(transactionIndex - 1)?.id;
+    this.transactionService.move(transaction, transactionForSwap).subscribe(
+      {
+        next: () => this.updateFromServerAndClose(),
+        error: (e) => this.error = e
+      }
+    );
+  }
+
+  onMoveDown(transaction: Transaction) {
+    let transactionIndex = this.filteredTransactions.indexOf(transaction);
+    let transactionForSwap = this.filteredTransactions.at(transactionIndex + 1)?.id;
+    this.transactionService.move(transaction, transactionForSwap).subscribe(
+      {
+        next: () => this.updateFromServerAndClose(),
+        error: (e) => this.error = e
+      }
+    );
+  }
+
   private updateFromServerAndClose() {
     this.transactionHolder.updateTransactions();
     this.nodeHolder.updateNodes();
@@ -138,6 +158,12 @@ export class TransactionListComponent implements OnInit, OnChanges {
         break;
       case TransactionAction.RESTORE:
         this.onRestore(transaction);
+        break;
+      case TransactionAction.MOVE_UP:
+        this.onMoveUp(transaction);
+        break;
+      case TransactionAction.MOVE_DOWN:
+        this.onMoveDown(transaction);
         break;
     }
   }

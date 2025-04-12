@@ -6,9 +6,8 @@
 
   <div class="transaction-list">
     <div *ngIf="selectedNode" class="nodeTitle">
-      <b>{{ selectedNode.name }} </b>
-      <button (click)="clearFilter()"><i class="fa fa-close"></i></button>
-      <br>{{ selectedNode.description }} <br>
+      <h1>{{ selectedNode.name }} <button (click)="clearFilter()" class="close"><i class="fa fa-close"></i></button></h1>
+      {{ selectedNode.description }} <br>
     </div>
     <input type="search" class="search" [(ngModel)]="search" (ngModelChange)="ngOnChanges($event)"
            placeholder="Filter transactions">
@@ -23,6 +22,7 @@
       <tbody>
       <tr transaction-row *ngFor="let transaction of filteredTransactions" [transaction]="transaction"
           [selectedNode]="selectedNode"
+          [filteredTransactions]="filteredTransactions"
           (transactionAction)="onTransactionAction($event, transaction)"
           [ngClass]="transaction.cancelled ? 'cancelled' : 'simple'">
       </tr>

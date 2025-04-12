@@ -1,6 +1,6 @@
 .container {
     display: grid;
-    grid-template-columns: 280px 1fr;
+    grid-template-columns: 280px 1fr 150px;
     gap: 20px;
     margin-top: 20px
 }
@@ -20,4 +20,11 @@
 
 .cancelled-node {
   color: #ccc;
+}
+
+.burger {
+  position: absolute;
+  margin-left: -12px;
+  padding-left: 0;
+  width: 20px;
 }
