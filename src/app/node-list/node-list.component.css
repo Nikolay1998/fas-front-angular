@@ -1,6 +1,6 @@
 .container {
     display: grid;
-    grid-template-columns: 280px 1fr;
+    grid-template-columns: 280px 1fr 150px;
     gap: 20px;
     margin-top: 20px
 }
@@ -9,6 +9,18 @@
     width: 280px;
 }
 
-.content-table tr:hover td.amount {
-    display: none;
+.archived-nodes-block {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.cancelled-node {
+  color: #ccc;
+}
+
+.burger {
+  position: absolute;
+  margin-left: -16px;
+  padding-left: 0;
+  width: 20px;
 }

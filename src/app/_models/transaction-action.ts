@@ -1,5 +1,8 @@
 export enum TransactionAction {
   REPEAT,
   EDIT,
-  CANCEL
+  CANCEL,
+  RESTORE,
+  MOVE_UP,
+  MOVE_DOWN
 }

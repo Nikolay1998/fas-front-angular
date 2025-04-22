@@ -15,5 +15,6 @@ export interface Transaction {
     cancelled: boolean,
     userId: string,
     fromExternal?: boolean,
-    toExternal?: boolean
+    toExternal?: boolean,
+    order?: number
 }

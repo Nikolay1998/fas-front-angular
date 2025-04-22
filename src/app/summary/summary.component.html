@@ -1,5 +1,62 @@
 <div *ngIf="summary">
-    <span *ngFor="let sum of summary | keyvalue">
-        {{numberFormatter.format(sum.value)}}{{sum.key}};  
-    </span>
+
+
+  <table class="content-table">
+    <tbody>
+    <tr *ngFor="let sum of summary | keyvalue">
+      <td>
+        <div align="left">
+          {{ numberFormatter.format(sum.value) }}
+        </div>
+      </td>
+      <td>
+        {{ sum.key }}
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <form [formGroup]="balanceChangeForm">
+    <div class="form-container">
+
+      <div class="form-column">
+
+        <div class="form-group" style="white-space:nowrap">
+          <label for="from">From</label>
+          <input id="from" type="date" formControlName="from">
+        </div>
+
+        <div class="form-group" style="white-space:nowrap">
+          <label for="to">To</label>
+          <input id="to" type="date" formControlName="to">
+        </div>
+      </div>
+    </div>
+
+    <table *ngIf="balanceChange" class="content-table">
+      <tbody>
+      <ng-container *ngFor="let balanceChange of balanceChange; let i = index">
+        <tr (click)="toggleRow(i)" [class.expanded]="expandedRows[i]">
+          <td>
+            <b>{{ getCurrencyNameById(balanceChange.currencyId) }}
+              : {{ balanceChange.totalChange }} {{ getCurrencySymbolById(balanceChange.currencyId) }}</b>
+          </td>
+        </tr>
+        <tr *ngIf="expandedRows[i]" class="detail-row">
+          <td>
+              <span style="color: #009879 ">
+                +{{ balanceChange.income }} {{ getCurrencySymbolById(balanceChange.currencyId) }}
+              </span>
+          </td>
+        </tr>
+        <tr *ngIf="expandedRows[i]" class="detail-row">
+          <td>
+              <span style="color: #DB5461 ">
+                -{{ balanceChange.outgo }} {{ getCurrencySymbolById(balanceChange.currencyId) }}
+              </span>
+          </td>
+      </ng-container>
+      </tbody>
+    </table>
+  </form>
 </div>

@@ -71,6 +71,7 @@ export class NodeFormComponent implements OnChanges, OnInit {
       userId: "",
       external: this.applyForm.value.external,
       overdraft: this.applyForm.value.overdraft,
+      archived: false,
       //toDo: change to undefined and check
       lastTransactionDate: new Date()
     }

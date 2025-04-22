@@ -2,51 +2,51 @@
 @import "@ng-select/ng-select/themes/default.theme.css";
 
 * {
-    font-family: sans-serif;
-    font-size: 14px;
+  font-family: sans-serif;
+  font-size: 14px;
 }
 
 /* ng-select */
-.ng-select.ng-select-opened>.ng-select-container {
-    background: #f8f8f8;
+.ng-select.ng-select-opened > .ng-select-container {
+  background: #f8f8f8;
 }
 
-.ng-select.ng-select-disabled>.ng-select-container {
-    background-color: #f8f8f8
+.ng-select.ng-select-disabled > .ng-select-container {
+  background-color: #f8f8f8
 }
 
 .ng-select .ng-select-container {
-    background-color: #f8f8f8;
-    border-radius: 5px;
-    min-height: 30px;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  min-height: 30px;
 }
 
 .ng-select.ng-select-single .ng-select-container {
-    height: 30px;
+  height: 30px;
 }
 
-.ng-select.ng-select-multiple.ng-select-disabled>.ng-select-container .ng-value-container .ng-value {
-    background-color: #f8f8f8;
+.ng-select.ng-select-multiple.ng-select-disabled > .ng-select-container .ng-value-container .ng-value {
+  background-color: #f8f8f8;
 }
 
 .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
-    background-color: #f8f8f8;
+  background-color: #f8f8f8;
 }
 
 ng-select {
-    width: calc(100% - 85px);
-    background-color: #f8f8f8;
-    border-radius: 5px;
-    transition: border-color 0.3s ease;
+  width: calc(100% - 85px);
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
 }
 
 /* tables with content */
 .content-table {
-    border-collapse: collapse;
-    font-size: 0.9em;
-    border-radius: 5px 5px 0 0;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  border-collapse: collapse;
+  font-size: 0.9em;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 /* .content-table:hover {
@@ -54,155 +54,147 @@ ng-select {
 } */
 
 .content-table thead tr {
-    background-color: #009879;
-    color: #ffffff;
-    text-align: left;
-    font-weight: bold;
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.two-strings-one-line {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  white-space: nowrap;
 }
 
 .content-table th,
 .content-table td {
-    padding: 12px 15px;
-    /*height: 20px;*/
-    text-overflow: ellipsis;
-    white-space: nowrap;/* Запрет на перенос текста */
-    overflow: hidden;
-    max-width: 100px; /* Установите максимальную ширину ячейки */
-    /* display: inline-block; */
+  padding: 12px 15px;
+  /*height: 20px;*/
+  text-overflow: ellipsis;
+  white-space: nowrap; /* Запрет на перенос текста */
+  overflow: hidden;
+  max-width: 100px; /* Установите максимальную ширину ячейки */
+  /* display: inline-block; */
 }
 
 .content-table tbody tr {
-    border-bottom: 1px solid #dddddd;
-    background-color: white;
+  border-bottom: 1px solid #dddddd;
+  background-color: white;
 }
 
 .content-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
+  background-color: #f3f3f3;
 }
 
 .content-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
+  border-bottom: 2px solid #009879;
 }
 
 .content-table tbody tr.active-row {
-    font-weight: bold;
-    color: #009879;
+  font-weight: bold;
+  color: #009879;
 }
 
 .content-table tbody tr.cancelled {
-    /* background-color: #CA2B3B; */
-    color: #ccc;
-    text-decoration: line-through;
+  /* background-color: #CA2B3B; */
+  color: #ccc;
+  text-decoration: line-through;
 }
 
-  /* buttons */
+/* buttons */
 
-/* buttons in table row */
 .inline {
-    border: none;
-    color: white;
-    padding: 12px 12px;
-    /*font-size: 16px;*/
-    cursor: pointer;
-    display: none;
-    flex-grow: 1;
-    height: 100%;
-    transition: display 0.3s ease; /* Плавный переход */
+  border: none;
+  color: black;
+  padding: 12px 12px 12px 0;
+  margin-left: 5px;
+  /*margin-right: 5px;*/
+  background-color: transparent;
+  cursor: pointer;
+  visibility: hidden;
+  flex-grow: 1;
+  height: 100%;
+  transition: display 0.3s ease; /* Плавный переход */
 }
 
 .content-table tr:hover .inline {
-    display: inline;
+  visibility: visible;
 }
+
 .content-table td.date {
-  width: 95px;
-}
-
-.content-table tr:hover td.date {
-  display: none;
-}
-
-.content-table tr:hover #archive {
-    background-color: #DB5461;
-}
-
-.content-table tr:hover #repeat {
-    background-color: #009879;
-}
-
-.content-table tr:hover #edit {
-    background-color: DodgerBlue;
-}
-
-.content-table tr:hover #archive:hover {
-    background-color: #CA2B3B;
-}
-
-.content-table tr:hover #repeat:hover {
-    background-color: #007A62;
-}
-
-.content-table tr:hover #edit:hover {
-    background-color: RoyalBlue;
+  padding-right: 0;
 }
 
 /* other buttons */
 
 .addNew {
-    width: 100%;
-    border: none;
-    border-radius: 5px 5px 0px 0px;
-    cursor: pointer;
-    background-color: #009879;
-    color: white;
-    cursor: pointer;
-    height: 20px;
-    position: relative;
+  width: 100%;
+  border: none;
+  border-radius: 5px 5px 0px 0px;
+  cursor: pointer;
+  background-color: #009879;
+  color: white;
+  height: 20px;
+  position: relative;
+}
+
+.close {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #DB5461;
+  color: white;
+  height: 25px;
+  width: 25px;
+  position: relative;
 }
 
 .addNew:hover {
-    background-color: #007A62
+  background-color: #007A62
 }
 
 button.form {
-    width: 100%;
-    border-radius: 5px;
-    padding: 10px;
-    color: white;
-    border: none;
-    cursor: pointer;
-    width: calc(50% - 5px);
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: calc(50% - 5px);
 }
 
 #update {
-    background-color: DodgerBlue;
+  background-color: DodgerBlue;
+  scale: 1
 }
 
 #update:hover {
-    background-color: RoyalBlue;
+  background-color: RoyalBlue;
 }
 
 #create {
-    background-color: #009879;
+  background-color: #009879;
 }
 
 #create:hover {
-    background-color: #007A62;
+  background-color: #007A62;
 }
 
 #cancel {
-    background-color: #DB5461;
-    width: calc(50% - 5px);
+  background-color: #DB5461;
+  width: calc(50% - 5px);
 }
 
 #cancel:hover {
-    background-color: #CA2B3B;
+  background-color: #CA2B3B;
 }
 
 /* forms */
 .form-group {
-    margin-bottom: 15px;
-    align-items: center;
-    display: flex;
+  margin-bottom: 15px;
+  align-items: center;
+  display: flex;
 }
 
 input[type="text"],
@@ -210,46 +202,44 @@ input[type="password"],
 input[type="number"],
 input[type="date"],
 textarea {
-    box-sizing: border-box;
-    width: calc(100% - 85px);
-    /* Ширина для input и textarea, с учетом ширины label */
-    padding: 5px;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f8f8f8;
-    transition: border-color 0.3s ease;
+  box-sizing: border-box;
+  width: calc(100% - 85px);
+  /* Ширина для input и textarea, с учетом ширины label */
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  transition: border-color 0.3s ease;
 }
 
 .button-group {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 label {
-    display: inline-block;
-    vertical-align: top;
+  display: inline-block;
+  vertical-align: top;
 }
 
 input[type="checkbox"] {
-    vertical-align: top;
-    margin-top: 4px;
-    margin: 4px;
-    margin-right: 10px;
-    transform: scale(1.5);
+  vertical-align: top;
+  margin: 4px 10px 4px 4px;
+  transform: scale(1.5);
 }
 
 .search {
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 15px;
-    height: 30px;
-    transition: border-color 0.3s ease;
-    width: 100%;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  height: 30px;
+  transition: border-color 0.3s ease;
+  width: 100%;
 }
 
 .error-message {
-    color: red;
-    margin-top: 5px;
+  color: red;
+  margin-top: 5px;
 }

@@ -6,7 +6,7 @@
     margin: auto;
     display: grid;
     min-width: 500px;
-    max-width: 1180px;
+    max-width: 1330px;
     grid-template-rows: 30px 1fr;
     gap: 20px;
 }

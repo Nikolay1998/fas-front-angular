@@ -33,4 +33,14 @@ export class NodeService {
     console.log('Node edit: {}', node.name, node.external);
     return this.http.put<FinancialNode>(`${environment.apiUrl}/node/edit`, node, this.httpOptions)
   }
+
+  archiveNode(node: FinancialNode): Observable<FinancialNode> {
+    console.log('Archiving node: {}', node.name);
+    return this.http.put<FinancialNode>(`${environment.apiUrl}/node/archive?nodeId=` + node.id, this.httpOptions)
+  }
+
+  restoreNode(node: FinancialNode): Observable<FinancialNode> {
+    console.log('Restoring node: {}', node.name);
+    return this.http.put<FinancialNode>(`${environment.apiUrl}/node/restore?nodeId=` + node.id, this.httpOptions)
+  }
 }

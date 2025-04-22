@@ -1,33 +1,62 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import {Transaction} from '../_models/transaction';
 import {NumberFormatter} from '../_helpers/number-formatter';
 import {FinancialNode} from "../_models/financial.node";
 import {TransactionStatus} from "../_models/transaction-status";
 import {TransactionAction} from "../_models/transaction-action";
-import {NgClass} from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
+
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @Component({
   selector: 'tr[transaction-row]',
   standalone: true,
   imports: [
-    NgClass
+    NgClass,
+    NgIf,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule
   ],
   templateUrl: './transaction-row.component.html',
   styleUrl: './transaction-row.component.css'
 })
-export class TransactionRowComponent {
+export class TransactionRowComponent implements OnInit, OnChanges {
 
   @Input() transaction!: Transaction;
   @Input() selectedNode?: FinancialNode;
+  @Input() filteredTransactions!: Transaction[];
 
   @Output()
   transactionAction = new EventEmitter<TransactionAction>();
+
+  status: TransactionStatus | undefined;
+  availableActions: TransactionAction[] = [];
 
 
   constructor(
     public numberFormatter: NumberFormatter,
   ) {
+
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    //todo: do it only if corresponding changes occurred
+    this.status = this.getState();
+  }
+
+  ngOnInit(): void {
   }
 
   getFormattedAmount(): String {
@@ -41,6 +70,7 @@ export class TransactionRowComponent {
   }
 
   getState(): TransactionStatus {
+    // console.log("calculate state")
     if (this.selectedNode) {
       if (this.transaction.receiverNodeId == this.selectedNode.id) {
         return TransactionStatus.INCOMING;
@@ -59,6 +89,30 @@ export class TransactionRowComponent {
     return TransactionStatus.NEUTRAL;
   }
 
+  getAvailableActions(): TransactionAction[] {
+    console.log("calculate available actions")
+    if (this.availableActions.length > 0) {
+      return this.availableActions;
+    }
+    let result: TransactionAction[] = [];
+    result.push(TransactionAction.REPEAT);
+    let transactionIndex = this.filteredTransactions.indexOf(this.transaction);
+    if (this.filteredTransactions.at(transactionIndex + 1)?.date == this.transaction.date) {
+      result.push(TransactionAction.MOVE_DOWN);
+    }
+    if (this.filteredTransactions.at(transactionIndex - 1)?.date == this.transaction.date) {
+      result.push(TransactionAction.MOVE_UP);
+    }
+    if (this.transaction.cancelled) {
+      result.push(TransactionAction.RESTORE)
+    } else {
+      result.push(TransactionAction.CANCEL);
+      result.push(TransactionAction.EDIT);
+    }
+    this.availableActions = result;
+    return result;
+  }
+
   protected readonly TransactionStatus = TransactionStatus;
 
   onRepeat() {
@@ -72,4 +126,18 @@ export class TransactionRowComponent {
   onCancel() {
     this.transactionAction.emit(TransactionAction.CANCEL);
   }
+
+  onRestore() {
+    this.transactionAction.emit(TransactionAction.RESTORE);
+  }
+
+  onMoveUp() {
+    this.transactionAction.emit(TransactionAction.MOVE_UP);
+  }
+
+  onMoveDown() {
+    this.transactionAction.emit(TransactionAction.MOVE_DOWN);
+  }
+
+  protected readonly TransactionAction = TransactionAction;
 }

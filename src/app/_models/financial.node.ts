@@ -9,4 +9,5 @@ export interface FinancialNode {
     external: boolean;
     lastTransactionDate: Date;
     overdraft: boolean;
+    archived: boolean;
 }
