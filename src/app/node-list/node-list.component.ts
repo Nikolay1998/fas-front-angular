@@ -52,7 +52,7 @@ export class NodeListComponent implements OnInit {
 
   filterNodes() {
     this.filteredNodes = this.nodes
-      .filter(tr => tr.name.toLowerCase().includes(this.search))
+      .filter(tr => tr.name.toLowerCase().includes(this.search.toLowerCase()))
   }
 
   onSelect(node: FinancialNode): void {

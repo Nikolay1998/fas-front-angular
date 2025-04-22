@@ -135,6 +135,7 @@ export class TransactionFormComponent implements OnInit, OnChanges {
     this.transactionHolder.updateTransactions();
     this.nodeHolder.updateNodes();
     this.summaryHolder.updateSummary();
+    this.summaryHolder.updateBalanceChange()
     this.isActiveEvent.emit(false)
   }
 

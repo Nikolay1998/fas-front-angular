@@ -9,10 +9,6 @@
     width: 280px;
 }
 
-.content-table tr:hover td.amount {
-    display: none;
-}
-
 .archived-nodes-block {
   padding-top: 20px;
   padding-bottom: 10px;
@@ -24,7 +20,7 @@
 
 .burger {
   position: absolute;
-  margin-left: -12px;
+  margin-left: -16px;
   padding-left: 0;
   width: 20px;
 }

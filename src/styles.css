@@ -60,6 +60,13 @@ ng-select {
   font-weight: bold;
 }
 
+.two-strings-one-line {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  white-space: nowrap;
+}
+
 .content-table th,
 .content-table td {
   padding: 12px 15px;

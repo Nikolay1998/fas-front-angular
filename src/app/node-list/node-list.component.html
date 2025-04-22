@@ -21,12 +21,11 @@
       <tbody>
       <tr *ngFor="let node of filteredNodes"
           [class.active-row]="node == selectedNode"
-          [style.background-color]="getColor(node)"
-          (click)="onSelect(node)">
-        <td>
-          <div style="display: flex; justify-content: space-between; width: 100%; white-space: nowrap;">
+          [style.background-color]="getColor(node)">
+        <td (click)="onSelect(node)">
+          <div class="two-strings-one-line">
             <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; ">{{ node.name }}</span>
-            <span style="text-align: right; white-space: nowrap;">{{ getFormattedAmount(node) }}</span>
+            <span style="text-align: right; white-space: nowrap; margin-right: 8px">{{ getFormattedAmount(node) }}</span>
           </div>
         </td>
         <div class="burger">
