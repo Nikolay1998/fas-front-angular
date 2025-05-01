@@ -38,8 +38,8 @@
       <ng-container *ngFor="let balanceChange of balanceChange; let i = index">
         <tr (click)="toggleRow(i)" [class.expanded]="expandedRows[i]">
           <td>
-            <b>{{ getCurrencyNameById(balanceChange.currencyId) }}
-              : {{ balanceChange.totalChange }} {{ getCurrencySymbolById(balanceChange.currencyId) }}</b>
+            {{ getCurrencyNameById(balanceChange.currencyId) }}
+              : {{ balanceChange.totalChange }} {{ getCurrencySymbolById(balanceChange.currencyId) }}
           </td>
         </tr>
         <tr *ngIf="expandedRows[i]" class="detail-row">

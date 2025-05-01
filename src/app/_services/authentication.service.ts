@@ -1,10 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
-import { User } from '../_models/user';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {User} from '../_models/user';
+import {ApiUrlHolder} from "./api-url-holder";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,7 @@ export class AuthenticationService {
 
   constructor(
     private http: HttpClient,
+    private apiUrlHolder: ApiUrlHolder,
     private router: Router
   ) {
     this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
@@ -34,7 +35,7 @@ export class AuthenticationService {
       })
     };
 
-    return this.http.get<any>(`${environment.apiUrl}/user/authenticate`,
+    return this.http.get<any>(`${this.apiUrlHolder.getApiUrl()}user/authenticate`,
       httpOptions)
       .pipe(map(user => {
         user.authdata = window.btoa(username + ":" + password);
@@ -61,7 +62,7 @@ export class AuthenticationService {
       })
     };
 
-    return this.http.post<any>(`${environment.apiUrl}/user/add`,
+    return this.http.post<any>(`${this.apiUrlHolder.getApiUrl()}user/add`,
       userdata,
       httpOptions)
       .pipe(map(user => {
