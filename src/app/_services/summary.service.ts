@@ -1,8 +1,8 @@
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {environment} from '../../environments/environment';
 import {BalanceChange} from "../_models/balance-change";
+import {ApiUrlHolder} from "./api-url-holder";
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +17,11 @@ export class SummaryService {
 
   constructor(
     private http: HttpClient,
+    private apiUrlHolder: ApiUrlHolder
   ) { }
 
   getSummary(): Observable<Map<string, number>> {
-    return this.http.get<Map<string, number>>(`${environment.apiUrl}/summary/sum`, this.httpOptions);
+    return this.http.get<Map<string, number>>(`${this.apiUrlHolder.getApiUrl()}summary/sum`, this.httpOptions);
   }
 
   getBalanceChange(from: Date, to: Date): Observable<BalanceChange[]> {
@@ -32,6 +33,6 @@ export class SummaryService {
       }),
       params: new HttpParams().set('from', from.toString()).set('to', to.toString())
     };
-    return this.http.get<BalanceChange[]>(`${environment.apiUrl}/summary/balance-change`, httpOptions);
+    return this.http.get<BalanceChange[]>(`${this.apiUrlHolder.getApiUrl()}summary/balance-change`, httpOptions);
   }
 }

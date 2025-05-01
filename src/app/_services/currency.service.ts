@@ -1,8 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { Currency } from '../_models/currency';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {Currency} from '../_models/currency';
+import {ApiUrlHolder} from "./api-url-holder";
 
 
 @Injectable({
@@ -24,7 +24,8 @@ export class CurrencyService {
 
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private apiUrlHolder: ApiUrlHolder
   ) { }
 
   updateCurrency() {
@@ -32,6 +33,6 @@ export class CurrencyService {
   }
 
   private getCurrencys(): Observable<Currency[]> {
-    return this.http.get<Currency[]>(`${environment.apiUrl}/currency/getAll`, this.httpOptions)
+    return this.http.get<Currency[]>(`${this.apiUrlHolder.getApiUrl()}currency/getAll`, this.httpOptions)
   }
 }

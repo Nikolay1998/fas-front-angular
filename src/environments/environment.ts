@@ -1,4 +1,5 @@
 export const environment = {
-    production: true,
-    apiUrl: 'BACKEND_URL'
+  production: true,
+  apiPort: 'BACKEND_PORT',
+  apiHostname: 'BACKEND_URL'
 };

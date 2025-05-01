@@ -1,8 +1,8 @@
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {environment} from '../../environments/environment';
 import {Transaction} from '../_models/transaction';
+import {ApiUrlHolder} from "./api-url-holder";
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +17,13 @@ export class TransactionService {
 
   constructor(
     private http: HttpClient,
+    private apiUrlHolder: ApiUrlHolder
   ) {
   }
 
 
   getTransactions(): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(`${environment.apiUrl}/transaction/getAll`)
+    return this.http.get<Transaction[]>(`${this.apiUrlHolder.getApiUrl()}transaction/getAll`)
   }
 
   getTransactionsByNode(id: string): Observable<Transaction[]> {
@@ -32,32 +33,32 @@ export class TransactionService {
       }),
       params: new HttpParams().set('nodeId', id)
     };
-    return this.http.get<Transaction[]>(`${environment.apiUrl}/transaction/getAllByNode`,
+    return this.http.get<Transaction[]>(`${this.apiUrlHolder.getApiUrl()}transaction/getAllByNode`,
       httpOptions);
   }
 
   addTransaction(transaction: Transaction): Observable<Transaction> {
     console.log('New Transaction adding: ', transaction);
-    return this.http.post<Transaction>(`${environment.apiUrl}/transaction/add`, transaction, this.httpOptions)
+    return this.http.post<Transaction>(`${this.apiUrlHolder.getApiUrl()}transaction/add`, transaction, this.httpOptions)
   }
 
   editTransaction(transaction: Transaction): Observable<Transaction> {
     console.log('Edited transaction: ', transaction)
-    return this.http.put<Transaction>(`${environment.apiUrl}/transaction/edit`, transaction, this.httpOptions)
+    return this.http.put<Transaction>(`${this.apiUrlHolder.getApiUrl()}transaction/edit`, transaction, this.httpOptions)
   }
 
   cancelTransaction(transaction: Transaction): Observable<Transaction> {
     console.log('Cancelling transaction: ', transaction)
-    return this.http.delete<Transaction>(`${environment.apiUrl}/transaction/cancel?transactionId=` + transaction.id, this.httpOptions)
+    return this.http.delete<Transaction>(`${this.apiUrlHolder.getApiUrl()}transaction/cancel?transactionId=` + transaction.id, this.httpOptions)
   }
 
   restoreTransaction(transaction: Transaction): Observable<Transaction> {
     console.log('Restoring transaction: ', transaction)
-    return this.http.put<Transaction>(`${environment.apiUrl}/transaction/restore?transactionId=` + transaction.id, this.httpOptions)
+    return this.http.put<Transaction>(`${this.apiUrlHolder.getApiUrl()}transaction/restore?transactionId=` + transaction.id, this.httpOptions)
   }
 
   move(transaction: Transaction, indexForSwap: string | undefined): Observable<Transaction> {
     console.log('Moving transaction up: ', transaction)
-    return this.http.put<Transaction>(`${environment.apiUrl}/transaction/swapOrder?transactionId=` + transaction.id + '&indexForSwap=' + indexForSwap, this.httpOptions)
+    return this.http.put<Transaction>(`${this.apiUrlHolder.getApiUrl()}transaction/swapOrder?transactionId=` + transaction.id + '&indexForSwap=' + indexForSwap, this.httpOptions)
   }
 }

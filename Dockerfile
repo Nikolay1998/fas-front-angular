@@ -9,4 +9,5 @@ COPY /dist/financial-accounting-system-angular-front/browser /usr/share/nginx/ht
 CMD ["/bin/bash", "-c", \
 "echo API_URL=[$API_URL], && \
 sed -i \"s#BACKEND_URL#$API_URL#g\" /usr/share/nginx/html/main*.js && \
+sed -i \"s#BACKEND_PORT#$API_PORT#g\" /usr/share/nginx/html/main*.js && \
 nginx -g 'daemon off;'"]
