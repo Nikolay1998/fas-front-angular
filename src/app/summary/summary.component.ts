@@ -5,7 +5,8 @@ import {SummaryHolderService} from '../_services/summary-holder.service';
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {CurrencyService} from "../_services/currency.service";
 import {Currency} from "../_models/currency";
-import {BalanceChange} from "../_models/balance-change";
+import {PeriodStats} from "../_models/period-stats";
+import {VisibleSections} from "./visible-sections";
 
 
 @Component({
@@ -19,7 +20,8 @@ export class SummaryComponent implements OnInit {
 
   summary!: Map<string, number>;
   currencies: Currency[] = [];
-  balanceChange!: BalanceChange[];
+  periodStats!: PeriodStats;
+
 
   expandedRows: { [key: number]: boolean } = {};
 
@@ -38,6 +40,17 @@ export class SummaryComponent implements OnInit {
     this.defaultFromDate = this.getFromDate();
   }
 
+  sectionsVisible: VisibleSections = {
+    summary: true,
+    balance: true,
+    expenses: true,
+    incomes: true
+  };
+
+
+  toggleSection(section: keyof VisibleSections) {
+    this.sectionsVisible[section] = !this.sectionsVisible[section];
+  }
 
   ngOnInit(): void {
 
@@ -60,7 +73,7 @@ export class SummaryComponent implements OnInit {
     this.currencyService.updateCurrency();
 
     this.summaryHolder.currentSummary.subscribe(summary => this.onSummaryChanges(summary));
-    this.summaryHolder.currentBalanceChange.subscribe(balanceChange => this.onBalanceChange(balanceChange));
+    this.summaryHolder.currentPeriodStats.subscribe(balanceChange => this.onPeriodStatsChange(balanceChange));
     this.summaryHolder.updateSummary();
   }
 
@@ -74,8 +87,8 @@ export class SummaryComponent implements OnInit {
     return date.toISOString().split('T')[0];
   }
 
-  private onBalanceChange(balanceChanges: BalanceChange[]): void {
-    this.balanceChange = balanceChanges;
+  private onPeriodStatsChange(periodStats: PeriodStats): void {
+    this.periodStats = periodStats;
   }
 
   getCurrencySymbolById(id: String): string {
