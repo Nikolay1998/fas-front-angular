@@ -1,5 +1,9 @@
 <div class="container">
 
+  <div class="app-summary-mobile">
+    <app-summary></app-summary>
+  </div>
+
   <div class="node-list">
     <div *ngIf="isActiveNodeForm">
       <app-node-form (isActiveEvent)="onNodeFormUpdate($event)"
@@ -74,6 +78,7 @@
   <div class="transaction-list">
     <app-transaction-list [selectedNode]="selectedNode"></app-transaction-list>
   </div>
-
-  <app-summary></app-summary>
+  <div class="app-summary-desktop">
+    <app-summary></app-summary>
+  </div>
 </div>

@@ -43,12 +43,20 @@ label {
   width: 60px;
 }
 
-
 .financial-stats-container {
   width: 200px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 12px;
   color: #333;
+}
+
+@media (max-width: 1400px) {
+  .financial-stats-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 }
 
 /*.period-selector {*/
@@ -101,6 +109,7 @@ label {
   border: 1px solid #eee;
   border-radius: 5px;
   overflow: hidden;
+  width: 100%;
 }
 
 .section-header {
@@ -133,7 +142,7 @@ label {
 
 .stat-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 4px 0;
 }
 
@@ -176,7 +185,8 @@ label {
   margin-top: 4px;
 }
 
-.income, .outgo {
+.income,
+.outgo {
   display: flex;
   justify-content: space-between;
   font-size: 11px;
@@ -196,14 +206,16 @@ label {
 }
 
 .negative {
-  color: #DB5461;
+  color: #db5461;
 }
 
-.expense-item, .income-item {
+.expense-item,
+.income-item {
   padding: 4px 0;
   border-bottom: 1px dashed #eee;
 }
 
-.expense-item:last-child, .income-item:last-child {
+.expense-item:last-child,
+.income-item:last-child {
   border-bottom: none;
 }

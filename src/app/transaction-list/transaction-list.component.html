@@ -18,16 +18,18 @@
       <button class="addNew" (click)="onAddNew()"><i class="fa fa-plus"></i></button>
     </div>
 
-    <table *ngIf="transactions.length > 0" class="content-table">
-      <tbody>
-      <tr transaction-row *ngFor="let transaction of filteredTransactions" [transaction]="transaction"
-          [selectedNode]="selectedNode"
-          [filteredTransactions]="filteredTransactions"
-          (transactionAction)="onTransactionAction($event, transaction)"
-          [ngClass]="transaction.cancelled ? 'cancelled' : 'simple'">
-      </tr>
-      </tbody>
-    </table>
+    <div class="table-wrapper">
+      <table *ngIf="transactions.length > 0" class="content-table">
+        <tbody>
+        <tr transaction-row *ngFor="let transaction of filteredTransactions" [transaction]="transaction"
+            [selectedNode]="selectedNode"
+            [filteredTransactions]="filteredTransactions"
+            (transactionAction)="onTransactionAction($event, transaction)"
+            [ngClass]="transaction.cancelled ? 'cancelled' : 'simple'">
+        </tr>
+        </tbody>
+      </table>
+    </div>
 
   </div>
 
