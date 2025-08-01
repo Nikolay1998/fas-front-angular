@@ -33,6 +33,12 @@
   display: block;
 }
 
+:host {
+  display: block;
+  overflow-x: hidden;
+  max-width: calc(100vw - 16px);
+}
+
 @media (max-width: 1400px) {
   .container {
     display: flex;

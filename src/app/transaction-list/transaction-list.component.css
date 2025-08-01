@@ -24,7 +24,6 @@
   min-width: 900px;
   box-sizing: border-box;
   border-collapse: collapse;
-  box-shadow: none;
 }
 
 .nodeTitle {
@@ -44,6 +43,6 @@
     display: block;
     width: 100%;
     box-sizing: border-box;
-    contain: content; /* 🧠 создаёт новый форматирующий контекст */
+    contain: content;
   }
 }
