@@ -12,7 +12,7 @@
 }
 
 .ng-select.ng-select-disabled > .ng-select-container {
-  background-color: #f8f8f8
+  background-color: #f8f8f8;
 }
 
 .ng-select .ng-select-container {
@@ -25,11 +25,17 @@
   height: 30px;
 }
 
-.ng-select.ng-select-multiple.ng-select-disabled > .ng-select-container .ng-value-container .ng-value {
+.ng-select.ng-select-multiple.ng-select-disabled
+  > .ng-select-container
+  .ng-value-container
+  .ng-value {
   background-color: #f8f8f8;
 }
 
-.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+.ng-select.ng-select-multiple
+  .ng-select-container
+  .ng-value-container
+  .ng-value {
   background-color: #f8f8f8;
 }
 
@@ -45,7 +51,6 @@ ng-select {
   border-collapse: collapse;
   font-size: 0.9em;
   border-radius: 5px 5px 0 0;
-  overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -131,19 +136,20 @@ ng-select {
 .addNew {
   width: 100%;
   border: none;
-  border-radius: 5px 5px 0px 0px;
+  border-radius: 5px;
   cursor: pointer;
   background-color: #009879;
   color: white;
-  height: 20px;
+  height: 24px;
   position: relative;
+  margin-bottom: 12px;
 }
 
 .close {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #DB5461;
+  background-color: #db5461;
   color: white;
   height: 25px;
   width: 25px;
@@ -151,7 +157,7 @@ ng-select {
 }
 
 .addNew:hover {
-  background-color: #007A62
+  background-color: #007a62;
 }
 
 button.form {
@@ -166,7 +172,7 @@ button.form {
 
 #update {
   background-color: DodgerBlue;
-  scale: 1
+  scale: 1;
 }
 
 #update:hover {
@@ -178,16 +184,16 @@ button.form {
 }
 
 #create:hover {
-  background-color: #007A62;
+  background-color: #007a62;
 }
 
 #cancel {
-  background-color: #DB5461;
+  background-color: #db5461;
   width: calc(50% - 5px);
 }
 
 #cancel:hover {
-  background-color: #CA2B3B;
+  background-color: #ca2b3b;
 }
 
 /* forms */

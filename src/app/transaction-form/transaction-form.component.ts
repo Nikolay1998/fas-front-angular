@@ -66,6 +66,8 @@ export class TransactionFormComponent implements OnInit, OnChanges {
       this.transactionForm.get('senderAmount')?.setValue(changes['transactionTemplate'].currentValue.senderAmount);
       this.transactionForm.get('receiverAmount')?.setValue(changes['transactionTemplate'].currentValue.receiverAmount);
       this.transactionForm.get('date')?.setValue(changes['transactionTemplate'].currentValue.date);
+      this.senderCurrency = changes['transactionTemplate'].currentValue.senderCurrencySymbol;
+      this.receiverCurrency = changes['transactionTemplate'].currentValue.receiverCurrencySymbol;
     }
   }
 

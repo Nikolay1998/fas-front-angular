@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiPort: 8080,
-  apiHostname:  window.location.hostname
+  apiPort: 8082,
+  apiHostname: '185.125.231.104',
 };

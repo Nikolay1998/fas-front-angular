@@ -1,29 +1,48 @@
-.container {
-    display: grid;
-    grid-template-areas:
-        'form info'
-        'list info';
-}
+/* .container {
+  display: grid;
+  grid-template-areas:
+    'form info'
+    'list info';
+} */
 
 .form {
-    grid-area: form;
-    margin-bottom: 20px;
+  grid-area: form;
+  margin-bottom: 20px;
 }
 
 .transaction-info {
-    grid-area: info;
+  grid-area: info;
 }
 
 .transaction-list {
-    margin: 0px 0;
-    grid-area: list;
+  margin: 0px 0;
+  grid-area: list;
 }
 
 .content-table {
-    width: 900px;
+  width: 100%;
+  min-width: 900px;
+  box-sizing: border-box;
+  border-collapse: collapse;
 }
 
 .nodeTitle {
-    align-content: center;
-    margin-bottom: 10px;
+  align-content: center;
+  margin-bottom: 10px;
+}
+
+:host {
+  display: block;
+  overflow-x: hidden;
+  max-width: calc(100vw - 16px);
+}
+
+@media (max-width: 1400px) {
+  .table-wrapper {
+    overflow-x: auto;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    contain: content;
+  }
 }
