@@ -1,16 +1,17 @@
 <div class="container">
   <div class="form" *ngIf="isTransactionFormActive">
     <app-transaction-form (isActiveEvent)="onFormUpdate($event)" [state]="formState"
-                          [transactionTemplate]="selectedForEditTransaction"></app-transaction-form>
+      [transactionTemplate]="selectedForEditTransaction"></app-transaction-form>
   </div>
 
   <div class="transaction-list">
     <div *ngIf="selectedNode" class="nodeTitle">
-      <h1>{{ selectedNode.name }} <button (click)="clearFilter()" class="close"><i class="fa fa-close"></i></button></h1>
+      <h1>{{ selectedNode.name }} <button (click)="clearFilter()" class="close"><i class="fa fa-close"></i></button>
+      </h1>
       {{ selectedNode.description }} <br>
     </div>
     <input type="search" class="search" [(ngModel)]="search" (ngModelChange)="ngOnChanges($event)"
-           placeholder="Filter transactions">
+      placeholder="Filter transactions">
     <div class="error-message">
       {{ error }}
     </div>
@@ -21,12 +22,11 @@
     <div class="table-wrapper">
       <table *ngIf="transactions.length > 0" class="content-table">
         <tbody>
-        <tr transaction-row *ngFor="let transaction of filteredTransactions" [transaction]="transaction"
-            [selectedNode]="selectedNode"
-            [filteredTransactions]="filteredTransactions"
+          <tr transaction-row *ngFor="let transaction of filteredTransactions" [transaction]="transaction"
+            [selectedNode]="selectedNode" [filteredTransactions]="filteredTransactions"
             (transactionAction)="onTransactionAction($event, transaction)"
-            [ngClass]="transaction.cancelled ? 'cancelled' : 'simple'">
-        </tr>
+            [ngClass]="transaction.cancelled ? 'cancelled' : 'simple'" #rowCmp (click)="rowCmp.openMenu()">
+          </tr>
         </tbody>
       </table>
     </div>

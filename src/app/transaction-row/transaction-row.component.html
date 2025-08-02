@@ -1,12 +1,12 @@
 <td class="indicator">
   @if (status == TransactionStatus.INCOMING) {
-    <i class="fa fa-arrow-down" [ngClass]="transaction.cancelled?'cancelled':'incoming'"></i>
+  <i class="fa fa-arrow-down" [ngClass]="transaction.cancelled?'cancelled':'incoming'"></i>
   }
   @if (status == TransactionStatus.OUTGOING) {
-    <i class="fa fa-arrow-up" [ngClass]="transaction.cancelled?'cancelled':'outgoing'"></i>
+  <i class="fa fa-arrow-up" [ngClass]="transaction.cancelled?'cancelled':'outgoing'"></i>
   }
   @if (status == TransactionStatus.NEUTRAL) {
-    <i class="fa fa-arrow-right" [ngClass]="transaction.cancelled?'cancelled':'neutral'"></i>
+  <i class="fa fa-arrow-right" [ngClass]="transaction.cancelled?'cancelled':'neutral'"></i>
   }
 
 </td>
@@ -17,31 +17,31 @@
 </td>
 <td>{{ transaction.receiverNodeName }}</td>
 <td class="date">{{ transaction.date }}</td>
-  <div class="burger">
-    <button class="inline" (click)="getAvailableActions()" [matMenuTriggerFor]="menu">
-      <i class='fa fa-ellipsis-v'></i>
+<div class="burger">
+  <button class="inline" (click)="getAvailableActions(); $event.stopPropagation()" [matMenuTriggerFor]="menu">
+    <i class='fa fa-ellipsis-v'></i>
+  </button>
+  <mat-menu #menu="matMenu" id="mat-menu">
+    <button mat-menu-item *ngIf="availableActions.includes(TransactionAction.REPEAT)" (click)="onRepeat()">
+      <!--      <i class="fa fa-repeat"></i>-->
+      Repeat
     </button>
-    <mat-menu #menu="matMenu" id="mat-menu">
-      <button mat-menu-item *ngIf="availableActions.includes(TransactionAction.REPEAT)" (click)="onRepeat()">
-        <!--      <i class="fa fa-repeat"></i>-->
-        Repeat
-      </button>
-      <button mat-menu-item *ngIf="availableActions.includes(TransactionAction.EDIT)" (click)="onEdit()">
-        <!--      <i class="fa fa-edit"></i> -->
-        Edit
-      </button>
-      <button mat-menu-item *ngIf="availableActions.includes(TransactionAction.CANCEL)" (click)="onCancel()">
-        <!--      <i class="fa fa-times"></i> -->
-        Cancel
-      </button>
-      <button mat-menu-item *ngIf="availableActions.includes(TransactionAction.RESTORE)" (click)="onRestore()">
-        Restore
-      </button>
-      <button mat-menu-item *ngIf="availableActions.includes(TransactionAction.MOVE_UP)" (click)="onMoveUp()">
-        Move Up
-      </button>
-      <button mat-menu-item *ngIf="availableActions.includes(TransactionAction.MOVE_DOWN)" (click)="onMoveDown()">
-        Move Down
-      </button>
-    </mat-menu>
-  </div>
+    <button mat-menu-item *ngIf="availableActions.includes(TransactionAction.EDIT)" (click)="onEdit()">
+      <!--      <i class="fa fa-edit"></i> -->
+      Edit
+    </button>
+    <button mat-menu-item *ngIf="availableActions.includes(TransactionAction.CANCEL)" (click)="onCancel()">
+      <!--      <i class="fa fa-times"></i> -->
+      Cancel
+    </button>
+    <button mat-menu-item *ngIf="availableActions.includes(TransactionAction.RESTORE)" (click)="onRestore()">
+      Restore
+    </button>
+    <button mat-menu-item *ngIf="availableActions.includes(TransactionAction.MOVE_UP)" (click)="onMoveUp()">
+      Move Up
+    </button>
+    <button mat-menu-item *ngIf="availableActions.includes(TransactionAction.MOVE_DOWN)" (click)="onMoveDown()">
+      Move Down
+    </button>
+  </mat-menu>
+</div>
