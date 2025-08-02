@@ -63,6 +63,14 @@ export class TransactionRowComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
+  getFormattedDate(): String {
+    const date = new Date(this.transaction.date)
+    const day = this.numberFormatter.padNumber(date.getDate())
+    const month = this.numberFormatter.padNumber(date.getMonth() + 1)
+    const year = this.numberFormatter.padNumber(date.getFullYear())
+    return `${day}-${month}-${year}`
+  }
+
   getFormattedAmount(): String {
     let str = this.numberFormatter.format(this.transaction.senderAmount) + this.transaction.senderCurrencySymbol;
     if (this.transaction.senderCurrencySymbol != this.transaction.receiverCurrencySymbol

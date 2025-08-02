@@ -16,7 +16,7 @@
   {{ getFormattedAmount() }}
 </td>
 <td>{{ transaction.receiverNodeName }}</td>
-<td class="date">{{ transaction.date }}</td>
+<td class="date">{{ getFormattedDate() }}</td>
 <div class="burger">
   <button class="inline" (click)="getAvailableActions(); $event.stopPropagation()" [matMenuTriggerFor]="menu">
     <i class='fa fa-ellipsis-v'></i>
