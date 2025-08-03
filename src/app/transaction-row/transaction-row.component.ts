@@ -7,16 +7,18 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import {Transaction} from '../_models/transaction';
-import {NumberFormatter} from '../_helpers/number-formatter';
-import {FinancialNode} from "../_models/financial.node";
-import {TransactionStatus} from "../_models/transaction-status";
-import {TransactionAction} from "../_models/transaction-action";
-import {NgClass, NgIf} from "@angular/common";
+import { Transaction } from '../_models/transaction';
+import { NumberFormatter } from '../_helpers/number-formatter';
+import { FinancialNode } from "../_models/financial.node";
+import { TransactionStatus } from "../_models/transaction-status";
+import { TransactionAction } from "../_models/transaction-action";
+import { NgClass, NgIf } from "@angular/common";
 
-import {MatMenuModule} from '@angular/material/menu';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { ViewChild } from '@angular/core';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 
 @Component({
@@ -33,6 +35,8 @@ import {MatButtonModule} from '@angular/material/button';
   styleUrl: './transaction-row.component.css'
 })
 export class TransactionRowComponent implements OnInit, OnChanges {
+
+  @ViewChild(MatMenuTrigger) menuTrigger!: MatMenuTrigger;
 
   @Input() transaction!: Transaction;
   @Input() selectedNode?: FinancialNode;
@@ -57,6 +61,14 @@ export class TransactionRowComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+  }
+
+  getFormattedDate(): String {
+    const date = new Date(this.transaction.date)
+    const day = this.numberFormatter.padNumber(date.getDate())
+    const month = this.numberFormatter.padNumber(date.getMonth() + 1)
+    const year = this.numberFormatter.padNumber(date.getFullYear())
+    return `${day}-${month}-${year}`
   }
 
   getFormattedAmount(): String {
@@ -111,6 +123,11 @@ export class TransactionRowComponent implements OnInit, OnChanges {
     }
     this.availableActions = result;
     return result;
+  }
+
+  openMenu() {
+    this.getAvailableActions();
+    this.menuTrigger.openMenu();
   }
 
   protected readonly TransactionStatus = TransactionStatus;
