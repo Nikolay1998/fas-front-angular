@@ -37,7 +37,7 @@
   max-width: calc(100vw - 16px);
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1440px) {
   .table-wrapper {
     overflow-x: auto;
     display: block;
