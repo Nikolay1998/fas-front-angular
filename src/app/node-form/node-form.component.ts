@@ -1,6 +1,6 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Currency } from '../_models/currency';
 import { FinancialNode } from '../_models/financial.node';
@@ -28,12 +28,12 @@ export class NodeFormComponent implements OnChanges, OnInit {
   nodeTemplate?: FinancialNode = undefined;
 
   applyForm = new FormGroup({
-    name: new FormControl(),
-    description: new FormControl(''),
-    external: new FormControl(),
-    currencyId: new FormControl(),
-    amount: new FormControl(),
-    overdraft: new FormControl(),
+    name: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required),
+    external: new FormControl(false),
+    currencyId: new FormControl(null, Validators.required),
+    amount: new FormControl(null, [Validators.required, Validators.min(0)]),
+    overdraft: new FormControl(false),
   });
 
   error: String = "";
@@ -61,34 +61,46 @@ export class NodeFormComponent implements OnChanges, OnInit {
   }
 
   submitForm() {
+    if (this.applyForm.invalid) {
+      this.applyForm.markAllAsTouched();
+      return;
+    }
+
     let newNode: FinancialNode = {
       id: this.nodeTemplate ? this.nodeTemplate.id : "",
       name: this.applyForm.value.name ?? '',
       description: this.applyForm.value.description ?? '',
-      currencyId: this.applyForm.value.currencyId,
-      currencySymbol: this.applyForm.value.currencyId,
-      amount: this.applyForm.value.amount,
+      currencyId: this.applyForm.value.currencyId!,
+      currencySymbol: this.applyForm.value.currencyId!,
+      amount: this.applyForm.value.amount!,
       userId: "",
-      external: this.applyForm.value.external,
-      overdraft: this.applyForm.value.overdraft,
+      external: this.applyForm.value.external ?? false,
+      overdraft: this.applyForm.value.overdraft ?? false,
       archived: false,
       //toDo: change to undefined and check
       lastTransactionDate: new Date()
-    }
+    };
+
+
     if (this.nodeTemplate) {
       this.nodeService.editNode(newNode).subscribe({
         next: (nodes) => this.updateAndClose(),
         error: (e) => this.error = e
       });
-    }
-    else {
+    } else {
       //toDo: add only new one
       this.nodeService.addNode(newNode).subscribe({
-        next: (nodes) => { this.updateAndClose() },
+        next: (nodes) => this.updateAndClose(),
         error: (e) => this.error = e
       });
     }
   }
+  isInvalid(controlName: string): boolean {
+    const control = this.applyForm.get(controlName);
+    return !!(control && control.invalid && control.touched);
+  }
+
+
 
   private updateAndClose() {
     this.nodeHolder.updateNodes();

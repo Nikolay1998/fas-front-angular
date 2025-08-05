@@ -7,11 +7,11 @@
 }
 
 /* ng-select */
-.ng-select.ng-select-opened > .ng-select-container {
+.ng-select.ng-select-opened>.ng-select-container {
   background: #f8f8f8;
 }
 
-.ng-select.ng-select-disabled > .ng-select-container {
+.ng-select.ng-select-disabled>.ng-select-container {
   background-color: #f8f8f8;
 }
 
@@ -25,17 +25,11 @@
   height: 30px;
 }
 
-.ng-select.ng-select-multiple.ng-select-disabled
-  > .ng-select-container
-  .ng-value-container
-  .ng-value {
+.ng-select.ng-select-multiple.ng-select-disabled>.ng-select-container .ng-value-container .ng-value {
   background-color: #f8f8f8;
 }
 
-.ng-select.ng-select-multiple
-  .ng-select-container
-  .ng-value-container
-  .ng-value {
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
   background-color: #f8f8f8;
 }
 
@@ -77,9 +71,11 @@ ng-select {
   padding: 12px 15px;
   /*height: 20px;*/
   text-overflow: ellipsis;
-  white-space: nowrap; /* Запрет на перенос текста */
+  white-space: nowrap;
+  /* Запрет на перенос текста */
   overflow: hidden;
-  max-width: 100px; /* Установите максимальную ширину ячейки */
+  max-width: 100px;
+  /* Установите максимальную ширину ячейки */
   /* display: inline-block; */
 }
 
@@ -120,7 +116,8 @@ ng-select {
   visibility: hidden;
   flex-grow: 1;
   height: 100%;
-  transition: display 0.3s ease; /* Плавный переход */
+  transition: display 0.3s ease;
+  /* Плавный переход */
 }
 
 .content-table tr:hover .inline {
@@ -194,6 +191,13 @@ button.form {
 
 #cancel:hover {
   background-color: #ca2b3b;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  background-color: #b5b5b5 !important;
+  color: #ffffff80;
+  opacity: 0.7;
 }
 
 /* forms */

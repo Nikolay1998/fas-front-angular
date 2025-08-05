@@ -1,13 +1,19 @@
 .container {
-    width: 280px;
-    margin-bottom: 20px;
+  width: 280px;
+  margin-bottom: 20px;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 label {
-    width: 80px;
+  width: 80px;
+}
+
+.error {
+  display: flex;
+  justify-content: flex-end;
+  margin: -8px 0 8px;
 }
