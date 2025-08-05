@@ -40,6 +40,11 @@ ng-select {
   transition: border-color 0.3s ease;
 }
 
+ng-select.invalid .ng-select-container {
+  border: 1px solid red !important;
+  box-shadow: none;
+}
+
 /* tables with content */
 .content-table {
   border-collapse: collapse;
@@ -252,4 +257,9 @@ input[type="checkbox"] {
 .error-message {
   color: red;
   margin-top: 5px;
+}
+
+
+input.invalid {
+  border: 1px solid red;
 }

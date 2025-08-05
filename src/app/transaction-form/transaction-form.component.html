@@ -4,7 +4,8 @@
       <div class="form-column">
         <div class="form-group" style="white-space: nowrap">
           <label for="description">Description</label>
-          <input id="description" type="text" formControlName="description" />
+          <input id="description" type="text" formControlName="description"
+            [class.invalid]="isInvalid('description')" />
         </div>
         <div class="error error-message" *ngIf="isInvalid('description')">
           Description is required
@@ -12,7 +13,7 @@
 
         <div class="form-group" style="white-space: nowrap">
           <label for="senderNodeId">Sender Node</label>
-          <ng-select id="senderNodeId" formControlName="senderNodeId">
+          <ng-select id="senderNodeId" formControlName="senderNodeId" [class.invalid]="isInvalid('senderNodeId')">
             <ng-option *ngFor="let node of nodes" [value]="node.id">
               {{ node.currencySymbol }} {{ node.name }}
             </ng-option>
@@ -24,7 +25,7 @@
 
         <div class="form-group" style="white-space: nowrap">
           <label for="receiverNodeId">Receiver Node</label>
-          <ng-select id="receiverNodeId" formControlName="receiverNodeId">
+          <ng-select id="receiverNodeId" formControlName="receiverNodeId" [class.invalid]="isInvalid('receiverNodeId')">
             <ng-option *ngFor="let node of nodes" [value]="node.id">
               {{ node.currencySymbol }} {{ node.name }}
             </ng-option>
@@ -39,7 +40,7 @@
       <div class="form-column">
         <div class="form-group" style="white-space: nowrap">
           <label for="date">Date</label>
-          <input id="date" type="date" formControlName="date" />
+          <input id="date" type="date" formControlName="date" [class.invalid]="isInvalid('date')" />
         </div>
 
         <div class="error error-message" *ngIf="isInvalid('date')">
@@ -50,7 +51,8 @@
           <label for="senderAmount">Sender Amount</label>
           <div class="input-icon-item" style="white-space: nowrap">
             <i>{{ senderCurrency }}</i>
-            <input id="senderAmount" type="number" formControlName="senderAmount" />
+            <input id="senderAmount" type="number" formControlName="senderAmount"
+              [class.invalid]="isInvalid('senderAmount')" />
           </div>
         </div>
 
@@ -62,7 +64,8 @@
           <label for="receiverAmount">Receiver Amount</label>
           <div class="input-icon-item" style="white-space: nowrap">
             <i>{{ receiverCurrency }}</i>
-            <input id="receiverAmount" type="number" formControlName="receiverAmount" />
+            <input id="receiverAmount" type="number" formControlName="receiverAmount"
+              [class.invalid]="isInvalid('receiverAmount')" />
           </div>
         </div>
 
