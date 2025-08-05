@@ -1,12 +1,13 @@
-import {KeyValuePipe, NgFor, NgIf} from '@angular/common';
-import {Component, OnInit} from '@angular/core';
-import {NumberFormatter} from '../_helpers/number-formatter';
-import {SummaryHolderService} from '../_services/summary-holder.service';
-import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {CurrencyService} from "../_services/currency.service";
-import {Currency} from "../_models/currency";
-import {PeriodStats} from "../_models/period-stats";
-import {VisibleSections} from "./visible-sections";
+import { KeyValuePipe, NgFor, NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { NumberFormatter } from '../_helpers/number-formatter';
+import { SummaryHolderService } from '../_services/summary-holder.service';
+import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { CurrencyService } from "../_services/currency.service";
+import { Currency } from "../_models/currency";
+import { PeriodStats } from "../_models/period-stats";
+import { VisibleSections } from "./visible-sections";
+import { DateFormatter } from '../_helpers/date-formatter';
 
 
 @Component({
@@ -30,11 +31,12 @@ export class SummaryComponent implements OnInit {
     to: new FormControl(),
   })
   defaultFromDate;
-  defaultToDate = new Date().toISOString().split('T')[0];
+  defaultToDate = this.dateFormatter.format(new Date());
 
   constructor(
     private summaryHolder: SummaryHolderService,
     public numberFormatter: NumberFormatter,
+    public dateFormatter: DateFormatter,
     private currencyService: CurrencyService,
   ) {
     this.defaultFromDate = this.getFromDate();
@@ -55,15 +57,15 @@ export class SummaryComponent implements OnInit {
   ngOnInit(): void {
 
     this.balanceChangeForm.controls['from'].valueChanges.subscribe(value => {
-        this.summaryHolder.setFrom = value;
-        this.summaryHolder.updateBalanceChange()
-      }
+      this.summaryHolder.setFrom = value;
+      this.summaryHolder.updateBalanceChange()
+    }
     );
 
     this.balanceChangeForm.controls['to'].valueChanges.subscribe(value => {
-        this.summaryHolder.setTo = value;
-        this.summaryHolder.updateBalanceChange()
-      }
+      this.summaryHolder.setTo = value;
+      this.summaryHolder.updateBalanceChange()
+    }
     );
 
     this.balanceChangeForm.controls['from'].setValue(this.defaultFromDate);
@@ -84,7 +86,7 @@ export class SummaryComponent implements OnInit {
   private getFromDate(): string {
     const date = new Date();
     date.setMonth(date.getMonth() - 1);
-    return date.toISOString().split('T')[0];
+    return this.dateFormatter.format(date);
   }
 
   private onPeriodStatsChange(periodStats: PeriodStats): void {
