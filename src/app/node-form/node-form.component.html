@@ -4,27 +4,43 @@
 
     <div class="form-group" style="white-space:nowrap">
       <label for="name">Name</label>
-      <input id="name" type="text" formControlName="name">
+      <input id="name" type="text" formControlName="name" [class.invalid]="isInvalid('name')">
+    </div>
+
+    <div class="error error-message" *ngIf="isInvalid('name')">
+      Name is required
     </div>
 
     <div class="form-group" style="white-space:nowrap">
       <label for="description">Description</label>
-      <input id="description" type="text" formControlName="description">
+      <input id="description" type="text" formControlName="description" [class.invalid]="isInvalid('description')">
+    </div>
+
+    <div class="error error-message" *ngIf="isInvalid('description')">
+      Description is required
     </div>
 
     <div class="form-group" style="white-space:nowrap">
       <label for="amount">Amount</label>
-      <input id="amount" type="number" formControlName="amount">
+      <input id="amount" type="number" formControlName="amount" [class.invalid]="isInvalid('amount')">
+    </div>
+
+    <div class="error error-message" *ngIf="isInvalid('amount')">
+      Amount is required
     </div>
 
     <div class="form-group" style="white-space:nowrap">
       <label for="currencyId">Currency</label>
 
-      <ng-select id="currencyId" formControlName="currencyId">
+      <ng-select id="currencyId" formControlName="currencyId" [class.invalid]="isInvalid('currencyId')">
         <ng-option *ngFor="let currency of currencys" [value]="currency.id">
           {{ currency.shortName }}
         </ng-option>
       </ng-select>
+    </div>
+
+    <div class="error error-message" *ngIf="isInvalid('currencyId')">
+      Currency is required
     </div>
 
     <div class="form-group" style="white-space:nowrap">
@@ -33,13 +49,17 @@
     </div>
 
     <div class="form-group" style="white-space:nowrap" *ngIf="!applyForm.get('external')?.value">
-      <input id="overdraft" type="checkbox" formControlName="overdraft"/>
+      <input id="overdraft" type="checkbox" formControlName="overdraft" />
       <label for="overdraft">Overdraft</label>
     </div>
 
     <div class="button-group">
-      <button *ngIf="nodeTemplate" class="form" id="update" type="submit">Update</button>
-      <button *ngIf="!nodeTemplate" class="form" id="create" type="submit">Create</button>
+      <button *ngIf="nodeTemplate" class="form" id="update" type="submit" [disabled]="applyForm.invalid">
+        Update
+      </button>
+      <button *ngIf="!nodeTemplate" class="form" id="create" type="submit" [disabled]="applyForm.invalid">
+        Create
+      </button>
       <button type="button" class="form" id="cancel" (click)="cancel()">Cancel</button>
     </div>
 
