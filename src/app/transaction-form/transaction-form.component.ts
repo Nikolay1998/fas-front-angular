@@ -1,6 +1,6 @@
-import { NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FinancialNode } from '../_models/financial.node';
 import { FormState } from '../_models/form-state';
@@ -15,7 +15,7 @@ import { NumberFormatter } from '../_helpers/number-formatter';
 @Component({
   selector: 'app-transaction-form',
   standalone: true,
-  imports: [ReactiveFormsModule, NgSelectModule, NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault],
+  imports: [ReactiveFormsModule, NgSelectModule, NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault],
   templateUrl: './transaction-form.component.html',
   styleUrl: './transaction-form.component.css'
 })
@@ -40,13 +40,13 @@ export class TransactionFormComponent implements OnInit, OnChanges {
 
 
   transactionForm = new FormGroup({
-    description: new FormControl(),
-    senderNodeId: new FormControl(),
-    receiverNodeId: new FormControl(),
-    senderAmount: new FormControl(),
-    receiverAmount: new FormControl(),
-    date: new FormControl()
-  })
+    description: new FormControl('', Validators.required),
+    senderNodeId: new FormControl(null, Validators.required),
+    receiverNodeId: new FormControl(null, Validators.required),
+    senderAmount: new FormControl(null, [Validators.required, Validators.min(0)]),
+    receiverAmount: new FormControl(null, [Validators.required, Validators.min(0)]),
+    date: new FormControl(null, Validators.required)
+  });
 
   constructor(
     public transactionService: TransactionService,
@@ -98,39 +98,45 @@ export class TransactionFormComponent implements OnInit, OnChanges {
   }
 
   submitForm() {
+    if (this.transactionForm.invalid) {
+      this.transactionForm.markAllAsTouched();
+      return;
+    }
+
     let newTransaction: Transaction = {
       id: this.state == FormState.Edit && this.transactionTemplate ? this.transactionTemplate.id : "",
-      description: this.transactionForm.value.description,
-      senderNodeId: this.transactionForm.value.senderNodeId,
-      receiverNodeId: this.transactionForm.value.receiverNodeId,
+      description: this.transactionForm.value.description!,
+      senderNodeId: this.transactionForm.value.senderNodeId!,
+      receiverNodeId: this.transactionForm.value.receiverNodeId!,
       senderNodeName: "",
       receiverNodeName: "",
-      senderAmount: this.transactionForm.value.senderAmount,
-      receiverAmount: this.transactionForm.value.receiverAmount,
+      senderAmount: this.transactionForm.value.senderAmount!,
+      receiverAmount: this.transactionForm.value.receiverAmount!,
       senderCurrencyId: -1, //toDo
       receiverCurrencyId: -1, //toDo
       senderCurrencySymbol: "",
       receiverCurrencySymbol: "",
-      date: this.transactionForm.value.date,
+      date: this.transactionForm.value.date!,
       cancelled: false,
       userId: ""
-    }
+    };
+
     if (this.state == FormState.Edit) {
-      this.transactionService.editTransaction(newTransaction).subscribe(
-        {
-          next: () => this.updateFromServerAndClose(),
-          error: (e) => this.error = e
-        }
-      );
+      this.transactionService.editTransaction(newTransaction).subscribe({
+        next: () => this.updateFromServerAndClose(),
+        error: (e) => this.error = e
+      });
+    } else {
+      this.transactionService.addTransaction(newTransaction).subscribe({
+        next: () => this.updateFromServerAndClose(),
+        error: (e) => this.error = e
+      });
     }
-    else {
-      this.transactionService.addTransaction(newTransaction).subscribe(
-        {
-          next: () => this.updateFromServerAndClose(),
-          error: (e) => this.error = e
-        }
-      );
-    }
+  }
+
+  isInvalid(controlName: string): boolean {
+    const control = this.transactionForm.get(controlName);
+    return !!(control && control.invalid && control.touched);
   }
 
   private updateFromServerAndClose() {

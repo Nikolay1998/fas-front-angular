@@ -6,6 +6,9 @@
           <label for="description">Description</label>
           <input id="description" type="text" formControlName="description" />
         </div>
+        <div class="error error-message" *ngIf="isInvalid('description')">
+          Description is required
+        </div>
 
         <div class="form-group" style="white-space: nowrap">
           <label for="senderNodeId">Sender Node</label>
@@ -14,6 +17,9 @@
               {{ node.currencySymbol }} {{ node.name }}
             </ng-option>
           </ng-select>
+        </div>
+        <div class="error error-message" *ngIf="isInvalid('senderNodeId')">
+          Sender Node is required
         </div>
 
         <div class="form-group" style="white-space: nowrap">
@@ -24,6 +30,10 @@
             </ng-option>
           </ng-select>
         </div>
+
+        <div class="error error-message" *ngIf="isInvalid('receiverNodeId')">
+          Receiver Node is required
+        </div>
       </div>
 
       <div class="form-column">
@@ -32,51 +42,45 @@
           <input id="date" type="date" formControlName="date" />
         </div>
 
+        <div class="error error-message" *ngIf="isInvalid('date')">
+          Date is required
+        </div>
+
         <div class="form-group input-icon" style="white-space: nowrap">
           <label for="senderAmount">Sender Amount</label>
           <div class="input-icon-item" style="white-space: nowrap">
             <i>{{ senderCurrency }}</i>
-            <input
-              id="senderAmount"
-              type="number"
-              formControlName="senderAmount"
-            />
+            <input id="senderAmount" type="number" formControlName="senderAmount" />
           </div>
+        </div>
+
+        <div class="error error-message" *ngIf="isInvalid('senderAmount')">
+          Sender amount is required and must be >= 0
         </div>
 
         <div class="form-group input-icon" style="white-space: nowrap">
           <label for="receiverAmount">Receiver Amount</label>
           <div class="input-icon-item" style="white-space: nowrap">
             <i>{{ receiverCurrency }}</i>
-            <input
-              id="receiverAmount"
-              type="number"
-              formControlName="receiverAmount"
-            />
+            <input id="receiverAmount" type="number" formControlName="receiverAmount" />
           </div>
+        </div>
+
+        <div class="error error-message" *ngIf="isInvalid('receiverAmount')">
+          Receiver amount is required and must be >= 0
         </div>
       </div>
     </div>
     <div class="button-group" [ngSwitch]="state">
-      <button
-        class="create"
-        class="form"
-        id="create"
-        type="submit"
-        *ngSwitchCase="1"
-      >
+      <button class="create" class="form" id="create" type="submit" *ngSwitchCase="1"
+        [disabled]="transactionForm.invalid">
         Create
       </button>
-      <button
-        class="create"
-        class="form"
-        id="create"
-        type="submit"
-        *ngSwitchCase="2"
-      >
+      <button class="create" class="form" id="create" type="submit" *ngSwitchCase="2"
+        [disabled]="transactionForm.invalid">
         Create
       </button>
-      <button class="update" class="form" id="update" *ngSwitchCase="3">
+      <button class="update" class="form" id="update" *ngSwitchCase="3" [disabled]="transactionForm.invalid">
         Edit
       </button>
       <button type="button" class="form" id="cancel" (click)="onCancel()">

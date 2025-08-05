@@ -27,7 +27,7 @@ label {
   width: 100%;
 }
 
-.input-icon-item > i {
+.input-icon-item>i {
   position: absolute;
   display: block;
   top: 4px;
@@ -37,14 +37,20 @@ label {
   font-style: normal;
 }
 
-.input-icon-item > input {
+.input-icon-item>input {
   padding-left: 16px;
   padding-right: 0;
   width: 100%;
 }
 
-.input-icon-right > i {
+.input-icon-right>i {
   right: 0;
+}
+
+.error {
+  display: flex;
+  justify-content: flex-end;
+  margin: -8px 0 8px;
 }
 
 @media (max-width: 700px) {
