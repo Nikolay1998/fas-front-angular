@@ -17,7 +17,7 @@ export class DateFormatter {
     const day = this.numberFormatter.padNumber(dateObj.getDate())
     const month = this.numberFormatter.padNumber(dateObj.getMonth() + 1)
     const year = this.numberFormatter.padNumber(dateObj.getFullYear())
-    return `${year}-${month}-${day}`
+    return `${day}-${month}-${year}`
   }
 
 }

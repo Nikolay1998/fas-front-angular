@@ -7,7 +7,6 @@ import { CurrencyService } from "../_services/currency.service";
 import { Currency } from "../_models/currency";
 import { PeriodStats } from "../_models/period-stats";
 import { VisibleSections } from "./visible-sections";
-import { DateFormatter } from '../_helpers/date-formatter';
 
 
 @Component({
@@ -31,12 +30,11 @@ export class SummaryComponent implements OnInit {
     to: new FormControl(),
   })
   defaultFromDate;
-  defaultToDate = this.dateFormatter.format(new Date());
+  defaultToDate = new Date().toISOString().split('T')[0];
 
   constructor(
     private summaryHolder: SummaryHolderService,
     public numberFormatter: NumberFormatter,
-    public dateFormatter: DateFormatter,
     private currencyService: CurrencyService,
   ) {
     this.defaultFromDate = this.getFromDate();
@@ -86,7 +84,7 @@ export class SummaryComponent implements OnInit {
   private getFromDate(): string {
     const date = new Date();
     date.setMonth(date.getMonth() - 1);
-    return this.dateFormatter.format(date);
+    return date.toISOString().split('T')[0];
   }
 
   private onPeriodStatsChange(periodStats: PeriodStats): void {
