@@ -39,7 +39,7 @@
   max-width: calc(100vw - 16px);
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1440px) {
   .container {
     display: flex;
     flex-direction: column;

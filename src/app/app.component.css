@@ -1,56 +1,56 @@
 */ .content {
-    grid-area: content;
+  grid-area: content;
 }
 
 .grid-container {
-    margin: auto;
-    display: grid;
-    min-width: 500px;
-    max-width: 1380px;
-    grid-template-rows: 30px 1fr;
-    gap: 20px;
+  margin: auto;
+  display: grid;
+  min-width: 500px;
+  max-width: 1420px;
+  grid-template-rows: 30px 1fr;
+  gap: 20px;
 }
 
 .nav-bar {
-    overflow: hidden;
-    /* background-color: #f3f3f3; */
-    color: black;
-    height: 60px;
-    /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); */
+  overflow: hidden;
+  /* background-color: #f3f3f3; */
+  color: black;
+  height: 60px;
+  /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); */
 }
 
 .nav-bar a {
-    float: left;
-    color: black;
-    text-align: center;
-    padding: 12px;
-    text-decoration: none;
-    font-size: 14px;
-    line-height: 25px;
-    border-radius: 5px;
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 25px;
+  border-radius: 5px;
 }
 
 .nav-bar a.logo {
-    font-size: 25px;
-    font-weight: bold;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 .nav-bar a.active {
-    background-color: dodgerblue;
-    color: white;
+  background-color: dodgerblue;
+  color: white;
 }
 
 .nav-bar-right {
-    float: right;
-    padding: 12px;
+  float: right;
+  padding: 12px;
 }
 
-@media (max-width: 1400px) {
-    .grid-container {
-        min-width: 100%;
-    }
+@media (max-width: 1440px) {
+  .grid-container {
+    min-width: 100%;
+  }
 
-    .nav-bar a.logo {
-        font-size: 14px;
-    }
+  .nav-bar a.logo {
+    font-size: 14px;
+  }
 }

@@ -50,7 +50,7 @@ label {
   color: #333;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1440px) {
   .financial-stats-container {
     width: 100%;
     display: flex;
