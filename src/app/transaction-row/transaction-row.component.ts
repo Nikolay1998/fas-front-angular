@@ -19,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { DateFormatter } from '../_helpers/date-formatter';
 
 
 @Component({
@@ -51,6 +52,8 @@ export class TransactionRowComponent implements OnInit, OnChanges {
 
   constructor(
     public numberFormatter: NumberFormatter,
+    public dateFormatter: DateFormatter,
+
   ) {
 
   }
@@ -64,11 +67,7 @@ export class TransactionRowComponent implements OnInit, OnChanges {
   }
 
   getFormattedDate(): String {
-    const date = new Date(this.transaction.date)
-    const day = this.numberFormatter.padNumber(date.getDate())
-    const month = this.numberFormatter.padNumber(date.getMonth() + 1)
-    const year = this.numberFormatter.padNumber(date.getFullYear(), 4)
-    return `${day}-${month}-${year}`
+    return this.dateFormatter.format(this.transaction.date)
   }
 
   getFormattedAmount(): String {
