@@ -38,6 +38,9 @@ export class NodeFormComponent implements OnChanges, OnInit {
 
   error: String = "";
 
+  formErrorMessage: string | null = null;
+  private errorTimeout: ReturnType<typeof setTimeout> | null = null;
+
   constructor(
     private nodeService: NodeService,
     private nodeHolder: NodeHolderService,
@@ -99,8 +102,44 @@ export class NodeFormComponent implements OnChanges, OnInit {
     const control = this.applyForm.get(controlName);
     return !!(control && control.invalid && control.touched);
   }
+  onBlur(controlName: keyof typeof this.applyForm.controls) {
+    const control = this.applyForm.get(controlName);
+    if (control && control.invalid && control.touched) {
+      this.setupErrorHandlers(controlName);
+    }
+  }
 
+  setupErrorHandlers(controlName: string) {
+    const control = this.applyForm.get(controlName);
 
+    if (!control || !control.errors) return;
+
+    const firstErrorKey = Object.keys(control.errors)[0];
+
+    const errorMessages: Record<string, string> = {
+      required: `${this.getLabel(controlName)} is required`,
+    };
+
+    if (this.errorTimeout) {
+      clearTimeout(this.errorTimeout);
+    }
+
+    this.formErrorMessage = errorMessages[firstErrorKey] ?? 'Invalid input';
+
+    this.errorTimeout = setTimeout(() => {
+      this.formErrorMessage = null;
+    }, 1500);
+  }
+  private getLabel(controlName: string): string {
+    const labels: Record<string, string> = {
+      name: 'Name',
+      currencyId: 'Currency',
+      amount: 'Amount',
+      description: 'Description',
+
+    };
+    return labels[controlName] ?? controlName;
+  }
 
   private updateAndClose() {
     this.nodeHolder.updateNodes();

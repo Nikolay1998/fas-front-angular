@@ -14,8 +14,21 @@ label {
 
 .error {
   display: flex;
-  justify-content: flex-end;
-  margin: -8px 0 8px;
+  justify-content: center;
+}
+
+.bottom-group {
+  display: flex;
+  flex-direction: column;
+  margin-top: -12px;
+}
+
+.bottom-group .error-message {
+  margin: 0;
+}
+
+.error-group {
+  height: 20px;
 }
 
 @media (max-width: 500px) {

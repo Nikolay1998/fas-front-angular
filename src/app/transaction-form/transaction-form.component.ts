@@ -38,6 +38,9 @@ export class TransactionFormComponent implements OnInit, OnChanges {
 
   error: String = "";
 
+  formErrorMessage: string | null = null;
+  private errorTimeout: ReturnType<typeof setTimeout> | null = null;
+
 
   transactionForm = new FormGroup({
     description: new FormControl('', Validators.required),
@@ -137,6 +140,47 @@ export class TransactionFormComponent implements OnInit, OnChanges {
   isInvalid(controlName: string): boolean {
     const control = this.transactionForm.get(controlName);
     return !!(control && control.invalid && control.touched);
+  }
+
+  onBlur(controlName: keyof typeof this.transactionForm.controls) {
+    const control = this.transactionForm.get(controlName);
+    if (control && control.invalid && control.touched) {
+      this.setupErrorHandlers(controlName);
+    }
+  }
+
+  setupErrorHandlers(controlName: string) {
+    const control = this.transactionForm.get(controlName);
+
+    if (!control || !control.errors) return;
+
+    const firstErrorKey = Object.keys(control.errors)[0];
+
+    const errorMessages: Record<string, string> = {
+      required: this.getErrorMessage(controlName),
+    };
+
+    if (this.errorTimeout) {
+      clearTimeout(this.errorTimeout);
+    }
+
+    this.formErrorMessage = errorMessages[firstErrorKey] ?? 'Invalid input';
+
+    this.errorTimeout = setTimeout(() => {
+      this.formErrorMessage = null;
+    }, 1500);
+  }
+  private getErrorMessage(controlName: string): string {
+    const errorMessages: Record<string, string> = {
+      name: 'Name is required',
+      senderNodeId: 'Sender Node is required',
+      receiverNodeId: 'Receiver Node is required',
+      date: 'Date is required',
+      description: 'Description is required',
+      senderAmount: 'Sender amount is required and must be >= 0',
+      receiverAmount: 'Receiver amount is required and must be >= 0'
+    };
+    return errorMessages[controlName] ?? controlName;
   }
 
   private updateFromServerAndClose() {
