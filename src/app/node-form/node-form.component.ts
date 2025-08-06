@@ -36,9 +36,7 @@ export class NodeFormComponent implements OnChanges, OnInit {
     overdraft: new FormControl(false),
   });
 
-  error: String = "";
-
-  formErrorMessage: string | null = null;
+  error: string | null = null;
   private errorTimeout: ReturnType<typeof setTimeout> | null = null;
 
   constructor(
@@ -88,13 +86,31 @@ export class NodeFormComponent implements OnChanges, OnInit {
     if (this.nodeTemplate) {
       this.nodeService.editNode(newNode).subscribe({
         next: (nodes) => this.updateAndClose(),
-        error: (e) => this.error = e
+        error: (e) => {
+          if (this.errorTimeout) {
+            clearTimeout(this.errorTimeout);
+          }
+          this.error = e
+
+          this.errorTimeout = setTimeout(() => {
+            this.error = null;
+          }, 2000);
+        }
       });
     } else {
       //toDo: add only new one
       this.nodeService.addNode(newNode).subscribe({
         next: (nodes) => this.updateAndClose(),
-        error: (e) => this.error = e
+        error: (e) => {
+          if (this.errorTimeout) {
+            clearTimeout(this.errorTimeout);
+          }
+          this.error = e
+
+          this.errorTimeout = setTimeout(() => {
+            this.error = null;
+          }, 2000);
+        }
       });
     }
   }
@@ -124,11 +140,11 @@ export class NodeFormComponent implements OnChanges, OnInit {
       clearTimeout(this.errorTimeout);
     }
 
-    this.formErrorMessage = errorMessages[firstErrorKey] ?? 'Invalid input';
+    this.error = errorMessages[firstErrorKey] ?? 'Invalid input';
 
     this.errorTimeout = setTimeout(() => {
-      this.formErrorMessage = null;
-    }, 1500);
+      this.error = null;
+    }, 2000);
   }
   private getLabel(controlName: string): string {
     const labels: Record<string, string> = {

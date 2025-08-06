@@ -41,26 +41,8 @@ label {
   right: 0;
 }
 
-.error {
-  display: flex;
-  justify-content: center;
-}
-
-.bottom-group {
-  display: flex;
-  flex-direction: column;
-  margin-top: -12px;
-  max-width: 300px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.bottom-group .error-message {
-  margin: 0;
-}
-
-.error-group {
-  height: 20px;
+.error-message {
+  min-height: 20px;
 }
 
 @media (max-width: 700px) {

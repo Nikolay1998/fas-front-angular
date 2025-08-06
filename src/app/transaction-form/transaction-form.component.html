@@ -59,28 +59,21 @@
 
       </div>
     </div>
-    <div class='bottom-group'>
-      <div class='error-group'>
-        <div class="error error-message" *ngIf="formErrorMessage">
-          {{ formErrorMessage }}
-        </div>
-      </div>
-      <div class="button-group" [ngSwitch]="state">
-        <button class="create" class="form" id="create" type="submit" *ngSwitchCase="1"
-          [disabled]="transactionForm.invalid">
-          Create
-        </button>
-        <button class="create" class="form" id="create" type="submit" *ngSwitchCase="2"
-          [disabled]="transactionForm.invalid">
-          Create
-        </button>
-        <button class="update" class="form" id="update" *ngSwitchCase="3" [disabled]="transactionForm.invalid">
-          Edit
-        </button>
-        <button type="button" class="form" id="cancel" (click)="onCancel()">
-          Cancel
-        </button>
-      </div>
+    <div class="button-group" [ngSwitch]="state">
+      <button class="create" class="form" id="create" type="submit" *ngSwitchCase="1"
+        [disabled]="transactionForm.invalid">
+        Create
+      </button>
+      <button class="create" class="form" id="create" type="submit" *ngSwitchCase="2"
+        [disabled]="transactionForm.invalid">
+        Create
+      </button>
+      <button class="update" class="form" id="update" *ngSwitchCase="3" [disabled]="transactionForm.invalid">
+        Edit
+      </button>
+      <button type="button" class="form" id="cancel" (click)="onCancel()">
+        Cancel
+      </button>
     </div>
 
     <div class="error-message">

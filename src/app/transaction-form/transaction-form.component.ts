@@ -36,9 +36,7 @@ export class TransactionFormComponent implements OnInit, OnChanges {
   receiverCurrency: string = "?";
   receiverAmountChangedByHand: boolean = false;
 
-  error: String = "";
-
-  formErrorMessage: string | null = null;
+  error: string | null = null;
   private errorTimeout: ReturnType<typeof setTimeout> | null = null;
 
 
@@ -127,12 +125,30 @@ export class TransactionFormComponent implements OnInit, OnChanges {
     if (this.state == FormState.Edit) {
       this.transactionService.editTransaction(newTransaction).subscribe({
         next: () => this.updateFromServerAndClose(),
-        error: (e) => this.error = e
+        error: (e) => {
+          if (this.errorTimeout) {
+            clearTimeout(this.errorTimeout);
+          }
+          this.error = e
+
+          this.errorTimeout = setTimeout(() => {
+            this.error = null;
+          }, 2000);
+        }
       });
     } else {
       this.transactionService.addTransaction(newTransaction).subscribe({
         next: () => this.updateFromServerAndClose(),
-        error: (e) => this.error = e
+        error: (e) => {
+          if (this.errorTimeout) {
+            clearTimeout(this.errorTimeout);
+          }
+          this.error = e
+
+          this.errorTimeout = setTimeout(() => {
+            this.error = null;
+          }, 2000);
+        }
       });
     }
   }
@@ -164,11 +180,11 @@ export class TransactionFormComponent implements OnInit, OnChanges {
       clearTimeout(this.errorTimeout);
     }
 
-    this.formErrorMessage = errorMessages[firstErrorKey] ?? 'Invalid input';
+    this.error = errorMessages[firstErrorKey] ?? 'Invalid input';
 
     this.errorTimeout = setTimeout(() => {
-      this.formErrorMessage = null;
-    }, 1500);
+      this.error = null;
+    }, 2000);
   }
   private getErrorMessage(controlName: string): string {
     const errorMessages: Record<string, string> = {

@@ -1,6 +1,6 @@
 .container {
   width: 280px;
-  margin-bottom: 20px;
+  margin-bottom: 4px;
 }
 
 form {
@@ -12,23 +12,8 @@ label {
   width: 80px;
 }
 
-.error {
-  display: flex;
-  justify-content: center;
-}
-
-.bottom-group {
-  display: flex;
-  flex-direction: column;
-  margin-top: -12px;
-}
-
-.bottom-group .error-message {
-  margin: 0;
-}
-
-.error-group {
-  height: 20px;
+.error-message {
+  min-height: 20px;
 }
 
 @media (max-width: 500px) {

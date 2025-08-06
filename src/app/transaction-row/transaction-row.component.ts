@@ -67,7 +67,7 @@ export class TransactionRowComponent implements OnInit, OnChanges {
     const date = new Date(this.transaction.date)
     const day = this.numberFormatter.padNumber(date.getDate())
     const month = this.numberFormatter.padNumber(date.getMonth() + 1)
-    const year = this.numberFormatter.padNumber(date.getFullYear())
+    const year = this.numberFormatter.padNumber(date.getFullYear(), 4)
     return `${day}-${month}-${year}`
   }
 

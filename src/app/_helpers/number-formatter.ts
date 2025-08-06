@@ -9,7 +9,7 @@ export class NumberFormatter {
     return new Intl.NumberFormat('ru', { minimumFractionDigits: 0 }).format(num)
   }
 
-  padNumber(num: number): string {
-    return num > 9 ? String(num) : `0${num}`
+  padNumber(num: number, minLength = 2): string {
+    return num.toString().padStart(minLength, '0');
   }
 }

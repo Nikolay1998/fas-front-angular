@@ -43,25 +43,18 @@
       <input id="overdraft" type="checkbox" formControlName="overdraft" />
       <label for="overdraft">Overdraft</label>
     </div>
-    <div class='bottom-group'>
-      <div class='error-group'>
-        <div class="error error-message" *ngIf="formErrorMessage">
-          {{ formErrorMessage }}
-        </div>
-      </div>
-      <div class="button-group">
-        <button *ngIf="nodeTemplate" class="form" id="update" type="submit" [disabled]="applyForm.invalid">
-          Update
-        </button>
-        <button *ngIf="!nodeTemplate" class="form" id="create" type="submit" [disabled]="applyForm.invalid">
-          Create
-        </button>
-        <button type="button" class="form" id="cancel" (click)="cancel()">Cancel</button>
-      </div>
+    <div class="button-group">
+      <button *ngIf="nodeTemplate" class="form" id="update" type="submit" [disabled]="applyForm.invalid">
+        Update
+      </button>
+      <button *ngIf="!nodeTemplate" class="form" id="create" type="submit" [disabled]="applyForm.invalid">
+        Create
+      </button>
+      <button type="button" class="form" id="cancel" (click)="cancel()">Cancel</button>
     </div>
 
     <div class="error-message">
-      {{error}}
+      {{ error }}
     </div>
 
 
