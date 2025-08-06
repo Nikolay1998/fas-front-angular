@@ -5,6 +5,12 @@
   margin: 0 auto;
 }
 
+.button-group {
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .form-column {
   flex: 1;
   margin-right: 20px;
@@ -52,5 +58,9 @@ label {
 
   .form-column {
     margin-right: 0;
+  }
+
+  .button-group {
+    max-width: 100%;
   }
 }
