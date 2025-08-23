@@ -1,6 +1,7 @@
 <div class="container">
 
   <div class="app-summary-mobile">
+    <!--    todo: use same instance somehow-->
     <app-summary></app-summary>
   </div>
 
@@ -29,7 +30,8 @@
         <td (click)="onSelect(node)">
           <div class="two-strings-one-line">
             <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; ">{{ node.name }}</span>
-            <span style="text-align: right; white-space: nowrap; margin-right: 8px">{{ getFormattedAmount(node) }}</span>
+            <span
+              style="text-align: right; white-space: nowrap; margin-right: 8px">{{ getFormattedAmount(node) }}</span>
           </div>
         </td>
         <div class="burger">
@@ -40,7 +42,8 @@
             <button mat-menu-item *ngIf="currentNodeAvailableActions.includes(NodeAction.EDIT)" (click)="onEdit(node)">
               Edit
             </button>
-            <button mat-menu-item *ngIf="currentNodeAvailableActions.includes(NodeAction.ARCHIVE)" (click)="onArchive(node)">
+            <button mat-menu-item *ngIf="currentNodeAvailableActions.includes(NodeAction.ARCHIVE)"
+                    (click)="onArchive(node)">
               Archive
             </button>
           </mat-menu>

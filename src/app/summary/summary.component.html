@@ -21,7 +21,7 @@
     </form>
   </div>
 
-  <!-- Summary Stats with Toggle -->
+  <!-- Summary Stats -->
   <div *ngIf="summary && (summary | keyvalue).length > 0" class="section">
     <div class="section-header" (click)="toggleSection('summary')">
       <h3>Summary</h3>
@@ -30,6 +30,17 @@
     <div *ngIf="sectionsVisible.summary" class="section-content">
       <table class="stats-table">
         <tbody>
+        <tr class="summary-row">
+          <td class="stat-value">Total: {{ numberFormatter.format(getSumByKey(selectedKey ? selectedKey : "usd")) }}</td>
+          <td class="stat-label">
+            <div class="custom-select-wrapper">
+              <select [(ngModel)]="selectedKey" class="custom-select">
+                <option *ngFor="let key of summaryKeys" [value]="key">{{ key }}</option>
+              </select>
+            </div>
+          </td>
+        </tr>
+
         <tr *ngFor="let sum of summary | keyvalue" class="stat-row">
           <td class="stat-value">{{ numberFormatter.format(sum.value) }}</td>
           <td class="stat-label">{{ sum.key }}</td>
