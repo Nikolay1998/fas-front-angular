@@ -68,7 +68,7 @@ export class SummaryComponent implements OnInit {
     this.balanceChangeForm.controls['from'].setValue(this.defaultFromDate);
     this.balanceChangeForm.controls['to'].setValue(this.defaultToDate);
 
-    this.currencyService.currentNodes.subscribe(currencies => this.currencies = currencies);
+    this.currencyService.currentCurerncies.subscribe(currencies => this.currencies = currencies);
     this.summaryHolder.currentSummary.subscribe(summary => this.onSummaryChanges(summary));
     this.summaryHolder.currentPeriodStats.subscribe(balanceChange => this.onPeriodStatsChange(balanceChange));
   }

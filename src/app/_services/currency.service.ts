@@ -10,9 +10,9 @@ import {ApiUrlHolder} from "./api-url-holder";
 })
 export class CurrencyService {
 
-  private emptyNodes: Currency[] = []
-  private summarySource = new BehaviorSubject(this.emptyNodes);
-  currentNodes = this.summarySource.asObservable();
+  private emptyCurrencies: Currency[] = []
+  private currencySource = new BehaviorSubject(this.emptyCurrencies);
+  currentCurerncies = this.currencySource.asObservable();
 
 
   private httpOptions = {
@@ -29,10 +29,10 @@ export class CurrencyService {
   ) { }
 
   updateCurrency() {
-    this.getCurrencys().subscribe(cur => this.summarySource.next(cur))
+    this.getCurrencies().subscribe(cur => this.currencySource.next(cur))
   }
 
-  private getCurrencys(): Observable<Currency[]> {
+  private getCurrencies(): Observable<Currency[]> {
     return this.http.get<Currency[]>(`${this.apiUrlHolder.getApiUrl()}currency/getAll`, this.httpOptions)
   }
 }
