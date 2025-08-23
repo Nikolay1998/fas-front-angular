@@ -40,9 +40,9 @@ export class NodeListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("NgOnInit nodeList called ")
     this.nodeHolder.currentNodes.subscribe(nodes => this.updateAndFilterTransactions(nodes));
     this.nodeHolder.archivedCurrentNodes.subscribe(nodes => this.archivedNodes = nodes);
-    this.nodeHolder.updateNodes();
   }
 
   updateAndFilterTransactions(nodes: FinancialNode[]) {

@@ -46,10 +46,8 @@ export class NodeFormComponent implements OnChanges, OnInit {
     private currencyService: CurrencyService,
   ) { }
 
-  //move downloading currencys to somewhere where it will called one time?
   ngOnInit(): void {
     this.currencyService.currentNodes.subscribe(currencys => this.currencys = currencys);
-    this.currencyService.updateCurrency();
   }
 
   ngOnChanges(changes: SimpleChanges): void {

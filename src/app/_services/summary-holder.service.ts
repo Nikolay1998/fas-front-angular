@@ -35,10 +35,17 @@ export class SummaryHolderService {
   }
 
   set setTo(value: Date) {
-    this._to = value;
+    if (this._to != value) {
+      this._to = value;
+      this.updateBalanceChange();
+    }
   }
 
   set setFrom(value: Date) {
-    this._from = value;
+    if (this._from != value) {
+      this._from = value;
+      this.updateBalanceChange();
+    }
   }
+
 }

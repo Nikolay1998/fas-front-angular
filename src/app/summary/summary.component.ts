@@ -1,12 +1,12 @@
-import { KeyValuePipe, NgFor, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { NumberFormatter } from '../_helpers/number-formatter';
-import { SummaryHolderService } from '../_services/summary-holder.service';
-import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { CurrencyService } from "../_services/currency.service";
-import { Currency } from "../_models/currency";
-import { PeriodStats } from "../_models/period-stats";
-import { VisibleSections } from "./visible-sections";
+import {KeyValuePipe, NgFor, NgIf} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {NumberFormatter} from '../_helpers/number-formatter';
+import {SummaryHolderService} from '../_services/summary-holder.service';
+import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {CurrencyService} from "../_services/currency.service";
+import {Currency} from "../_models/currency";
+import {PeriodStats} from "../_models/period-stats";
+import {VisibleSections} from "./visible-sections";
 
 
 @Component({
@@ -54,27 +54,23 @@ export class SummaryComponent implements OnInit {
 
   ngOnInit(): void {
 
+    console.log("NgOnInit summary called ")
     this.balanceChangeForm.controls['from'].valueChanges.subscribe(value => {
-      this.summaryHolder.setFrom = value;
-      this.summaryHolder.updateBalanceChange()
-    }
+        this.summaryHolder.setFrom = value;
+      }
     );
 
     this.balanceChangeForm.controls['to'].valueChanges.subscribe(value => {
-      this.summaryHolder.setTo = value;
-      this.summaryHolder.updateBalanceChange()
-    }
+        this.summaryHolder.setTo = value;
+      }
     );
 
     this.balanceChangeForm.controls['from'].setValue(this.defaultFromDate);
     this.balanceChangeForm.controls['to'].setValue(this.defaultToDate);
 
     this.currencyService.currentNodes.subscribe(currencies => this.currencies = currencies);
-    this.currencyService.updateCurrency();
-
     this.summaryHolder.currentSummary.subscribe(summary => this.onSummaryChanges(summary));
     this.summaryHolder.currentPeriodStats.subscribe(balanceChange => this.onPeriodStatsChange(balanceChange));
-    this.summaryHolder.updateSummary();
   }
 
   private onSummaryChanges(summary: Map<string, number>): void {
