@@ -11,9 +11,8 @@ export class ApiUrlHolder {
     if (this.url) {
       return this.url.toString();
     }
-    let apiHostname = environment.apiHostname == "" ? window.location.hostname : environment.apiHostname;
-    console.warn("hostmane: '" + apiHostname + "'")
-    this.url = new URL("http://" + apiHostname + ":" + environment.apiPort);
-    return this.url.toString()
+    let apiHostname = environment.apiHostname == "" ? "http://" + window.location.hostname : environment.apiHostname;
+    this.url = new URL(apiHostname + ":" + environment.apiPort);
+    return this.url.toString();
   }
 }

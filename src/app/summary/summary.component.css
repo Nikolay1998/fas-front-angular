@@ -213,6 +213,8 @@ label {
 
 .total-change {
   font-weight: 600;
+  padding-right: 4px;
+  margin-left: auto;
 }
 
 .toggle-details {

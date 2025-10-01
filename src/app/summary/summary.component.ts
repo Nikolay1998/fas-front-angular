@@ -8,6 +8,7 @@ import {Currency} from "../_models/currency";
 import {PeriodStats} from "../_models/period-stats";
 import {VisibleSections} from "./visible-sections";
 import {RateService} from "../_services/rate.service";
+import {BalanceChange} from "../_models/balance-change";
 
 
 @Component({
@@ -22,8 +23,21 @@ export class SummaryComponent implements OnInit {
   summary!: Map<string, number>;
   currencies: Currency[] = [];
   periodStats!: PeriodStats;
-  summaryEquivalent!: Map<string, number>;
-  summaryKeys: string[] = [];
+
+  summaryEquivalent: Map<string, number> = new Map<string, number>();
+  balanceChangeEquivalent: Map<string, number> = new Map<string, number>();
+  expensesEquivalent: Map<string, number> = new Map<string, number>();
+  incomeEquivalent: Map<string, number> = new Map<string, number>();
+
+  summaryCurrencies: string[] = [];
+  balanceChangeCurrencies: string[] = [];
+  expensesCurrencies: string[] = [];
+  incomeCurrencies: string[] = [];
+
+  summarySelectedCurrency: string | null = null;
+  balanceChangeSelectedCurrency: string | null = null;
+  expensesSelectedCurrency: string | null = null;
+  incomeSelectedCurrency: string | null = null;
 
   expandedRows: { [key: number]: boolean } = {};
   selectedKey: string | null = null;
@@ -79,15 +93,14 @@ export class SummaryComponent implements OnInit {
   private onSummaryChanges(summary: Map<string, number>): void {
     this.summary = summary;
     if (summary) {
-      this.rateService.getEquivalents(summary).subscribe(eq => {
-        if (eq) {
-          this.summaryEquivalent = new Map<string, number>(
-            Object.entries(eq)
-          );
-          this.summaryKeys = Array.from(this.summaryEquivalent.keys());
-          if (!this.selectedKey) {
-            this.selectedKey = this.summaryKeys[0] || null;
-          }
+      let balanceChangeMap = this.transformToMap(summary);
+      this.rateService.getEquivalents(balanceChangeMap).subscribe(eq => {
+        // if (eq) {
+        this.summaryEquivalent = this.transformToMap(eq);
+        this.summaryCurrencies = Array.from(this.summaryEquivalent.keys());
+        if (!this.summarySelectedCurrency) {
+          this.summarySelectedCurrency = this.summaryCurrencies[0] || null;
+          // }
         }
       })
     }
@@ -99,12 +112,61 @@ export class SummaryComponent implements OnInit {
     return date.toISOString().split('T')[0];
   }
 
-  getSumByKey(key: string): number {
-    return this.summaryEquivalent.get(key) ?? 0;
+  getSumByKey(key: string | null, equivalents: Map<string, number>): number {
+    return equivalents?.get(key ?? "USD") ?? 0;
+  }
+
+  private transformToMap(any: any): Map<string, number> {
+    return new Map<string, number>(
+      Object.entries(any)
+    );
   }
 
   private onPeriodStatsChange(periodStats: PeriodStats): void {
     this.periodStats = periodStats;
+    if (periodStats && periodStats.balanceChange) {
+      let balanceChangeMap: Map<string, number> = new Map<string, number>();
+      periodStats.balanceChange.forEach((change: BalanceChange) => {
+        balanceChangeMap.set(change.currencyId, change.totalChange);
+      });
+      this.rateService.getEquivalents(balanceChangeMap).subscribe(eq => {
+        // if (eq) {
+        this.balanceChangeEquivalent = this.transformToMap(eq);
+        this.balanceChangeCurrencies = Array.from(this.balanceChangeEquivalent.keys());
+        if (!this.balanceChangeSelectedCurrency) {
+          this.balanceChangeSelectedCurrency = this.balanceChangeCurrencies[0] || null;
+        }
+        // }
+      })
+    }
+
+    if (periodStats && periodStats.inAndOut) {
+      let incomeMap: Map<string, number> = new Map<string, number>();
+      let outgoMap: Map<string, number> = new Map<string, number>();
+      periodStats.inAndOut.forEach((change: BalanceChange) => {
+        incomeMap.set(change.currencyId, change.income);
+        outgoMap.set(change.currencyId, change.outgo);
+      });
+      this.rateService.getEquivalents(incomeMap).subscribe(eq => {
+        // if (eq) {
+        this.incomeEquivalent = this.transformToMap(eq);
+        this.incomeCurrencies = Array.from(this.incomeEquivalent.keys());
+        if (!this.incomeSelectedCurrency) {
+          this.incomeSelectedCurrency = this.incomeCurrencies[0] || null;
+        }
+        // }
+      })
+
+      this.rateService.getEquivalents(outgoMap).subscribe(eq => {
+        // if (eq) {
+        this.expensesEquivalent = this.transformToMap(eq);
+        this.expensesCurrencies = Array.from(this.expensesEquivalent.keys());
+        if (!this.expensesSelectedCurrency) {
+          this.expensesSelectedCurrency = this.expensesCurrencies[0] || null;
+        }
+        // }
+      })
+    }
   }
 
   getCurrencySymbolById(id: String): string {

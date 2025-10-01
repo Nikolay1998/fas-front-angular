@@ -31,11 +31,11 @@
       <table class="stats-table">
         <tbody>
         <tr class="summary-row">
-          <td class="stat-value">Total: {{ numberFormatter.format(getSumByKey(selectedKey ? selectedKey : "usd")) }}</td>
+          <td class="stat-value">Total: {{ numberFormatter.format(getSumByKey(summarySelectedCurrency, summaryEquivalent)) }}</td>
           <td class="stat-label">
             <div class="custom-select-wrapper">
-              <select [(ngModel)]="selectedKey" class="custom-select">
-                <option *ngFor="let key of summaryKeys" [value]="key">{{ key }}</option>
+              <select [(ngModel)]="summarySelectedCurrency" class="custom-select">
+                <option *ngFor="let key of summaryCurrencies" [value]="key">{{ key }}</option>
               </select>
             </div>
           </td>
@@ -58,6 +58,16 @@
         <span class="toggle-icon">{{ sectionsVisible.balance ? '−' : '+' }}</span>
       </div>
       <div *ngIf="sectionsVisible.balance && periodStats" class="section-content">
+        <tr class="summary-row">
+          <td class="stat-value">Total: {{ numberFormatter.format(getSumByKey(balanceChangeSelectedCurrency, balanceChangeEquivalent)) }}</td>
+          <td class="stat-label">
+            <div class="custom-select-wrapper">
+              <select [(ngModel)]="balanceChangeSelectedCurrency" class="custom-select">
+                <option *ngFor="let key of balanceChangeCurrencies" [value]="key">{{ key }}</option>
+              </select>
+            </div>
+          </td>
+        </tr>
         <div *ngFor="let balanceChange of periodStats.balanceChange; let i = index" class="balance-change">
           <div class="balance-header" (click)="toggleRow(i)">
             <span class="currency">{{ getCurrencyNameById(balanceChange.currencyId) }}</span>
@@ -87,6 +97,18 @@
         <span class="toggle-icon">{{ sectionsVisible.expenses ? '−' : '+' }}</span>
       </div>
       <div *ngIf="sectionsVisible.expenses && periodStats" class="section-content">
+
+        <tr class="summary-row">
+          <td class="stat-value">Total: {{ numberFormatter.format(getSumByKey(expensesSelectedCurrency, expensesEquivalent)) }}</td>
+          <td class="stat-label">
+            <div class="custom-select-wrapper">
+              <select [(ngModel)]="expensesSelectedCurrency" class="custom-select">
+                <option *ngFor="let key of expensesCurrencies" [value]="key">{{ key }}</option>
+              </select>
+            </div>
+          </td>
+        </tr>
+
         <div *ngFor="let item of periodStats.inAndOut" class="expense-item">
         <span class="value negative">-{{ numberFormatter.format(item.outgo) }} {{
             getCurrencySymbolById(item.currencyId)
@@ -102,6 +124,17 @@
         <span class="toggle-icon">{{ sectionsVisible.incomes ? '−' : '+' }}</span>
       </div>
       <div *ngIf="sectionsVisible.incomes && periodStats" class="section-content">
+
+        <tr class="summary-row">
+          <td class="stat-value">Total: {{ numberFormatter.format(getSumByKey(incomeSelectedCurrency, incomeEquivalent)) }}</td>
+          <td class="stat-label">
+            <div class="custom-select-wrapper">
+              <select [(ngModel)]="incomeSelectedCurrency" class="custom-select">
+                <option *ngFor="let key of incomeCurrencies" [value]="key">{{ key }}</option>
+              </select>
+            </div>
+          </td>
+        </tr>
         <div *ngFor="let item of periodStats.inAndOut" class="income-item">
         <span class="value positive">+{{ numberFormatter.format(item.income) }} {{
             getCurrencySymbolById(item.currencyId)
