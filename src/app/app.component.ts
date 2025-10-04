@@ -1,5 +1,5 @@
 import {CommonModule} from '@angular/common';
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {User} from './_models/user';
 import {AuthenticationService} from './_services/authentication.service';
@@ -15,8 +15,8 @@ import {CurrencyService} from "./_services/currency.service";
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit {
-  title = 'financial-accounting-system-angular-front';
+export class AppComponent {
+  title = 'financial-accounting-system';
   user?: User | null;
 
   constructor(private authenticationService: AuthenticationService,
@@ -26,14 +26,17 @@ export class AppComponent implements OnInit {
               private currencyService: CurrencyService
   ) {
 
-    this.authenticationService.user.subscribe(x => this.user = x);
+    this.authenticationService.user.subscribe(x => this.onUserAuthenticated(x));
   }
 
-  ngOnInit(): void {
-    this.nodeHolder.updateNodes();
-    this.summaryHolder.updateSummary();
-    this.transactionHolder.updateTransactions();
-    this.currencyService.updateCurrency();
+  onUserAuthenticated(user: User | null): void {
+    this.user = user;
+    if (user) {
+      this.nodeHolder.updateNodes();
+      this.summaryHolder.updateSummary();
+      this.transactionHolder.updateTransactions();
+      this.currencyService.updateCurrency();
+    }
   }
 
   logout() {
