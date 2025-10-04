@@ -16,7 +16,7 @@ import {CurrencyService} from "./_services/currency.service";
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'financial-accounting-system-angular-front';
+  title = 'financial-accounting-system';
   user?: User | null;
 
   constructor(private authenticationService: AuthenticationService,
