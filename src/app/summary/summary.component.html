@@ -21,7 +21,7 @@
     </form>
   </div>
 
-  <!-- Summary Stats with Toggle -->
+  <!-- Summary Stats -->
   <div *ngIf="summary && (summary | keyvalue).length > 0" class="section">
     <div class="section-header" (click)="toggleSection('summary')">
       <h3>Summary</h3>
@@ -30,67 +30,83 @@
     <div *ngIf="sectionsVisible.summary" class="section-content">
       <table class="stats-table">
         <tbody>
-          <tr *ngFor="let sum of summary | keyvalue" class="stat-row">
-            <td class="stat-value">{{ numberFormatter.format(sum.value) }}</td>
-            <td class="stat-label">{{ sum.key }}</td>
-          </tr>
+        <tr class="summary-row">
+          <td class="stat-value">Total: {{ numberFormatter.format(getSumByKey(selectedKey ? selectedKey : "usd")) }}</td>
+          <td class="stat-label">
+            <div class="custom-select-wrapper">
+              <select [(ngModel)]="selectedKey" class="custom-select">
+                <option *ngFor="let key of summaryKeys" [value]="key">{{ key }}</option>
+              </select>
+            </div>
+          </td>
+        </tr>
+
+        <tr *ngFor="let sum of summary | keyvalue" class="stat-row">
+          <td class="stat-value">{{ numberFormatter.format(sum.value) }}</td>
+          <td class="stat-label">{{ sum.key }}</td>
+        </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- Balance Changes with Toggle -->
-  <div *ngIf="periodStats.balanceChange.length > 0" class="section">
-    <div class="section-header" (click)="toggleSection('balance')">
-      <h3>Balance Changes</h3>
-      <span class="toggle-icon">{{ sectionsVisible.balance ? '−' : '+' }}</span>
-    </div>
-    <div *ngIf="sectionsVisible.balance && periodStats" class="section-content">
-      <div *ngFor="let balanceChange of periodStats.balanceChange; let i = index" class="balance-change">
-        <div class="balance-header" (click)="toggleRow(i)">
-          <span class="currency">{{ getCurrencyNameById(balanceChange.currencyId) }}</span>
-          <span class="total-change">{{ numberFormatter.format(balanceChange.totalChange) }} {{
-            getCurrencySymbolById(balanceChange.currencyId) }}</span>
-          <span class="toggle-details">{{ expandedRows[i] ? '▲' : '▼' }}</span>
-        </div>
-        <div *ngIf="expandedRows[i]" class="balance-details">
-          <div class="income">
-            <span class="label">Income:</span>
-            <span class="value positive">+{{ numberFormatter.format(balanceChange.income) }}</span>
+  <div *ngIf="periodStats">
+    <!-- Balance Changes with Toggle -->
+    <div *ngIf="periodStats.balanceChange.length > 0" class="section">
+      <div class="section-header" (click)="toggleSection('balance')">
+        <h3>Balance Changes</h3>
+        <span class="toggle-icon">{{ sectionsVisible.balance ? '−' : '+' }}</span>
+      </div>
+      <div *ngIf="sectionsVisible.balance && periodStats" class="section-content">
+        <div *ngFor="let balanceChange of periodStats.balanceChange; let i = index" class="balance-change">
+          <div class="balance-header" (click)="toggleRow(i)">
+            <span class="currency">{{ getCurrencyNameById(balanceChange.currencyId) }}</span>
+            <span class="total-change">{{ numberFormatter.format(balanceChange.totalChange) }} {{
+                getCurrencySymbolById(balanceChange.currencyId)
+              }}</span>
+            <span class="toggle-details">{{ expandedRows[i] ? '▲' : '▼' }}</span>
           </div>
-          <div class="outgo">
-            <span class="label">Expenses:</span>
-            <span class="value negative">-{{ numberFormatter.format(balanceChange.outgo) }}</span>
+          <div *ngIf="expandedRows[i]" class="balance-details">
+            <div class="income">
+              <span class="label">Income:</span>
+              <span class="value positive">+{{ numberFormatter.format(balanceChange.income) }}</span>
+            </div>
+            <div class="outgo">
+              <span class="label">Expenses:</span>
+              <span class="value negative">-{{ numberFormatter.format(balanceChange.outgo) }}</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Expenses with Toggle -->
-  <div *ngIf="periodStats.inAndOut.length > 0" class="section">
-    <div class="section-header" (click)="toggleSection('expenses')">
-      <h3>Expenses</h3>
-      <span class="toggle-icon">{{ sectionsVisible.expenses ? '−' : '+' }}</span>
-    </div>
-    <div *ngIf="sectionsVisible.expenses && periodStats" class="section-content">
-      <div *ngFor="let item of periodStats.inAndOut" class="expense-item">
-        <span class="value negative">-{{ numberFormatter.format(item.outgo) }} {{ getCurrencySymbolById(item.currencyId)
+    <!-- Expenses with Toggle -->
+    <div *ngIf="periodStats && periodStats.inAndOut.length > 0" class="section">
+      <div class="section-header" (click)="toggleSection('expenses')">
+        <h3>Expenses</h3>
+        <span class="toggle-icon">{{ sectionsVisible.expenses ? '−' : '+' }}</span>
+      </div>
+      <div *ngIf="sectionsVisible.expenses && periodStats" class="section-content">
+        <div *ngFor="let item of periodStats.inAndOut" class="expense-item">
+        <span class="value negative">-{{ numberFormatter.format(item.outgo) }} {{
+            getCurrencySymbolById(item.currencyId)
           }}</span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Incomes with Toggle -->
-  <div *ngIf="periodStats.inAndOut.length > 0" class="section">
-    <div class="section-header" (click)="toggleSection('incomes')">
-      <h3>Incomes</h3>
-      <span class="toggle-icon">{{ sectionsVisible.incomes ? '−' : '+' }}</span>
-    </div>
-    <div *ngIf="sectionsVisible.incomes && periodStats" class="section-content">
-      <div *ngFor="let item of periodStats.inAndOut" class="income-item">
+    <!-- Incomes with Toggle -->
+    <div *ngIf="periodStats.inAndOut.length > 0" class="section">
+      <div class="section-header" (click)="toggleSection('incomes')">
+        <h3>Incomes</h3>
+        <span class="toggle-icon">{{ sectionsVisible.incomes ? '−' : '+' }}</span>
+      </div>
+      <div *ngIf="sectionsVisible.incomes && periodStats" class="section-content">
+        <div *ngFor="let item of periodStats.inAndOut" class="income-item">
         <span class="value positive">+{{ numberFormatter.format(item.income) }} {{
-          getCurrencySymbolById(item.currencyId) }}</span>
+            getCurrencySymbolById(item.currencyId)
+          }}</span>
+        </div>
       </div>
     </div>
   </div>

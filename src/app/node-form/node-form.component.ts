@@ -19,7 +19,7 @@ import { SummaryHolderService } from '../_services/summary-holder.service';
 })
 export class NodeFormComponent implements OnChanges, OnInit {
 
-  currencys: Currency[] = [];
+  currencies: Currency[] = [];
 
   @Output()
   isActiveEvent = new EventEmitter<boolean>();
@@ -46,10 +46,8 @@ export class NodeFormComponent implements OnChanges, OnInit {
     private currencyService: CurrencyService,
   ) { }
 
-  //move downloading currencys to somewhere where it will called one time?
   ngOnInit(): void {
-    this.currencyService.currentNodes.subscribe(currencys => this.currencys = currencys);
-    this.currencyService.updateCurrency();
+    this.currencyService.currentCurerncies.subscribe(currencys => this.currencies = currencys);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

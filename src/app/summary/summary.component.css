@@ -137,6 +137,7 @@ label {
 }
 
 .stats-table {
+  border-collapse: collapse;
   width: 100%;
 }
 
@@ -151,6 +152,46 @@ label {
 }
 
 .stat-label {
+  display: flex;
+  justify-content: flex-start;
+  color: #666;
+}
+
+.custom-select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  border: none;
+  background: transparent;
+  /*font-size: 14px;*/
+  color: inherit;
+  padding-right: 20px; /* place for triangle */
+  cursor: pointer;
+  outline: none;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: flex-start;
+  padding: 4px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Custom triangle */
+.custom-select-wrapper::after {
+  content: '▾';
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* стрелка не блокирует клик */
+  font-size: 12px;
   color: #666;
 }
 

@@ -27,7 +27,7 @@
 
       <ng-select id="currencyId" formControlName="currencyId" [class.invalid]="isInvalid('currencyId')"
         (blur)="onBlur('currencyId')">
-        <ng-option *ngFor="let currency of currencys" [value]="currency.id">
+        <ng-option *ngFor="let currency of currencies" [value]="currency.id">
           {{ currency.shortName }}
         </ng-option>
       </ng-select>

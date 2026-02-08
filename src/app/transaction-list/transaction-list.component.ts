@@ -47,7 +47,6 @@ export class TransactionListComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.transactionHolder.currentTransactions.subscribe(transactions => this.onTransactionsChanges(transactions));
-    this.transactionHolder.updateTransactions();
   }
 
   onTransactionsChanges(transactions: Transaction[]): void {
