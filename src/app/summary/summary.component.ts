@@ -60,6 +60,7 @@ export class SummaryComponent implements OnInit {
 
   sectionsVisible: VisibleSections = {
     summary: true,
+    periodStats: true,
     balance: true,
     expenses: true,
     incomes: true
@@ -95,12 +96,10 @@ export class SummaryComponent implements OnInit {
     if (summary) {
       let balanceChangeMap = this.transformToMap(summary);
       this.rateService.getEquivalents(balanceChangeMap).subscribe(eq => {
-        // if (eq) {
         this.summaryEquivalent = this.transformToMap(eq);
         this.summaryCurrencies = Array.from(this.summaryEquivalent.keys());
         if (!this.summarySelectedCurrency) {
           this.summarySelectedCurrency = this.summaryCurrencies[0] || null;
-          // }
         }
       })
     }
@@ -169,7 +168,7 @@ export class SummaryComponent implements OnInit {
     }
   }
 
-  getCurrencySymbolById(id: String): string {
+  getCurrencyRepresentationById(id: String): string {
     return this.currencies.filter(cur => cur.id == id)[0].symbol;
   }
 

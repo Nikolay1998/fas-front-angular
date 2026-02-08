@@ -7,7 +7,7 @@ import { TransactionService } from './transaction.service';
   providedIn: 'root'
 })
 export class TransactionHolderService {
-  
+
   private emptyTransactions: Transaction[] = [];
   private transactionSource = new BehaviorSubject(this.emptyTransactions);
   currentTransactions = this.transactionSource.asObservable();
