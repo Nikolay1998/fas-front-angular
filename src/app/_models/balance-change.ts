@@ -1,5 +1,5 @@
 export interface BalanceChange {
-  currencyId: String,
+  currencyId: string,
   totalChange: number,
   income: number,
   outgo: number

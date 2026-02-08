@@ -1,53 +1,9 @@
-.content-table {
-  width: 170px;
-  margin-bottom: 30px;
-  border-radius: 5px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
-
-.content-table tbody tr:nth-of-type(even) {
-  background-color: white;
-}
-
-.content-table tbody tr {
-  border-bottom: 1px solid white;
-  background-color: white;
-}
-
-.content-table tbody tr:last-of-type {
-  border-bottom: 2px solid white;
-}
-
-.form-container {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 auto;
-}
-
-.button-group {
-  max-width: 100px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.content-table tbody tr {
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.content-table tbody tr:hover {
-  background-color: #f5f5f5;
-}
-
 label {
   width: 60px;
 }
 
 .financial-stats-container {
-  width: 200px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 12px;
-  color: #333;
+  padding-right: 2px;
 }
 
 @media (max-width: 1440px) {
@@ -58,6 +14,7 @@ label {
     justify-content: space-between;
   }
 }
+
 
 /*.period-selector {*/
 /*  display: flex;*/
@@ -94,7 +51,7 @@ label {
 .form-group label {
   display: block;
   margin-bottom: 2px;
-  font-weight: 500;
+  /*font-weight: 500;*/
 }
 
 .form-group input {
@@ -122,12 +79,6 @@ label {
   user-select: none;
 }
 
-.section-header h3 {
-  margin: 0;
-  font-size: 13px;
-  font-weight: 600;
-}
-
 .toggle-icon {
   font-weight: bold;
 }
@@ -136,19 +87,8 @@ label {
   padding: 6px 8px;
 }
 
-.stats-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-.stat-row {
-  display: flex;
-  justify-content: flex-start;
-  padding: 4px 0;
-}
-
 .stat-value {
-  font-weight: 600;
+  /*font-weight: 600;*/
 }
 
 .stat-label {
@@ -180,7 +120,7 @@ label {
   display: flex;
   justify-content: flex-start;
   padding: 4px 0;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #eee;
 }
 
 /* Custom triangle */
@@ -191,12 +131,8 @@ label {
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none; /* стрелка не блокирует клик */
-  font-size: 12px;
+  /*font-size: 12px;*/
   color: #666;
-}
-
-.balance-change {
-  margin-bottom: 8px;
 }
 
 .balance-header {
@@ -204,15 +140,6 @@ label {
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  padding: 4px 0;
-}
-
-.currency {
-  font-weight: 500;
-}
-
-.total-change {
-  font-weight: 600;
 }
 
 .toggle-details {
@@ -222,15 +149,16 @@ label {
 
 .balance-details {
   padding: 4px 0 4px 8px;
-  border-left: 2px solid #eee;
+  border-left: 2px solid #ddd;
   margin-top: 4px;
 }
 
+.stat-row,
 .income,
 .outgo {
   display: flex;
   justify-content: space-between;
-  font-size: 11px;
+  /*font-size: 11px;*/
   padding: 2px 0;
 }
 
@@ -239,7 +167,7 @@ label {
 }
 
 .value {
-  font-weight: 500;
+  /*font-weight: 500;*/
 }
 
 .positive {
