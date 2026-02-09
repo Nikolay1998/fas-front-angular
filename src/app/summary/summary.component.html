@@ -69,7 +69,7 @@
 
       <div *ngIf="periodStats">
         <!-- Balance Changes with Toggle -->
-        <div *ngIf="periodStats.balanceChange.length > 0" class="section">
+        <div *ngIf="periodStats.balanceChange.length > 0" class="section no-shadow">
           <div class="section-header" (click)="toggleSection('balance')">
             Balance Changes
             <span class="toggle-icon">{{ sectionsVisible.balance ? '−' : '+' }}</span>
@@ -113,7 +113,7 @@
         </div>
 
         <!-- Expenses with Toggle -->
-        <div *ngIf="periodStats && periodStats.inAndOut.length > 0" class="section">
+        <div *ngIf="periodStats && periodStats.inAndOut.length > 0" class="section no-shadow">
           <div class="section-header" (click)="toggleSection('expenses')">
             Expenses
             <span class="toggle-icon">{{ sectionsVisible.expenses ? '−' : '+' }}</span>
@@ -144,7 +144,7 @@
         </div>
 
         <!-- Incomes with Toggle -->
-        <div *ngIf="periodStats.inAndOut.length > 0" class="section">
+        <div *ngIf="periodStats.inAndOut.length > 0" class="section no-shadow">
           <div class="section-header" (click)="toggleSection('incomes')">
             Incomes
             <span class="toggle-icon">{{ sectionsVisible.incomes ? '−' : '+' }}</span>
