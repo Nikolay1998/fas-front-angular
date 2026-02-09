@@ -40,7 +40,6 @@ export class SummaryComponent implements OnInit {
   incomeSelectedCurrency: string | null = null;
 
   expandedRows: { [key: number]: boolean } = {};
-  selectedKey: string | null = null;
 
   balanceChangeForm = new FormGroup({
     from: new FormControl(),

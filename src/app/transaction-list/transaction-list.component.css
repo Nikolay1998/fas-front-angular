@@ -22,8 +22,6 @@
 .content-table {
   width: 100%;
   min-width: 900px;
-  box-sizing: border-box;
-  border-collapse: collapse;
 }
 
 .nodeTitle {
@@ -33,7 +31,6 @@
 
 :host {
   display: block;
-  overflow-x: hidden;
   max-width: calc(100vw - 16px);
 }
 
