@@ -10,6 +10,7 @@ import { SummaryHolderService } from '../_services/summary-holder.service';
 import { TransactionHolderService } from '../_services/transaction-holder.service';
 import { TransactionService } from '../_services/transaction.service';
 import { NumberFormatter } from '../_helpers/number-formatter';
+import {DateFormatter} from "../_helpers/date-formatter";
 
 
 @Component({
@@ -54,6 +55,7 @@ export class TransactionFormComponent implements OnInit, OnChanges {
     public nodeHolder: NodeHolderService,
     public summaryHolder: SummaryHolderService,
     public transactionHolder: TransactionHolderService,
+    public dateFormatter: DateFormatter,
     public numberFormatter: NumberFormatter,
   ) {
 
@@ -209,5 +211,9 @@ export class TransactionFormComponent implements OnInit, OnChanges {
 
   onCancel() {
     this.isActiveEvent.emit(false);
+  }
+
+  getFormattedDate(date: Date ): String {
+    return this.dateFormatter.format(date)
   }
 }

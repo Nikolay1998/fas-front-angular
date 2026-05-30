@@ -53,16 +53,23 @@
     <div *ngIf="sectionsVisible.periodStats" class="section-content">
       <div class="custom-range">
         <form [formGroup]="balanceChangeForm">
-          <!--        <div class="form-group">-->
-          <!--          <b>Period stats</b>-->
-          <!--        </div>-->
           <div class="form-group">
             <label for="from">From</label>
-            <input id="from" type="date" formControlName="from">
+            <span class="datepicker-wrapper">
+              <span class="datepicker-display-field">
+                {{getFormattedDate(balanceChangeForm.controls['from'].getRawValue())}} <i class="fa fa-calendar"></i>
+              </span>
+              <input id="from" type="date" class="datepicker-input" formControlName="from">
+            </span>
           </div>
           <div class="form-group">
             <label for="to">To</label>
-            <input id="to" type="date" formControlName="to">
+            <span class="datepicker-wrapper">
+              <span class="datepicker-display-field">
+                {{getFormattedDate(balanceChangeForm.controls['to'].getRawValue())}} <i class="fa fa-calendar"></i>
+              </span>
+              <input id="to" type="date" class="datepicker-input" formControlName="to">
+            </span>
           </div>
         </form>
       </div>
