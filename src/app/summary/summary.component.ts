@@ -9,6 +9,7 @@ import {PeriodStats} from "../_models/period-stats";
 import {VisibleSections} from "./visible-sections";
 import {RateService} from "../_services/rate.service";
 import {BalanceChange} from "../_models/balance-change";
+import {DateFormatter} from "../_helpers/date-formatter";
 
 
 @Component({
@@ -52,7 +53,8 @@ export class SummaryComponent implements OnInit {
     private summaryHolder: SummaryHolderService,
     public numberFormatter: NumberFormatter,
     private currencyService: CurrencyService,
-    private rateService: RateService
+    private rateService: RateService,
+    public dateFormatter: DateFormatter,
   ) {
     this.defaultFromDate = this.getFromDate();
   }
@@ -177,5 +179,9 @@ export class SummaryComponent implements OnInit {
 
   toggleRow(index: number): void {
     this.expandedRows[index] = !this.expandedRows[index];
+  }
+
+  getFormattedDate(date: Date ): String {
+    return this.dateFormatter.format(date)
   }
 }

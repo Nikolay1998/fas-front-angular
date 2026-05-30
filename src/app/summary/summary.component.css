@@ -48,16 +48,9 @@ label {
 }
 
 .form-group label {
+  /*padding-top: 4px;*/
   display: block;
   margin-bottom: 2px;
-  /*font-weight: 500;*/
-}
-
-.form-group input {
-  width: 100%;
-  padding: 4px;
-  border: 1px solid #ddd;
-  border-radius: 3px;
 }
 
 .section {
